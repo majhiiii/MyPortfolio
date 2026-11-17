@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rakesh Majhi | Salesforce Developer & Agentforce AI Specialist</title>
-  <meta name="description" content="Portfolio of Rakesh Majhi - Salesforce Developer & Administrator specializing in Apex, LWC, Flow, 10+ Enterprise Integrations, and Production Agentforce AI Agents.">
-  <meta name="keywords" content="Rakesh Majhi, Salesforce Developer, Agentforce Specialist, Salesforce AI Associate, Apex, LWC, Salesforce Administrator, CloudCraze, Health Cloud, Experience Cloud">
+  <title>Rakesh Majhi · Salesforce Developer & Agentforce Specialist</title>
+  <meta name="description" content="Portfolio of Rakesh Majhi — Salesforce Developer with 2 years experience building Apex, LWC, Flow, 10+ Enterprise Integrations, and 4 production Agentforce AI Agents.">
+  <meta name="keywords" content="Rakesh Majhi, Salesforce Developer, Agentforce Specialist, Salesforce AI Associate, Apex, LWC, CloudCraze, Health Cloud, Experience Cloud">
   <meta name="author" content="Rakesh Majhi">
 
-  <!-- Open Graph / Social Sharing -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Rakesh Majhi | Salesforce Developer & Agentforce Specialist">
-  <meta property="og:description" content="2+ years experience building Apex, LWC, Flow, 10+ enterprise integrations, and 4 production Agentforce AI agents.">
-  
-  <!-- Favicon with Salesforce Cloud theme -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <meta property="og:title" content="Rakesh Majhi · Salesforce Developer & Agentforce Specialist">
+  <meta property="og:description" content="Cloud Workspace Portfolio — Apex, LWC, 10+ Integrations, and Production Agentforce Agents.">
+
+  <!-- Favicon: Original Cloud Monogram -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M25 65 h50 a20 20 0 0 0 0-40 a28 28 0 0 0-52-8 a22 22 0 0 0 2 48 z%22 fill=%22%230176D3%22/><text x=%2250%22 y=%2258%22 font-family=%22sans-serif%22 font-size=%2224%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>RM</text></svg>">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
+      darkMode: ['class', '[data-theme="dark"]'],
       theme: {
         extend: {
           colors: {
-            sf: {
-              blue: '#00A1E0',
-              deep: '#032D60',
-              dark: '#0B132B',
-              accent: '#00E5FF',
-              emerald: '#10B981',
-              violet: '#8B5CF6'
+            brand: {
+              primary: 'var(--primary)',
+              'primary-hover': 'var(--primary-hover)',
+              navy: 'var(--navy)',
+              bg: 'var(--bg)',
+              surface: 'var(--surface)',
+              'surface-2': 'var(--surface-2)',
+              border: 'var(--border)',
+              muted: 'var(--text-muted)',
+              teal: 'var(--accent-teal)',
+              green: 'var(--accent-green)',
+              amber: 'var(--accent-amber)',
+              violet: 'var(--accent-violet)'
             }
           }
         }
@@ -38,315 +44,335 @@
     }
   </script>
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Custom CSS -->
+  <!-- Custom CSS Tokens & Styles -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-[#090D16] text-slate-100 antialiased selection:bg-[#00A1E0] selection:text-white relative">
+<body class="selection:bg-[#0176D3] selection:text-white relative min-h-screen">
 
-  <!-- Background Decorative Grid & Glow -->
-  <div class="fixed inset-0 bg-mesh pointer-events-none z-0"></div>
-  <div class="fixed inset-0 grid-pattern pointer-events-none z-0 opacity-40"></div>
+  <!-- Skip to Content Accessibility Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Toast Notification for Copy -->
-  <div id="toast" class="copied-toast flex items-center space-x-3 bg-slate-900 border border-sf-blue text-white px-5 py-3 rounded-xl shadow-2xl">
-    <div class="w-8 h-8 rounded-full bg-sf-blue/20 flex items-center justify-center text-sf-accent">
-      <i class="fa-solid fa-check"></i>
-    </div>
-    <div>
-      <p class="font-bold text-sm" id="toast-title">Copied to clipboard!</p>
-      <p class="text-xs text-slate-400" id="toast-body">rakeshmajhi.connect@gmail.com</p>
-    </div>
+  <!-- Top Scroll Progress Indicator Bar -->
+  <div id="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- Background Dotted Grid & Animated Cloud Blobs -->
+  <div class="bg-cloud-workspace" aria-hidden="true">
+    <div class="dotted-grid"></div>
+    <div class="cloud-drift cloud-drift-1"></div>
+    <div class="cloud-drift cloud-drift-2"></div>
+    <div class="cloud-drift cloud-drift-3"></div>
   </div>
 
-  <!-- Top Navigation Bar -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <!-- Copied to Clipboard Toast Alert -->
+  <div id="copy-toast" class="fixed bottom-8 right-8 bg-[#032D60] text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" role="status" aria-live="polite">
+    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span class="text-sm font-semibold">Email copied to clipboard!</span>
+  </div>
+
+  <!-- STICKY TOP NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-40 transition-colors duration-300" style="background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--nav-border);">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo / Name -->
-      <a href="#hero" class="flex items-center space-x-3 group">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-sf-blue to-sf-violet p-0.5 shadow-lg shadow-sf-blue/20 group-hover:scale-105 transition-transform">
-          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-            <span class="font-black text-transparent bg-clip-text bg-gradient-to-r from-sf-accent to-sf-blue text-lg">RM</span>
-          </div>
+      <!-- Brand Monogram inside Cloud Shape -->
+      <a href="#hero" class="flex items-center gap-3 group focus-visible:outline-none" aria-label="Rakesh Majhi - Return to top">
+        <div class="w-10 h-10 flex items-center justify-center transition-transform group-hover:scale-105 text-[#0176D3]">
+          <!-- Original Cloud Monogram SVG -->
+          <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-sm fill-current">
+            <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z" fill="var(--surface-2)" stroke="var(--primary)" stroke-width="4"/>
+            <text x="50" y="52" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" fill="var(--primary)" text-anchor="middle">RM</text>
+          </svg>
         </div>
         <div class="flex flex-col">
-          <span class="font-bold text-base tracking-tight text-white group-hover:text-sf-accent transition-colors flex items-center gap-1.5">
-            Rakesh Majhi
-            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          </span>
-          <span class="text-xs text-slate-400 font-mono">Salesforce & AI Dev</span>
+          <span class="font-bold text-base text-[var(--text)] group-hover:text-[var(--primary)] transition-colors tracking-tight">Rakesh Majhi</span>
+          <span class="text-[11px] font-mono text-[var(--text-muted)] tracking-wider">Cloud Workspace</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
-        <a href="#about" class="hover:text-sf-accent transition-colors">About</a>
-        <a href="#certifications" class="hover:text-sf-accent transition-colors">Certifications</a>
-        <a href="#skills" class="hover:text-sf-accent transition-colors">Skills</a>
-        <a href="#projects" class="hover:text-sf-accent transition-colors">Projects</a>
-        <a href="#experience" class="hover:text-sf-accent transition-colors">Experience</a>
-        <a href="#architecture" class="hover:text-sf-accent transition-colors">Architecture</a>
-        <a href="#terminal" class="hover:text-sf-accent transition-colors flex items-center gap-1 font-mono text-xs bg-slate-800/60 px-2 py-1 rounded border border-slate-700">
-          <i class="fa-solid fa-terminal text-sf-accent"></i> CLI
-        </a>
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2" aria-label="Main Navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#vibe-coding" class="nav-link">Vibe Coding</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
-      <!-- Action Buttons -->
+      <!-- Right Controls: Dark/Light Toggle + Resume Button -->
       <div class="hidden sm:flex items-center space-x-3">
-        <button onclick="openResumeModal()" class="px-4 py-2 text-xs font-semibold rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition-all flex items-center gap-2">
-          <i class="fa-solid fa-file-lines text-sf-blue"></i> Resume
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] text-[var(--text)] hover:border-[var(--primary)] transition-colors flex items-center gap-2 text-xs font-semibold" aria-label="Switch theme">
+          <svg id="theme-icon" class="w-4 h-4 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+          <span id="theme-toggle-text">Dark</span>
         </button>
-        <a href="#contact" class="px-4 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-sf-blue to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-slate-950 glow-btn transition-all flex items-center gap-2 font-bold">
-          <i class="fa-solid fa-paper-plane"></i> Let's Talk
-        </a>
+
+        <!-- Outlined Resume Button -->
+        <button class="resume-trigger px-4 py-2 text-xs font-bold rounded-lg border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition-all flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Resume
+        </button>
       </div>
 
-      <!-- Mobile Menu Toggle -->
-      <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg bg-slate-800/60 border border-slate-700">
-        <i class="fa-solid fa-bars text-lg"></i>
+      <!-- Mobile Hamburger Button -->
+      <button id="hamburger-btn" class="md:hidden p-2 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] text-[var(--text)]" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-nav-panel">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
 
     </div>
-
-    <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-slate-950/95 border-b border-slate-800 px-6 py-5 space-y-4">
-      <a href="#about" class="block text-slate-300 hover:text-sf-accent py-1">About</a>
-      <a href="#certifications" class="block text-slate-300 hover:text-sf-accent py-1">Certifications</a>
-      <a href="#skills" class="block text-slate-300 hover:text-sf-accent py-1">Skills</a>
-      <a href="#projects" class="block text-slate-300 hover:text-sf-accent py-1">Projects</a>
-      <a href="#experience" class="block text-slate-300 hover:text-sf-accent py-1">Experience</a>
-      <a href="#architecture" class="block text-slate-300 hover:text-sf-accent py-1">Architecture</a>
-      <a href="#terminal" class="block text-slate-300 hover:text-sf-accent py-1 font-mono text-sm">Interactive CLI</a>
-      <div class="pt-3 border-t border-slate-800 flex flex-col gap-2">
-        <button onclick="openResumeModal()" class="w-full py-2.5 text-xs font-semibold rounded-lg border border-slate-700 bg-slate-800 text-slate-200 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-file-lines text-sf-blue"></i> View Full Resume
-        </button>
-        <a href="#contact" class="w-full py-2.5 text-xs font-bold rounded-lg bg-gradient-to-r from-sf-blue to-cyan-400 text-slate-950 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-paper-plane"></i> Contact Rakesh
-        </a>
-      </div>
-    </div>
   </header>
 
-  <main class="relative z-10 pt-24">
+  <!-- Mobile Full-Height Slide-In Navigation Panel -->
+  <div id="mobile-nav-panel" class="fixed inset-0 z-50 bg-[var(--surface)] text-[var(--text)] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col p-6 space-y-6 overflow-y-auto">
+    <div class="flex items-center justify-between pb-4 border-b border-[var(--border)]">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-lg">Menu</span>
+      </div>
+      <button id="close-mobile-nav" class="p-2 rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)]" aria-label="Close menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
 
-    <!-- HERO SECTION -->
-    <section id="hero" class="min-h-[92vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
-      <div class="max-w-6xl mx-auto w-full">
+    <nav class="flex flex-col space-y-3 text-lg font-semibold" aria-label="Mobile Navigation">
+      <a href="#about" class="mobile-nav-link py-3 px-4 rounded-xl hover:bg-[var(--surface-2)]">About</a>
+      <a href="#skills" class="mobile-nav-link py-3 px-4 rounded-xl hover:bg-[var(--surface-2)]">Skills</a>
+      <a href="#experience" class="mobile-nav-link py-3 px-4 rounded-xl hover:bg-[var(--surface-2)]">Experience</a>
+      <a href="#projects" class="mobile-nav-link py-3 px-4 rounded-xl hover:bg-[var(--surface-2)]">Projects</a>
+      <a href="#vibe-coding" class="mobile-nav-link py-3 px-4 rounded-xl hover:bg-[var(--surface-2)]">Vibe Coding</a>
+      <a href="#contact" class="mobile-nav-link py-3 px-4 rounded-xl hover:bg-[var(--surface-2)]">Contact</a>
+    </nav>
+
+    <div class="pt-6 border-t border-[var(--border)] space-y-4">
+      <button class="resume-trigger w-full py-3.5 rounded-xl border-2 border-[var(--primary)] text-[var(--primary)] font-bold flex items-center justify-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        View Full Resume
+      </button>
+      <a href="mailto:rakeshmajhi.connect@gmail.com" class="btn-primary w-full justify-center">
+        Contact Me Directly
+      </a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main id="main-content" class="relative z-10 pt-20">
+
+    <!-- HERO SECTION (Full Viewport Height) -->
+    <section id="hero" class="min-h-[calc(100vh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-16 lg:py-24" style="background: var(--gradient-hero);">
+      <div class="max-w-[1200px] mx-auto w-full space-y-16">
         
-        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          <!-- Left Column: Bio & CTAs -->
-          <div class="flex-1 text-center lg:text-left space-y-6">
+          <!-- Hero Left Column -->
+          <div class="lg:col-span-7 space-y-6">
             
-            <!-- Availability Badge -->
-            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-              <span>Available for Salesforce & AI Engineering Roles</span>
+            <!-- Pulsing Status Pill -->
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-xs font-semibold text-[var(--text)] shadow-sm">
+              <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent-green)] animate-pulse" aria-hidden="true"></span>
+              <span>Salesforce Developer · Agentforce · Integrations</span>
             </div>
 
-            <!-- Main Heading -->
-            <div class="space-y-2">
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-sf-accent via-sf-blue to-sf-violet">Rakesh Majhi</span>
+            <!-- Main Heading with Typing Animation -->
+            <div class="space-y-3">
+              <h1 class="text-h1 text-[var(--text)]">
+                Hi, I'm <span class="gradient-text">Rakesh Majhi</span>
               </h1>
-              <p class="text-xl sm:text-2xl font-semibold text-slate-300">
-                Salesforce Developer & AI Automation Specialist
-              </p>
+              
+              <!-- Typing Animation Container -->
+              <div class="h-14 sm:h-16 flex items-center">
+                <span class="text-xl sm:text-2xl font-bold font-mono text-[var(--primary)] flex items-center">
+                  <span id="typewriter-text">I build Salesforce apps.</span>
+                  <span class="inline-block w-2.5 h-6 bg-[var(--primary)] ml-1 animate-pulse" aria-hidden="true"></span>
+                </span>
+              </div>
             </div>
 
-            <!-- Core Pitch -->
-            <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              <strong class="text-slate-200">2 years of experience</strong> architecting custom Apex, LWC & Flow solutions across Sales, Service, Experience, Health Cloud & B2B Commerce. Delivered <strong class="text-sf-accent">10+ enterprise integrations</strong> over REST/SOAP & OAuth, deployed <strong class="text-sf-accent">4 production Agentforce agents</strong>, and owns CI/CD release engineering for 3 concurrent client tracks.
+            <!-- One-Sentence Pitch -->
+            <p class="text-base sm:text-lg text-[var(--text-muted)] max-prose-line leading-relaxed">
+              Salesforce Developer with <strong>2 years of experience</strong> building Apex, LWC, and Flow across Sales, Service, Health Cloud and B2B Commerce, deploying <strong>4 production Agentforce agents</strong> and delivering <strong>10+ enterprise integrations</strong>.
             </p>
 
-            <!-- Certified Badges Row -->
-            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
-              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sf-blue/10 border border-sf-blue/30 text-sky-300 text-xs font-medium">
-                <i class="fa-solid fa-certificate text-sf-blue"></i>
-                <span>Salesforce Certified Agentforce Specialist</span>
-              </div>
-              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-medium">
-                <i class="fa-solid fa-robot text-purple-400"></i>
-                <span>Salesforce AI Associate</span>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
-              <a href="#projects" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sf-blue to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-slate-950 font-bold text-sm glow-btn transition-all flex items-center gap-2.5">
-                <i class="fa-solid fa-rocket"></i> Explore Selected Projects
+            <!-- CTAs & Socials -->
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a href="#projects" class="btn-primary">
+                View Projects
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </a>
-              <button onclick="copyEmail()" class="px-5 py-3.5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-semibold text-sm transition-all flex items-center gap-2.5">
-                <i class="fa-regular fa-copy text-sf-accent"></i> Copy Email
+              <button class="resume-trigger btn-secondary">
+                Download Resume
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
               </button>
-              <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white transition-all flex items-center justify-center">
-                <i class="fa-brands fa-linkedin-in text-lg"></i>
+              <a href="#contact" class="btn-ghost">Contact me</a>
+            </div>
+
+            <!-- Social Links -->
+            <div class="pt-4 flex items-center gap-4 text-[var(--text-muted)] text-sm">
+              <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary)] flex items-center gap-1.5 transition-colors font-medium">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                LinkedIn
               </a>
-            </div>
-
-            <!-- Fast Contact Snippet -->
-            <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-y-2 gap-x-6 text-xs text-slate-400 font-mono">
-              <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-rose-400"></i> Bhubaneswar, India</span>
-              <span class="flex items-center gap-1.5"><i class="fa-solid fa-phone text-emerald-400"></i> +91 8342849764</span>
-              <span class="flex items-center gap-1.5"><i class="fa-solid fa-envelope text-sf-accent"></i> rakeshmajhi.connect@gmail.com</span>
+              <span>·</span>
+              <a href="https://github.com/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary)] flex items-center gap-1.5 transition-colors font-medium">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+              </a>
+              <span>·</span>
+              <button class="copy-email-trigger hover:text-[var(--primary)] flex items-center gap-1.5 transition-colors font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                Email
+              </button>
             </div>
 
           </div>
 
-          <!-- Right Column: Interactive Tech Card / Visual Avatar -->
-          <div class="w-full max-w-md lg:max-w-lg">
-            <div class="glass-card rounded-2xl p-6 sm:p-7 relative overflow-hidden shadow-2xl border-slate-800/80">
+          <!-- Hero Right Column: Pure HTML/CSS Lightning App Mockup Window -->
+          <div class="lg:col-span-5 relative">
+            
+            <!-- Orbiting Chips (Original Illustration) -->
+            <div class="absolute -top-6 -left-6 z-20 floating-orbit-chip">
+              <span class="skill-chip shadow-md border-[var(--primary)] text-[var(--primary)] bg-[var(--surface)]">
+                <span class="w-2 h-2 rounded-full bg-[var(--primary)]"></span>
+                Apex
+              </span>
+            </div>
+            <div class="absolute -top-4 -right-4 z-20 floating-orbit-chip orbit-delay-1">
+              <span class="skill-chip shadow-md border-purple-400 text-purple-600 dark:text-purple-300 bg-[var(--surface)]">
+                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                Agentforce
+              </span>
+            </div>
+            <div class="absolute top-1/2 -right-8 z-20 floating-orbit-chip orbit-delay-2 hidden sm:block">
+              <span class="skill-chip shadow-md border-emerald-400 text-emerald-600 dark:text-emerald-300 bg-[var(--surface)]">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                LWC
+              </span>
+            </div>
+            <div class="absolute -bottom-6 left-12 z-20 floating-orbit-chip orbit-delay-3">
+              <span class="skill-chip shadow-md border-amber-400 text-amber-600 dark:text-amber-300 bg-[var(--surface)]">
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                OAuth 2.0 PKCE
+              </span>
+            </div>
+
+            <!-- Stylized Lightning Window -->
+            <div class="lightning-window">
               
-              <!-- Subtle decorative gradient badge -->
-              <div class="absolute -right-16 -top-16 w-48 h-48 bg-sf-blue/20 rounded-full blur-3xl pointer-events-none"></div>
-              <div class="absolute -left-16 -bottom-16 w-48 h-48 bg-sf-violet/20 rounded-full blur-3xl pointer-events-none"></div>
+              <!-- Window Title Bar -->
+              <div class="lightning-header">
+                <div class="flex items-center gap-2">
+                  <!-- App Launcher 9 dots -->
+                  <div class="grid grid-cols-3 gap-0.5 w-3.5 h-3.5 opacity-70">
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                    <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
+                  </div>
+                  <span class="text-xs font-bold text-[var(--navy)]">Cloud Workspace</span>
+                </div>
+                <div class="text-[11px] font-mono text-[var(--text-muted)] bg-[var(--surface)] px-2.5 py-0.5 rounded border border-[var(--border)]">
+                  Org: Production
+                </div>
+              </div>
 
-              <div class="relative z-10 space-y-5">
+              <!-- Lightning Tabs -->
+              <div class="flex items-center px-4 pt-2 bg-[var(--surface-2)] border-b border-[var(--border)] gap-1">
+                <div class="lightning-tab flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                  Agentforce Console
+                </div>
+                <div class="text-xs px-3 py-1.5 text-[var(--text-muted)]">Apex Action</div>
+                <div class="text-xs px-3 py-1.5 text-[var(--text-muted)] hidden sm:block">Schema</div>
+              </div>
+
+              <!-- Animated Agentforce Chat Body -->
+              <div class="p-5 space-y-4 text-xs font-mono bg-[var(--surface)] min-h-[290px] flex flex-col justify-between">
                 
-                <!-- Terminal Header bar -->
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
-                  <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-                    <span class="ml-2 font-mono text-slate-400">salesforce-core.cls</span>
+                <div class="space-y-3">
+                  <!-- Message 1 (User) -->
+                  <div class="flex items-start gap-2.5">
+                    <div class="w-6 h-6 rounded bg-[var(--border)] flex items-center justify-center font-bold text-[10px] text-[var(--text)]">U</div>
+                    <div class="p-2.5 rounded-lg bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] max-w-[85%]">
+                      Triage Case #10492 & verify Stripe transaction sync.
+                    </div>
                   </div>
-                  <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[11px] font-semibold border border-emerald-500/20">Production Ready</span>
-                </div>
 
-                <!-- Code / Architecture Highlight Snippet -->
-                <div class="font-mono text-xs sm:text-[13px] text-slate-300 space-y-1.5 bg-slate-950/70 p-4 rounded-xl border border-slate-800/70 leading-relaxed overflow-x-auto">
-                  <p><span class="text-purple-400">@AgentAction</span>(label=<span class="text-emerald-300">'TriageAndSync'</span>)</p>
-                  <p><span class="text-sky-400">public class</span> <span class="text-yellow-300">AgentforceOrchestrator</span> {</p>
-                  <p class="pl-4 text-slate-400">// Multi-org OAuth PKCE & REST Gateway</p>
-                  <p class="pl-4"><span class="text-purple-400">public static</span> <span class="text-sky-300">SyncResult</span> <span class="text-blue-300">dispatchOrderSync</span>(Id recordId) {</p>
-                  <p class="pl-8 text-slate-300">PaymentSync.verifyStripeWebhook(recordId);</p>
-                  <p class="pl-8 text-emerald-400">return Agentforce.invokeAction('AutoResolve');</p>
-                  <p class="pl-4">}</p>
-                  <p>}</p>
-                </div>
+                  <!-- Message 2 (Agentforce Bot) -->
+                  <div class="flex items-start gap-2.5">
+                    <div class="w-6 h-6 rounded bg-purple-600 text-white flex items-center justify-center font-bold text-[10px]">AI</div>
+                    <div class="p-2.5 rounded-lg bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60 text-[var(--text)] space-y-1.5 max-w-[90%]">
+                      <p class="font-bold text-purple-700 dark:text-purple-300">Agentforce: Action Dispatched</p>
+                      <p class="text-[11px] text-[var(--text-muted)] font-mono">
+                        ✔ Stripe webhook verified: #ch_3N9 confirmed ($1,250.00).<br>
+                        ✔ Auto-updated Case status to <span class="text-emerald-600 dark:text-emerald-400 font-bold">Resolved</span>.<br>
+                        ✔ Task logged to Account with idempotent key.
+                      </p>
+                    </div>
+                  </div>
 
-                <!-- Key Stat Badges -->
-                <div class="grid grid-cols-2 gap-3 pt-2">
-                  <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl">
-                    <div class="text-2xl font-black text-sf-accent font-mono">2+</div>
-                    <div class="text-xs text-slate-400 font-medium">Years Dev & Admin</div>
-                  </div>
-                  <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl">
-                    <div class="text-2xl font-black text-purple-400 font-mono">4</div>
-                    <div class="text-xs text-slate-400 font-medium">Agentforce Agents</div>
-                  </div>
-                  <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl">
-                    <div class="text-2xl font-black text-emerald-400 font-mono">10+</div>
-                    <div class="text-xs text-slate-400 font-medium">APIs & Integrations</div>
-                  </div>
-                  <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl">
-                    <div class="text-2xl font-black text-amber-400 font-mono">99%+</div>
-                    <div class="text-xs text-slate-400 font-medium">CI/CD Uptime (3 Tracks)</div>
+                  <!-- Live Apex Call Status -->
+                  <div class="p-2 rounded bg-slate-900 text-slate-200 text-[11px] font-mono flex items-center justify-between border border-slate-800">
+                    <span class="text-emerald-400">⚡ StripeSyncHandler.cls</span>
+                    <span class="text-slate-400">Response: 200 OK</span>
                   </div>
                 </div>
 
-                <!-- Stakeholder highlight -->
-                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-300">
-                  <div class="w-8 h-8 rounded-lg bg-sf-blue/20 flex items-center justify-center text-sf-accent shrink-0">
-                    <i class="fa-solid fa-users-gear"></i>
-                  </div>
-                  <div>
-                    <p class="font-semibold text-white">Scrum Leader & Mentor</p>
-                    <p class="text-slate-400 text-[11px]">Mentors 4 junior devs · US & Global Stakeholder communication</p>
-                  </div>
+                <!-- Input simulation -->
+                <div class="pt-3 border-t border-[var(--border)] flex items-center justify-between text-[11px] text-[var(--text-muted)]">
+                  <span>Topic: OrderManagement & Billing</span>
+                  <span class="text-purple-600 dark:text-purple-400 font-bold">● Active Agent</span>
                 </div>
 
               </div>
+
             </div>
+
           </div>
 
         </div>
 
-      </div>
-    </section>
-
-    <!-- CERTIFICATIONS SHOWCASE -->
-    <section id="certifications" class="py-16 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/40">
-      <div class="max-w-6xl mx-auto space-y-10">
-        
-        <div class="text-center space-y-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sf-blue/10 border border-sf-blue/20 text-sf-accent text-xs font-semibold uppercase tracking-wider">
-            Official Credentials
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Salesforce Certifications</h2>
-          <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
-            Certified expertise in Salesforce's latest AI frontier, Agentforce architecture, and autonomous enterprise reasoning.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Hero Stats Row (Animated on scroll) -->
+        <div id="hero-stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-4">
           
-          <!-- Certification 1: Agentforce Specialist -->
-          <div class="glass-card rounded-2xl p-6 border-sf-blue/30 relative overflow-hidden group">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-sf-blue/10 rounded-full blur-2xl group-hover:bg-sf-blue/20 transition-all"></div>
-            
-            <div class="flex items-start gap-4">
-              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sf-blue to-cyan-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-sf-blue/30 shrink-0">
-                <i class="fa-solid fa-robot"></i>
-              </div>
-              <div class="space-y-2 flex-1">
-                <div class="flex items-center justify-between">
-                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sf-blue/20 text-sf-accent border border-sf-blue/30">Specialist Level</span>
-                  <span class="text-xs text-emerald-400 font-mono flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Certified</span>
-                </div>
-                <h3 class="text-xl font-bold text-white group-hover:text-sf-accent transition-colors">
-                  Salesforce Certified Agentforce Specialist
-                </h3>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  Validated proficiency in architecting and deploying autonomous Agentforce Agents, defining Agent Builder Topics, configuring standard/custom Actions with Apex invocations, prompt engineering, and guardrails.
-                </p>
-                <div class="pt-3 flex flex-wrap gap-1.5">
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">Agent Builder</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">Topics & Actions</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">GenAI Guardrails</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">Autonomous Reasoning</span>
-                </div>
-              </div>
+          <div class="cloud-card p-5 text-center space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-[var(--primary)] font-mono">
+              <span class="stat-count" data-target="2">0</span><span class="text-[var(--primary)]">+</span>
             </div>
+            <div class="text-xs sm:text-sm font-semibold text-[var(--text)]">Years Experience</div>
+            <div class="text-[11px] text-[var(--text-muted)]">Salesforce & Integrations</div>
           </div>
 
-          <!-- Certification 2: AI Associate -->
-          <div class="glass-card rounded-2xl p-6 border-purple-500/30 relative overflow-hidden group">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
-            
-            <div class="flex items-start gap-4">
-              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-purple-500/30 shrink-0">
-                <i class="fa-solid fa-brain"></i>
-              </div>
-              <div class="space-y-2 flex-1">
-                <div class="flex items-center justify-between">
-                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Associate Level</span>
-                  <span class="text-xs text-emerald-400 font-mono flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Certified</span>
-                </div>
-                <h3 class="text-xl font-bold text-white group-hover:text-purple-300 transition-colors">
-                  Salesforce AI Associate
-                </h3>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  Demonstrated command of foundational AI concepts on Salesforce, ethical AI principles, predictive vs generative models, Einstein features, and data readiness for Einstein 1 Platform.
-                </p>
-                <div class="pt-3 flex flex-wrap gap-1.5">
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">CRM AI Ethics</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">Einstein Trust Layer</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">Data Governance</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-slate-300">Prompt Design</span>
-                </div>
-              </div>
+          <div class="cloud-card p-5 text-center space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 font-mono">
+              <span class="stat-count" data-target="4">0</span>
             </div>
+            <div class="text-xs sm:text-sm font-semibold text-[var(--text)]">Production AI Agents</div>
+            <div class="text-[11px] text-[var(--text-muted)]">Live on Experience Cloud</div>
+          </div>
+
+          <div class="cloud-card p-5 text-center space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">
+              <span class="stat-count" data-target="10">0</span><span>+</span>
+            </div>
+            <div class="text-xs sm:text-sm font-semibold text-[var(--text)]">System Integrations</div>
+            <div class="text-[11px] text-[var(--text-muted)]">REST, SOAP, OAuth & Webhooks</div>
+          </div>
+
+          <div class="cloud-card p-5 text-center space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">
+              <span class="stat-count" data-target="3">0</span>
+            </div>
+            <div class="text-xs sm:text-sm font-semibold text-[var(--text)]">Concurrent Projects</div>
+            <div class="text-[11px] text-[var(--text-muted)]">Enterprise Release Delivery</div>
           </div>
 
         </div>
@@ -354,163 +380,83 @@
       </div>
     </section>
 
-    <!-- CORE TECHNICAL SKILLS MATRIX -->
-    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
-      <div class="max-w-6xl mx-auto space-y-12">
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
+      <div class="max-w-[1200px] mx-auto space-y-16">
         
-        <div class="text-center space-y-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold uppercase tracking-wider">
-            Capabilities & Stack
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Core Technical Matrix</h2>
-          <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-            From programmatic Salesforce engineering (Apex/LWC) and declarative automation (Flows/Security) to enterprise integrations and AI middleware.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <!-- Category 1: Salesforce Development -->
-          <div class="glass-card rounded-2xl p-6 space-y-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-sf-blue/20 text-sf-accent flex items-center justify-center text-lg">
-                <i class="fa-solid fa-code"></i>
+          <!-- Profile Photo Placeholder inside Cloud-shaped Mask with Gradient Ring -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-64 h-64 sm:w-72 sm:h-72 p-1.5 rounded-[40px] bg-gradient-to-tr from-[var(--primary)] via-purple-500 to-[var(--accent-teal)] shadow-xl">
+              <div class="w-full h-full bg-[var(--surface)] rounded-[36px] flex flex-col items-center justify-center p-6 text-center space-y-3 overflow-hidden">
+                <!-- Original Cloud Silhouette Graphic -->
+                <svg viewBox="0 0 100 80" class="w-20 h-20 text-[var(--primary)] fill-current" aria-hidden="true">
+                  <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z" fill="var(--surface-2)" stroke="var(--primary)" stroke-width="3"/>
+                  <circle cx="50" cy="40" r="12" fill="var(--primary)" opacity="0.2"/>
+                  <path d="M42 42 Q50 32 58 42" stroke="var(--primary)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </svg>
+                <div class="space-y-1">
+                  <p class="font-bold text-base text-[var(--text)]">Rakesh Majhi</p>
+                  <p class="text-xs font-mono text-[var(--primary)]">Developer & Architect</p>
+                </div>
+                <div class="text-[11px] text-[var(--text-muted)] font-mono bg-[var(--surface-2)] px-3 py-1 rounded-full border border-[var(--border)]">
+                  [PHOTO_URL]
+                </div>
               </div>
-              <div>
-                <h3 class="font-bold text-white text-base">Salesforce Development</h3>
-                <p class="text-xs text-slate-400">Programmatic & Front-end</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 pt-2">
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Apex (Classes/Triggers)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Async / Batch Apex</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Unit Testing (>85% coverage)</span>
-              <span class="badge-tag bg-slate-800 text-sky-300 border border-sky-800">Lightning Web Components (LWC)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Aura Components</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Visualforce (VFP)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">SOQL & Dynamic SOQL</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">SOSL</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Platform Events</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Connected Apps</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Salesforce CLI (sf)</span>
             </div>
           </div>
 
-          <!-- Category 2: AI & Agentforce -->
-          <div class="glass-card rounded-2xl p-6 space-y-4 border-purple-500/20">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center text-lg">
-                <i class="fa-solid fa-robot"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-white text-base">AI on Salesforce</h3>
-                <p class="text-xs text-purple-300">Agentforce & LLM Workflows</p>
-              </div>
+          <!-- About Details & Quick Facts -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="space-y-2">
+              <span class="text-xs font-bold uppercase tracking-wider font-mono text-[var(--primary)]">About Me</span>
+              <h2 class="text-h2">Engineering Clean Salesforce Architecture with AI Autonomy</h2>
             </div>
-            <div class="flex flex-wrap gap-2 pt-2">
-              <span class="badge-tag bg-purple-900/30 text-purple-200 border border-purple-500/30">Agentforce (Agent Builder)</span>
-              <span class="badge-tag bg-purple-900/30 text-purple-200 border border-purple-500/30">Topics & Action Routing</span>
-              <span class="badge-tag bg-purple-900/30 text-purple-200 border border-purple-500/30">Apex Invocable Actions</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Einstein Bots</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">PDF Data Extraction Pipeline</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">ChatGPT API Integrations</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Generative AI Guardrails</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Automated Record Creation</span>
-            </div>
-          </div>
 
-          <!-- Category 3: Salesforce Clouds -->
-          <div class="glass-card rounded-2xl p-6 space-y-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-lg">
-                <i class="fa-solid fa-cloud"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-white text-base">Salesforce Platforms</h3>
-                <p class="text-xs text-slate-400">Enterprise Cloud Modules</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 pt-2">
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Sales Cloud</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Service Cloud</span>
-              <span class="badge-tag bg-slate-800 text-sky-300 border border-sky-800">Experience Cloud (Communities)</span>
-              <span class="badge-tag bg-slate-800 text-amber-300 border border-amber-800">B2B Commerce (CloudCraze)</span>
-              <span class="badge-tag bg-slate-800 text-amber-300 border border-amber-800">B2B Commerce (Lightning)</span>
-              <span class="badge-tag bg-slate-800 text-rose-300 border border-rose-800">Health Cloud</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Data Cloud</span>
-            </div>
-          </div>
+            <p class="text-base text-[var(--text-muted)] leading-relaxed">
+              I am a Salesforce Developer and Administrator with 2 years of hands-on experience designing end-to-end solutions across Sales Cloud, Service Cloud, Experience Cloud, Health Cloud, and B2B Commerce (CloudCraze & Lightning). My focus bridges enterprise Apex backend rigor with modern Lightning Web Components and production-grade Agentforce autonomous agents.
+            </p>
 
-          <!-- Category 4: Admin, Security & Automation -->
-          <div class="glass-card rounded-2xl p-6 space-y-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
-                <i class="fa-solid fa-shield-halved"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-white text-base">Admin & Automation</h3>
-                <p class="text-xs text-slate-400">Security & Process Governance</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 pt-2">
-              <span class="badge-tag bg-slate-800 text-emerald-300 border border-emerald-800">Flow Builder (Record/Scheduled/Screen)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Validation Rules</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Approval Processes</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Reports & Executive Dashboards</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Profiles & Permission Sets</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Roles & Sharing Rules</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">MFA / SSO Coordination</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Access Audits & License Mgmt</span>
-            </div>
-          </div>
+            <p class="text-base text-[var(--text-muted)] leading-relaxed">
+              At Abacus Systems & Solution, I lead technical delivery across 3 active client tracks, mentor 4 junior developers with structured code reviews, and coordinate daily with US-based stakeholders. Whether building zero-downtime GitHub CI/CD pipelines, engineering multi-org OAuth 2.0 PKCE add-ins, or deploying AI extraction workflows, I treat code cleanliness and governor limit discipline as first-class citizens.
+            </p>
 
-          <!-- Category 5: Integrations & APIs -->
-          <div class="glass-card rounded-2xl p-6 space-y-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
-                <i class="fa-solid fa-network-wired"></i>
+            <!-- Quick Facts Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="p-3.5 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center font-bold text-sm shrink-0">📍</div>
+                <div>
+                  <div class="text-xs text-[var(--text-muted)] font-medium">Location</div>
+                  <div class="text-sm font-bold text-[var(--text)]">Bhubaneswar, India</div>
+                </div>
               </div>
-              <div>
-                <h3 class="font-bold text-white text-base">Integrations & APIs</h3>
-                <p class="text-xs text-slate-400">10+ Production Connectors</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 pt-2">
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">REST & SOAP APIs</span>
-              <span class="badge-tag bg-slate-800 text-amber-300 border border-amber-800">OAuth 2.0 (PKCE Flow)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Webhooks</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Stripe Payment Sync</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">PayPal & CyberSource (SOAP)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">QuickBooks Online</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">GoHighLevel (GHL)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Power BI Streaming</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Google Sheets Sync</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Outlook Add-in Manifest</span>
-            </div>
-          </div>
 
-          <!-- Category 6: Languages, Web & DevOps -->
-          <div class="glass-card rounded-2xl p-6 space-y-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-lg">
-                <i class="fa-solid fa-layer-group"></i>
+              <div class="p-3.5 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-sm shrink-0">🎯</div>
+                <div>
+                  <div class="text-xs text-[var(--text-muted)] font-medium">Core Focus</div>
+                  <div class="text-sm font-bold text-[var(--text)]">Salesforce + Agentforce AI</div>
+                </div>
               </div>
-              <div>
-                <h3 class="font-bold text-white text-base">Full Stack & DevOps</h3>
-                <p class="text-xs text-slate-400">Modern Cloud Tooling</p>
+
+              <div class="p-3.5 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0">🎓</div>
+                <div>
+                  <div class="text-xs text-[var(--text-muted)] font-medium">Education</div>
+                  <div class="text-sm font-bold text-[var(--text)]">B.Tech Computer Science</div>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm shrink-0">📜</div>
+                <div>
+                  <div class="text-xs text-[var(--text-muted)] font-medium">Credentials</div>
+                  <div class="text-sm font-bold text-[var(--text)]">Agentforce Specialist & AI Assoc.</div>
+                </div>
               </div>
             </div>
-            <div class="flex flex-wrap gap-2 pt-2">
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Python & FastAPI</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">JavaScript (ES6+)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">React.js & Next.js</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">HTML5 / CSS3</span>
-              <span class="badge-tag bg-slate-800 text-emerald-300 border border-emerald-800">GitHub CI/CD for Salesforce</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">AWS (Amplify, Lambda, RDS, S3)</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">MySQL & PostgreSQL</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Postman & Workbench</span>
-              <span class="badge-tag bg-slate-800 text-slate-200 border border-slate-700">Zeplin / Agile / Scrum</span>
-            </div>
+
           </div>
 
         </div>
@@ -518,306 +464,650 @@
       </div>
     </section>
 
-    <!-- FEATURED PROJECTS SHOWCASE -->
-    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/30">
-      <div class="max-w-6xl mx-auto space-y-12">
+    <!-- SKILLS SECTION ("Skill Cloud") -->
+    <section id="skills" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)] bg-[var(--surface-2)]">
+      <div class="max-w-[1200px] mx-auto space-y-12">
         
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div class="space-y-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sf-blue/10 border border-sf-blue/20 text-sf-accent text-xs font-semibold uppercase tracking-wider">
-              Real-World Impact
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Featured Projects & Deliverables</h2>
-            <p class="text-slate-400 text-sm sm:text-base max-w-xl">
-              Highlights from enterprise Salesforce environments, production AI agents, complex integrations, and developer tooling.
+          <div class="space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider font-mono text-[var(--primary)]">Technical Arsenal</span>
+            <h2 class="text-h2">The Skill Cloud</h2>
+            <p class="text-sm sm:text-base text-[var(--text-muted)] max-w-xl">
+              Organized by honest proficiency tiers: Daily use vs. Used in projects. Hover any chip to view project context.
             </p>
           </div>
 
-          <!-- Project Filter Buttons -->
-          <div class="flex flex-wrap gap-2 text-xs font-medium">
-            <button onclick="filterProjects('all')" class="filter-btn active px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition-all">All Projects</button>
-            <button onclick="filterProjects('ai')" class="filter-btn px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition-all">Agentforce & AI</button>
-            <button onclick="filterProjects('integration')" class="filter-btn px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition-all">Integrations</button>
-            <button onclick="filterProjects('core')" class="filter-btn px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition-all">LWC & Cloud</button>
-            <button onclick="filterProjects('fullstack')" class="filter-btn px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition-all">Full-Stack & CI/CD</button>
+          <!-- View Toggle: Grid vs Cloud -->
+          <div class="filter-pill-container self-start md:self-end">
+            <button id="view-grid-btn" class="filter-btn active">Grid View</button>
+            <button id="view-cloud-btn" class="filter-btn hidden md:inline-block">Cloud View</button>
+          </div>
+        </div>
+
+        <!-- GRID VIEW (Default) -->
+        <div id="skills-grid-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Group 1: Salesforce Development -->
+          <div class="cloud-card p-6 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center font-bold text-base">⚡</div>
+              <div>
+                <h3 class="font-bold text-base text-[var(--text)]">Salesforce Dev</h3>
+                <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Tier: Daily use</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="skill-chip">Apex Classes <span class="chip-tooltip">Triggers, batch, async & unit tests (&gt;85% coverage)</span></span>
+              <span class="skill-chip">LWC <span class="chip-tooltip">15+ components pixel-matched to Zeplin designs</span></span>
+              <span class="skill-chip">Aura <span class="chip-tooltip">Legacy components on Experience Cloud</span></span>
+              <span class="skill-chip">Visualforce <span class="chip-tooltip">CloudCraze B2B Commerce customizations</span></span>
+              <span class="skill-chip">SOQL & Dynamic SOQL <span class="chip-tooltip">Metadata-driven queries in Outlook add-in</span></span>
+              <span class="skill-chip">Platform Events <span class="chip-tooltip">Event-driven billing & sync pipelines</span></span>
+              <span class="skill-chip">Salesforce CLI <span class="chip-tooltip">Scratch org lifecycle & CI/CD scripting</span></span>
+            </div>
+          </div>
+
+          <!-- Group 2: Platforms & Clouds -->
+          <div class="cloud-card p-6 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-base">☁️</div>
+              <div>
+                <h3 class="font-bold text-base text-[var(--text)]">Platforms & Clouds</h3>
+                <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Tier: Daily use</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="skill-chip">Sales Cloud <span class="chip-tooltip">Lead-to-Opportunity conversion flows & accounts</span></span>
+              <span class="skill-chip">Service Cloud <span class="chip-tooltip">Case routing, omnichannel & Agentforce triage</span></span>
+              <span class="skill-chip">Experience Cloud <span class="chip-tooltip">Partner & Customer communities, live Agentforce chat</span></span>
+              <span class="skill-chip">B2B Commerce <span class="chip-tooltip">CloudCraze order management & Lightning storefronts</span></span>
+              <span class="skill-chip">Health Cloud <span class="chip-tooltip">Patient/member workflows & Einstein Bots</span></span>
+              <span class="skill-chip">Data Cloud <span class="chip-tooltip">Real-time data stream synchronization</span></span>
+            </div>
+          </div>
+
+          <!-- Group 3: Admin & Automation -->
+          <div class="cloud-card p-6 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-bold text-base">🛡️</div>
+              <div>
+                <h3 class="font-bold text-base text-[var(--text)]">Admin & Automation</h3>
+                <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Tier: Daily use</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="skill-chip">Flow Builder <span class="chip-tooltip">Record-triggered, scheduled, screen & autolaunched</span></span>
+              <span class="skill-chip">Security Model <span class="chip-tooltip">Profiles, permission sets, roles & sharing rules</span></span>
+              <span class="skill-chip">Validation Rules <span class="chip-tooltip">Data governance & document extraction safeguards</span></span>
+              <span class="skill-chip">Reports & Dashboards <span class="chip-tooltip">Sales pipeline analytics & executive reporting</span></span>
+              <span class="skill-chip">User Management <span class="chip-tooltip">Onboarding, license audits, MFA & SSO coordination</span></span>
+            </div>
+          </div>
+
+          <!-- Group 4: Agentforce & AI -->
+          <div class="cloud-card p-6 space-y-4 border-purple-300 dark:border-purple-800/80">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-base">🤖</div>
+              <div>
+                <h3 class="font-bold text-base text-[var(--text)]">Agentforce & AI</h3>
+                <span class="text-[11px] font-mono text-purple-600 dark:text-purple-400 font-semibold">Tier: Daily use</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="skill-chip">Agent Builder <span class="chip-tooltip">Configured 4 production agents on Experience Cloud</span></span>
+              <span class="skill-chip">Topics & Actions <span class="chip-tooltip">Intent classification & routing to Apex actions</span></span>
+              <span class="skill-chip">Apex Invocables <span class="chip-tooltip">Transactional callouts & data fetching for agents</span></span>
+              <span class="skill-chip">PDF Data Extraction <span class="chip-tooltip">Automated record creation from unstructured PDFs</span></span>
+              <span class="skill-chip">ChatGPT API <span class="chip-tooltip">Dormant customer reactivation outreach engine</span></span>
+              <span class="skill-chip">Einstein Bots <span class="chip-tooltip">Health Cloud patient support dialogues</span></span>
+            </div>
+          </div>
+
+          <!-- Group 5: Integrations & APIs -->
+          <div class="cloud-card p-6 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base">🔌</div>
+              <div>
+                <h3 class="font-bold text-base text-[var(--text)]">Integrations & APIs</h3>
+                <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Tier: Daily use</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="skill-chip">REST & SOAP <span class="chip-tooltip">Stripe, PayPal, CyberSource (SOAP) & Google Sheets</span></span>
+              <span class="skill-chip">OAuth 2.0 PKCE <span class="chip-tooltip">Outlook Add-in multi-org connected app login</span></span>
+              <span class="skill-chip">Stripe Payment Sync <span class="chip-tooltip">Bidirectional payment status & invoice reconciliation</span></span>
+              <span class="skill-chip">QuickBooks Online <span class="chip-tooltip">Credit-system automation & billing resolution</span></span>
+              <span class="skill-chip">GoHighLevel <span class="chip-tooltip">Lead & contact sync via Python background worker</span></span>
+              <span class="skill-chip">Power BI <span class="chip-tooltip">Real-time Salesforce reporting pipeline</span></span>
+            </div>
+          </div>
+
+          <!-- Group 6: Full-stack & Cloud -->
+          <div class="cloud-card p-6 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-base">💻</div>
+              <div>
+                <h3 class="font-bold text-base text-[var(--text)]">Full-stack & Cloud</h3>
+                <span class="text-[11px] font-mono text-slate-500 font-semibold">Tier: Used in projects</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="skill-chip">Python & FastAPI <span class="chip-tooltip">Heymilo AI & CRM sync middleware microservice</span></span>
+              <span class="skill-chip">Next.js & React <span class="chip-tooltip">planitrentals.com booking engine on AWS</span></span>
+              <span class="skill-chip">AWS Services <span class="chip-tooltip">Amplify, Lambda, RDS (MySQL), S3 & Route 53</span></span>
+              <span class="skill-chip">JavaScript (ES6+) <span class="chip-tooltip">Client-side logic in LWC & Next.js applications</span></span>
+              <span class="skill-chip">MySQL / Postgres <span class="chip-tooltip">Relational database storage for cloud booking apps</span></span>
+            </div>
+          </div>
+
+          <!-- Group 7: Delivery & Tools -->
+          <div class="cloud-card p-6 space-y-4 md:col-span-2 lg:col-span-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-base">🚀</div>
+              <div>
+                <h3 class="font-bold text-base text-[var(--text)]">Delivery & Tooling</h3>
+                <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Tier: Daily use</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="skill-chip">GitHub CI/CD <span class="chip-tooltip">Automated unit testing, scratch orgs & zero-downtime releases</span></span>
+              <span class="skill-chip">Agile / Scrum <span class="chip-tooltip">Daily sprint coordination with US & global stakeholders</span></span>
+              <span class="skill-chip">Mentorship <span class="chip-tooltip">Supporting 4 junior developers with PR reviews & unblocking</span></span>
+              <span class="skill-chip">Postman & Workbench <span class="chip-tooltip">API contract testing & metadata inspection</span></span>
+              <span class="skill-chip">Zeplin <span class="chip-tooltip">Pixel-accurate design translation for LWC builds</span></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CLOUD VIEW (Cluster Canvas) -->
+        <div id="skills-cloud-view" class="hidden">
+          <div class="skill-cloud-canvas">
+            <span class="skill-chip text-sm p-3">Apex Classes & Triggers <span class="chip-tooltip">Daily use · B2B Commerce, Health Cloud</span></span>
+            <span class="skill-chip text-sm p-3 border-purple-400 text-purple-600 dark:text-purple-300">Agentforce Agent Builder <span class="chip-tooltip">4 live production agents</span></span>
+            <span class="skill-chip text-sm p-3 border-[var(--primary)] text-[var(--primary)]">Lightning Web Components (LWC) <span class="chip-tooltip">15+ custom production LWCs</span></span>
+            <span class="skill-chip text-sm p-3">OAuth 2.0 PKCE <span class="chip-tooltip">Multi-org Outlook Add-in</span></span>
+            <span class="skill-chip text-sm p-3">Flow Builder (All Types) <span class="chip-tooltip">Record-triggered, screen & scheduled</span></span>
+            <span class="skill-chip text-sm p-3 border-emerald-400 text-emerald-600 dark:text-emerald-300">Stripe Payment Sync <span class="chip-tooltip">Bidirectional webhook reconciliation</span></span>
+            <span class="skill-chip text-sm p-3">FastAPI Middleware <span class="chip-tooltip">Python integration services</span></span>
+            <span class="skill-chip text-sm p-3">GitHub CI/CD <span class="chip-tooltip">99%+ uptime across 3 project tracks</span></span>
+            <span class="skill-chip text-sm p-3">Sales Cloud & Service Cloud <span class="chip-tooltip">Lead to opportunity & omnichannel</span></span>
+            <span class="skill-chip text-sm p-3">B2B Commerce (CloudCraze) <span class="chip-tooltip">Order splitting & billing resolution</span></span>
+            <span class="skill-chip text-sm p-3 border-purple-400 text-purple-600 dark:text-purple-300">PDF Data Extraction Pipeline <span class="chip-tooltip">Document AI automation</span></span>
+            <span class="skill-chip text-sm p-3">QuickBooks Online API <span class="chip-tooltip">Automated billing & credit deductions</span></span>
+            <span class="skill-chip text-sm p-3">Experience Cloud <span class="chip-tooltip">Partner & customer community sites</span></span>
+            <span class="skill-chip text-sm p-3">Health Cloud <span class="chip-tooltip">Patient/member support bot flows</span></span>
+            <span class="skill-chip text-sm p-3">Data Cloud & Platform Events <span class="chip-tooltip">Real-time event-driven sync</span></span>
+            <span class="skill-chip text-sm p-3">Next.js & AWS Amplify <span class="chip-tooltip">planitrentals.com booking engine</span></span>
+            <span class="skill-chip text-sm p-3">SOQL / Dynamic SOQL <span class="chip-tooltip">Schema discovery layer</span></span>
+            <span class="skill-chip text-sm p-3">Scrum Team Mentorship <span class="chip-tooltip">Guiding 4 junior engineers</span></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION (Vertical Timeline) -->
+    <section id="experience" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
+      <div class="max-w-[1200px] mx-auto space-y-16">
+        
+        <div class="text-center space-y-2">
+          <span class="text-xs font-bold uppercase tracking-wider font-mono text-[var(--primary)]">Career Path</span>
+          <h2 class="text-h2">Experience & Delivery Record</h2>
+          <p class="text-sm sm:text-base text-[var(--text-muted)] max-w-xl mx-auto">
+            High-concurrency enterprise engineering, AI deployment, and daily Agile collaboration with US and global stakeholders.
+          </p>
+        </div>
+
+        <!-- Vertical Timeline Container -->
+        <div class="relative max-w-4xl mx-auto">
+          
+          <!-- Center line on desktop, Left line on mobile -->
+          <div class="timeline-stem left-5 md:left-1/2 transform md:-translate-x-1/2" aria-hidden="true"></div>
+
+          <!-- Timeline Items -->
+          <div class="space-y-12">
+            
+            <!-- Item 1: Abacus System & Solution (Current Role) -->
+            <div class="relative flex flex-col md:flex-row items-center reveal-on-scroll">
+              
+              <!-- Cloud Node Icon -->
+              <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-[var(--surface)] border-2 border-[var(--primary)] shadow-md flex items-center justify-center text-[var(--primary)] z-20">
+                <svg viewBox="0 0 100 80" class="w-5 h-5 fill-current">
+                  <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z"/>
+                </svg>
+              </div>
+
+              <!-- Content Card (Slides from left on desktop) -->
+              <div class="w-full md:w-[46%] ml-12 md:ml-0 md:mr-auto pl-2 md:pl-0 md:pr-6">
+                <div class="cloud-card p-6 sm:p-7 space-y-4">
+                  <div class="space-y-1">
+                    <div class="flex items-center justify-between text-xs text-[var(--text-muted)] font-mono">
+                      <span>Nov 2024 – Present</span>
+                      <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">Full-Time</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-[var(--text)]">Software Developer – Salesforce & AI Integrations</h3>
+                    <p class="text-xs font-semibold text-[var(--primary)]">Abacus System & Solution Pvt. Ltd. · Bhubaneswar, India</p>
+                  </div>
+
+                  <ul class="text-xs sm:text-sm text-[var(--text-muted)] space-y-2.5 leading-relaxed">
+                    <li class="flex items-start gap-2">
+                      <span class="text-[var(--primary)] font-bold">▪</span>
+                      <span><strong>Concurrent Delivery & Mentoring:</strong> Lead technical delivery across 3 concurrent production projects (B2B Commerce, Health Cloud, Custom LWC), mentoring 4 junior developers with daily code reviews and sprint unblocking.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="text-[var(--primary)] font-bold">▪</span>
+                      <span><strong>Global Stakeholders:</strong> Own day-to-day communication with US-based and global stakeholders across time zones, translating complex business requirements into sprint-ready technical tasks.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="text-purple-600 dark:text-purple-400 font-bold">▪</span>
+                      <span><strong>Agentforce AI Rollout:</strong> Designed and deployed 4 production Agentforce agents on Experience Cloud, cutting manual first-response handling time by <strong class="text-purple-600 dark:text-purple-300">~40%</strong>. Built an automated PDF extraction pipeline removing manual entry.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="text-amber-600 dark:text-amber-400 font-bold">▪</span>
+                      <span><strong>Commerce & Integrations:</strong> Shipped 10+ integrations over REST/SOAP and OAuth (Stripe, PayPal, CyberSource, QuickBooks, Google Sheets). Resolved order splitting in B2B Commerce, lowering open billing tickets by <strong class="text-amber-600 dark:text-amber-400">~25%</strong>.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="text-emerald-600 dark:text-emerald-400 font-bold">▪</span>
+                      <span><strong>CI/CD Release Ownership:</strong> Set up a GitHub CI/CD pipeline for Salesforce scratch and sandbox orgs, cutting recurring production defects by <strong class="text-emerald-600 dark:text-emerald-400">~30%</strong> with <strong class="text-emerald-600 dark:text-emerald-400">99%+</strong> release uptime.</span>
+                    </li>
+                  </ul>
+
+                  <div class="pt-2 flex flex-wrap gap-1.5 border-t border-[var(--border)]">
+                    <span class="skill-chip text-xs">Apex</span>
+                    <span class="skill-chip text-xs">Agentforce</span>
+                    <span class="skill-chip text-xs">LWC</span>
+                    <span class="skill-chip text-xs">B2B Commerce</span>
+                    <span class="skill-chip text-xs">GitHub Actions</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Item 2: Briskode Technology (Internship) -->
+            <div class="relative flex flex-col md:flex-row items-center reveal-on-scroll">
+              
+              <!-- Cloud Node Icon -->
+              <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-[var(--surface)] border-2 border-[var(--border)] shadow-md flex items-center justify-center text-[var(--text-muted)] z-20">
+                <svg viewBox="0 0 100 80" class="w-4 h-4 fill-current">
+                  <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z"/>
+                </svg>
+              </div>
+
+              <!-- Content Card (Slides from right on desktop) -->
+              <div class="w-full md:w-[46%] ml-12 md:ml-auto pl-2 md:pl-6 md:pr-0">
+                <div class="cloud-card p-5 space-y-3">
+                  <div class="space-y-1">
+                    <div class="flex items-center justify-between text-xs text-[var(--text-muted)] font-mono">
+                      <span>Mar 2024 – Oct 2024</span>
+                      <span class="px-2 py-0.5 rounded bg-[var(--surface-2)] text-[var(--text-muted)] font-bold">Internship</span>
+                    </div>
+                    <h3 class="text-base font-bold text-[var(--text)]">Web Development Intern</h3>
+                    <p class="text-xs font-semibold text-[var(--text-muted)]">Briskode Technology Pvt. Ltd.</p>
+                  </div>
+
+                  <ul class="text-xs text-[var(--text-muted)] space-y-1.5 leading-relaxed">
+                    <li>• Built and shipped 10+ responsive UI components and pages using React.js and Next.js for client-facing SaaS products.</li>
+                    <li>• Designed and consumed REST APIs connecting frontend and backend, enabling reliable production data flow.</li>
+                    <li>• Gained practical experience in agile sprints, modern component architectures, and deployment pipelines.</li>
+                  </ul>
+
+                  <div class="pt-1 flex flex-wrap gap-1.5">
+                    <span class="skill-chip text-[11px]">React.js</span>
+                    <span class="skill-chip text-[11px]">Next.js</span>
+                    <span class="skill-chip text-[11px]">REST APIs</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS SECTION -->
+    <section id="projects" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)] bg-[var(--surface-2)]">
+      <div class="max-w-[1200px] mx-auto space-y-12">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div class="space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider font-mono text-[var(--primary)]">Production Deliverables</span>
+            <h2 class="text-h2">Featured Projects</h2>
+            <p class="text-sm sm:text-base text-[var(--text-muted)] max-w-xl">
+              Click any project card to open the complete architectural case study.
+            </p>
+          </div>
+
+          <!-- Project Filter Bar with Animated Pill Indicator -->
+          <div class="overflow-x-auto pb-2 md:pb-0">
+            <div class="filter-pill-container">
+              <button class="project-filter-btn filter-btn active" data-filter="all">All</button>
+              <button class="project-filter-btn filter-btn" data-filter="salesforce">Salesforce</button>
+              <button class="project-filter-btn filter-btn" data-filter="ai">AI</button>
+              <button class="project-filter-btn filter-btn" data-filter="integration">Integrations</button>
+              <button class="project-filter-btn filter-btn" data-filter="fullstack">Full-stack</button>
+            </div>
           </div>
         </div>
 
         <!-- Projects Grid -->
-        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          <!-- Project 1: Outlook Add-in for Salesforce -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800" data-category="integration core">
-            <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-sf-blue/15 text-sf-accent font-semibold border border-sf-blue/25">PRODUCTIVITY SUITE</span>
-              <span class="text-slate-400 font-mono text-[11px]">Demo-Ready · In-House Tool</span>
+          <!-- FEATURE CARD (Double Width): Outlook Add-in for Salesforce -->
+          <div class="project-item cloud-card p-6 sm:p-8 space-y-6 md:col-span-2 border-[var(--primary)]/30" data-category="salesforce integration">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center font-bold text-lg">
+                  ✉️
+                </div>
+                <div>
+                  <span class="text-[11px] font-mono font-bold uppercase text-[var(--primary)] tracking-wider">Featured Productivity Tool</span>
+                  <h3 class="text-xl sm:text-2xl font-bold text-[var(--text)]">In-House Outlook Add-in for Salesforce</h3>
+                </div>
+              </div>
+              <div class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 w-fit">
+                Demo-Ready · Company-Wide Tool
+              </div>
             </div>
-            
-            <h3 class="text-xl font-bold text-white group-hover:text-sf-accent">
-              Outlook Add-in for Salesforce (Multi-Org PKCE)
-            </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Built an in-house enterprise Outlook add-in replacing expensive third-party connectors. Features a Connected App with OAuth 2.0 PKCE login supporting any production/sandbox org without hardcoded org limits.
+
+            <p class="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed">
+              <strong>Problem:</strong> Replaced expensive commercial third-party connectors with an in-house Connected App featuring seamless OAuth 2.0 PKCE authentication for arbitrary sandbox and production orgs without hardcoded limits.
             </p>
 
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
+            <!-- INTERACTIVE OAUTH 2.0 PKCE FLOW DIAGRAM -->
+            <div class="pkce-flow-container space-y-3">
+              <div class="flex items-center justify-between text-xs font-bold text-[var(--text)]">
+                <span class="flex items-center gap-1.5 font-mono">
+                  <svg class="w-4 h-4 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  Interactive Architecture: OAuth 2.0 PKCE Flow (Hover to animate)
+                </span>
+                <span class="text-[11px] font-mono text-[var(--text-muted)]">Zero Hardcoded Endpoints</span>
+              </div>
+
+              <!-- Animated Diagram Nodes -->
+              <div class="grid grid-cols-1 sm:grid-cols-6 gap-2 text-center items-center">
+                <div class="pkce-node">Outlook Add-in</div>
+                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs">──►</div>
+                <div class="pkce-node">login / test.salesforce.com</div>
+                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs">──►</div>
+                <div class="pkce-node">Token & instance_url</div>
+                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs">──►</div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-center">
+                <div class="pkce-node">Dynamic SOQL & Describe API</div>
+                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs self-center">──►</div>
+                <div class="pkce-node text-emerald-600 dark:text-emerald-400">1-Click Idempotent Logging</div>
+              </div>
+            </div>
+
+            <!-- Outcomes & Highlights -->
+            <ul class="text-xs sm:text-sm text-[var(--text-muted)] space-y-2">
               <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-sf-accent mt-0.5"></i>
-                <span><strong class="text-slate-200">Metadata-Discovery Layer:</strong> REST APIs & dynamic SOQL dynamically discover and edit standard/custom fields for Contacts, Leads, Accounts & Opportunities.</span>
+                <span class="text-emerald-500 font-bold">✔</span>
+                <span><strong>Metadata Discovery Layer:</strong> REST APIs & dynamic SOQL view and edit standard/custom fields on Contacts, Leads, Accounts & Opportunities.</span>
               </li>
               <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-sf-accent mt-0.5"></i>
-                <span><strong class="text-slate-200">1-Click Email Logging:</strong> Automatically logs threads to Tasks & EmailMessage records with idempotent deduplication.</span>
+                <span class="text-emerald-500 font-bold">✔</span>
+                <span><strong>Idempotent Email Sync:</strong> Deduplication logic prevents duplicate Tasks and EmailMessage records on multiple thread replies.</span>
               </li>
             </ul>
 
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Connected Apps</span>
-              <span class="badge-tag bg-slate-800/80 text-amber-300">OAuth 2.0 PKCE</span>
-              <span class="badge-tag bg-slate-800/80 text-sky-300">Dynamic SOQL</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Salesforce REST API</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Office.js</span>
+            <div class="pt-3 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border)]">
+              <div class="flex flex-wrap gap-1.5">
+                <span class="skill-chip text-xs">Connected App</span>
+                <span class="skill-chip text-xs">OAuth 2.0 PKCE</span>
+                <span class="skill-chip text-xs">Dynamic SOQL</span>
+                <span class="skill-chip text-xs">Salesforce REST</span>
+                <span class="skill-chip text-xs">Office.js</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button data-open-case-study="outlook" class="btn-primary text-xs py-2 px-4">
+                  View Full Case Study
+                </button>
+                <span class="text-xs text-[var(--text-muted)] font-mono opacity-60 cursor-not-allowed">[DEMO_URL]</span>
+                <span class="text-xs text-[var(--text-muted)] font-mono opacity-60 cursor-not-allowed">[REPO_URL]</span>
+              </div>
             </div>
+
           </div>
 
           <!-- Project 2: Agentforce Suite for B2B Commerce & Service -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-purple-500/20" data-category="ai">
+          <div class="project-item cloud-card p-6 space-y-4" data-category="ai salesforce">
             <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-purple-500/15 text-purple-300 font-semibold border border-purple-500/25">AGENTFORCE · 4 AGENTS</span>
-              <span class="text-emerald-400 font-mono text-[11px] font-semibold"><i class="fa-solid fa-bolt"></i> ~40% Faster First Response</span>
+              <span class="px-2.5 py-1 rounded bg-purple-500/10 text-purple-600 dark:text-purple-300 font-bold font-mono">Agentforce · 4 Agents</span>
+              <span class="text-purple-600 dark:text-purple-300 font-mono text-[11px] font-bold">~40% Faster First Response</span>
             </div>
             
-            <h3 class="text-xl font-bold text-white">
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">
               Agentforce AI Suite for B2B Commerce & Service
             </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Designed and deployed 4 production Agentforce agents live on Experience Cloud: <strong class="text-purple-300">Employee Agent, Guided Shopping Agent, Debug Log Analysis Agent, and Customer Service Agent</strong>.
+
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              <strong>Problem:</strong> Repetitive tier-1 inquiries and order status requests overloaded customer service agents during peak seasons.
             </p>
 
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-purple-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Autonomous Action Dispatch:</strong> Defined Topics & Invocable Apex Actions routing user intents directly to order status, catalog search, and case triage.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-purple-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Impact:</strong> Cut manual first-response handling time by ~40% for customer service teams.</span>
-              </li>
+            <ul class="text-xs text-[var(--text-muted)] space-y-1.5">
+              <li>• Designed and deployed 4 production agents (Employee, Guided Shopping, Debug Log Analyzer, Customer Service).</li>
+              <li>• Defined Topics and custom Actions connecting agent reasoning directly to Apex invocable methods.</li>
+              <li>• Cut manual first-response handling time by ~40% across live Experience Cloud communities.</li>
             </ul>
 
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-purple-900/30 text-purple-300">Agentforce</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Experience Cloud</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Apex Invocables</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Topic Routing</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Einstein Trust Layer</span>
+            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-[var(--border)]">
+              <span class="skill-chip text-xs">Agentforce</span>
+              <span class="skill-chip text-xs">Agent Builder</span>
+              <span class="skill-chip text-xs">Apex Invocable</span>
+              <span class="skill-chip text-xs">Experience Cloud</span>
+            </div>
+
+            <div class="pt-2 flex items-center justify-between">
+              <button data-open-case-study="agentforce-suite" class="btn-secondary text-xs py-2 px-3">
+                Case Study
+              </button>
+              <div class="flex gap-2 text-xs font-mono text-[var(--text-muted)] opacity-60">
+                <span>[DEMO_URL]</span>
+                <span>[REPO_URL]</span>
+              </div>
             </div>
           </div>
 
-          <!-- Project 3: Agentforce Unstructured PDF Extraction Pipeline -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800" data-category="ai integration">
+          <!-- Project 3: Agentforce PDF Extraction Pipeline -->
+          <div class="project-item cloud-card p-6 space-y-4" data-category="ai integration">
             <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 font-semibold border border-emerald-500/25">DOCUMENT AUTOMATION</span>
-              <span class="text-slate-400 font-mono text-[11px]">Zero Manual Data Entry</span>
+              <span class="px-2.5 py-1 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 font-bold font-mono">Document AI</span>
+              <span class="text-[var(--text-muted)] font-mono text-[11px]">Zero Manual Data Entry</span>
             </div>
             
-            <h3 class="text-xl font-bold text-white">
-              Agentforce PDF Data Extraction & Record Pipeline
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">
+              Agentforce PDF Extraction & Record Pipeline
             </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Engineered an automated pipeline pairing Agentforce generative AI with Salesforce automation to parse unstructured PDF documents (invoices, POs, customer onboarding forms) and auto-populate relational CRM records.
+
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              <strong>Problem:</strong> Inbound purchase orders and invoices in PDF format required tedious manual transcription into CRM objects.
             </p>
 
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Schema Matching:</strong> Extracted fields mapped automatically to custom objects, with validation rules guarding data integrity.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Exception Handling:</strong> Automatically creates triage tasks for human-in-the-loop review on low-confidence extractions.</span>
-              </li>
+            <ul class="text-xs text-[var(--text-muted)] space-y-1.5">
+              <li>• Engineered an automated Agentforce extraction pipeline converting raw PDFs into validated Salesforce records.</li>
+              <li>• Enforced field validation rules to prevent malformed records and routed edge cases to human triage.</li>
+              <li>• Async batch processing architecture ensures high-volume documents do not hit governor limits.</li>
             </ul>
 
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-slate-800/80 text-emerald-300">Agentforce</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">PDF Parsing</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Apex Async</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Record Automation</span>
+            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-[var(--border)]">
+              <span class="skill-chip text-xs">Agentforce</span>
+              <span class="skill-chip text-xs">PDF Parsing</span>
+              <span class="skill-chip text-xs">Apex Async</span>
+              <span class="skill-chip text-xs">Validation Rules</span>
+            </div>
+
+            <div class="pt-2 flex items-center justify-between">
+              <button data-open-case-study="pdf-pipeline" class="btn-secondary text-xs py-2 px-3">
+                Case Study
+              </button>
+              <div class="flex gap-2 text-xs font-mono text-[var(--text-muted)] opacity-60">
+                <span>[DEMO_URL]</span>
+                <span>[REPO_URL]</span>
+              </div>
             </div>
           </div>
 
-          <!-- Project 4: Stripe & Multi-Gateway Bidirectional Payment Sync -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800" data-category="integration core">
+          <!-- Project 4: Stripe & Multi-Gateway Payment Sync -->
+          <div class="project-item cloud-card p-6 space-y-4" data-category="integration salesforce">
             <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-300 font-semibold border border-amber-500/25">PAYMENTS & FINTECH</span>
-              <span class="text-slate-400 font-mono text-[11px]">~25% Ticket Reduction</span>
+              <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold font-mono">FinTech Sync</span>
+              <span class="text-amber-600 dark:text-amber-400 font-mono text-[11px] font-bold">~25% Ticket Reduction</span>
             </div>
             
-            <h3 class="text-xl font-bold text-white">
-              Bidirectional Stripe & Multi-Gateway Payment Sync
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">
+              Bidirectional Stripe & Multi-Gateway Sync
             </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Delivered enterprise payment integrations across Stripe, PayPal, and CyberSource (SOAP). Handled order management, order splitting, and automated billing reconciliation for a high-volume US client.
+
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              <strong>Problem:</strong> Fragmented payment statuses across Stripe, PayPal, and CyberSource caused billing disputes and reconciliation overhead.
             </p>
 
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-amber-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Zero Manual Reconciliation:</strong> Webhook listeners sync payment statuses, refund states, and chargebacks in real time.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-amber-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">QuickBooks Credit System:</strong> Automated credit deductions and billing dispute resolution, cutting open tickets by ~25%.</span>
-              </li>
+            <ul class="text-xs text-[var(--text-muted)] space-y-1.5">
+              <li>• Delivered bidirectional Stripe sync, PayPal, and CyberSource (SOAP) handling order management and order splitting.</li>
+              <li>• Automated customer credit deductions and balance sync with QuickBooks Online.</li>
+              <li>• Reduced open billing dispute tickets by ~25% and eliminated manual month-end reconciliation.</li>
             </ul>
 
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-slate-800/80 text-amber-300">Stripe REST API</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">CyberSource (SOAP)</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">QuickBooks Online</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Apex Webhooks</span>
+            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-[var(--border)]">
+              <span class="skill-chip text-xs">Stripe API</span>
+              <span class="skill-chip text-xs">CyberSource SOAP</span>
+              <span class="skill-chip text-xs">QuickBooks Online</span>
+              <span class="skill-chip text-xs">Apex Webhooks</span>
+            </div>
+
+            <div class="pt-2 flex items-center justify-between">
+              <button data-open-case-study="stripe-sync" class="btn-secondary text-xs py-2 px-3">
+                Case Study
+              </button>
+              <div class="flex gap-2 text-xs font-mono text-[var(--text-muted)] opacity-60">
+                <span>[DEMO_URL]</span>
+                <span>[REPO_URL]</span>
+              </div>
             </div>
           </div>
 
-          <!-- Project 5: FastAPI Middleware for Heymilo AI & GoHighLevel -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800" data-category="integration fullstack">
+          <!-- Project 5: FastAPI Middleware for Heymilo AI & GHL -->
+          <div class="project-item cloud-card p-6 space-y-4" data-category="integration fullstack">
             <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-sky-500/15 text-sky-300 font-semibold border border-sky-500/25">AI MIDDLEWARE</span>
-              <span class="text-slate-400 font-mono text-[11px]">Python & FastAPI Microservice</span>
+              <span class="px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold font-mono">Python Middleware</span>
+              <span class="text-[var(--text-muted)] font-mono text-[11px]">Real-Time Streaming</span>
             </div>
             
-            <h3 class="text-xl font-bold text-white">
-              Heymilo AI & GoHighLevel Integration Middleware
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">
+              FastAPI Middleware for Heymilo AI & GoHighLevel
             </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Architected a Python FastAPI microservice connecting third-party platforms (Heymilo AI hiring platform, GoHighLevel CRM) to Salesforce for bidirectional candidate and contact synchronization.
+
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              <strong>Problem:</strong> High-volume external applicant and lead events required low-latency ingest without exhausting Salesforce API limits.
             </p>
 
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-sky-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Real-Time Data Streaming:</strong> Leveraged Platform Events and Data Cloud for real-time trigger dispatch and org-to-org synchronization.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-sky-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">High Throughput:</strong> Async processing queue preventing governor limit exhaustion in high-volume hiring sprints.</span>
-              </li>
+            <ul class="text-xs text-[var(--text-muted)] space-y-1.5">
+              <li>• Constructed a Python FastAPI middleware bridging external systems with Salesforce Platform Events.</li>
+              <li>• Synchronized real-time candidate and contact updates alongside Data Cloud streams.</li>
+              <li>• Built retry buffers and rate-limit guardrails ensuring 99.9% event delivery reliability.</li>
             </ul>
 
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-slate-800/80 text-sky-300">FastAPI</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Python 3</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Platform Events</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Data Cloud</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">GoHighLevel</span>
+            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-[var(--border)]">
+              <span class="skill-chip text-xs">FastAPI</span>
+              <span class="skill-chip text-xs">Python 3</span>
+              <span class="skill-chip text-xs">Platform Events</span>
+              <span class="skill-chip text-xs">Data Cloud</span>
+            </div>
+
+            <div class="pt-2 flex items-center justify-between">
+              <button data-open-case-study="fastapi-middleware" class="btn-secondary text-xs py-2 px-3">
+                Case Study
+              </button>
+              <div class="flex gap-2 text-xs font-mono text-[var(--text-muted)] opacity-60">
+                <span>[DEMO_URL]</span>
+                <span>[REPO_URL]</span>
+              </div>
             </div>
           </div>
 
-          <!-- Project 6: Automated GitHub CI/CD Pipeline for Salesforce -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800" data-category="fullstack core">
+          <!-- Project 6: GitHub CI/CD Pipeline for Salesforce -->
+          <div class="project-item cloud-card p-6 space-y-4" data-category="salesforce fullstack">
             <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 font-semibold border border-emerald-500/25">DEVOPS & RELEASE MGMT</span>
-              <span class="text-emerald-400 font-mono text-[11px] font-semibold"><i class="fa-solid fa-shield"></i> -30% Production Issues</span>
+              <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold font-mono">DevOps & Release</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-mono text-[11px] font-bold">99%+ Release Uptime</span>
             </div>
             
-            <h3 class="text-xl font-bold text-white">
-              Automated GitHub CI/CD Pipeline for Salesforce
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">
+              GitHub CI/CD Pipeline for Salesforce
             </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Standardized and established an automated multi-branch GitHub Actions CI/CD release pipeline across 3 active client projects (Dev, QA, Staging, and Production scratch/sandbox orgs).
+
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              <strong>Problem:</strong> Manual change sets across 3 active client tracks led to code regressions, branch divergence, and production outages.
             </p>
 
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Quality Gates:</strong> Automated Apex unit test enforcement, PMD static analysis, and scratch org validation before PR merges.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Zero-Downtime Releases:</strong> Maintained 99%+ uptime across release cycles and lowered regression defects by ~30%.</span>
-              </li>
+            <ul class="text-xs text-[var(--text-muted)] space-y-1.5">
+              <li>• Architected an automated multi-branch GitHub Actions pipeline enforcing scratch org testing on every PR.</li>
+              <li>• Automated Apex unit test coverage checks (&gt;85% gate) and PMD static code analysis.</li>
+              <li>• Cut recurring production issues by ~30% with 99%+ uptime across 3 project tracks.</li>
             </ul>
 
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-slate-800/80 text-emerald-300">GitHub Actions</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Salesforce CLI (sf)</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Release Engineering</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Scratch Orgs</span>
+            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-[var(--border)]">
+              <span class="skill-chip text-xs">GitHub Actions</span>
+              <span class="skill-chip text-xs">Salesforce CLI</span>
+              <span class="skill-chip text-xs">Scratch Orgs</span>
+              <span class="skill-chip text-xs">Release Engineering</span>
+            </div>
+
+            <div class="pt-2 flex items-center justify-between">
+              <button data-open-case-study="cicd-pipeline" class="btn-secondary text-xs py-2 px-3">
+                Case Study
+              </button>
+              <div class="flex gap-2 text-xs font-mono text-[var(--text-muted)] opacity-60">
+                <span>[DEMO_URL]</span>
+                <span>[REPO_URL]</span>
+              </div>
             </div>
           </div>
 
-          <!-- Project 7: Next.js E-Commerce Booking Flow on AWS Amplify -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800" data-category="fullstack">
+          <!-- Project 7: Next.js E-Commerce on AWS Amplify -->
+          <div class="project-item cloud-card p-6 space-y-4" data-category="fullstack">
             <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-purple-500/15 text-purple-300 font-semibold border border-purple-500/25">PRODUCTION CLOUD APP</span>
-              <span class="text-slate-400 font-mono text-[11px]">planitrentals.com</span>
+              <span class="px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold font-mono">Production Cloud</span>
+              <span class="text-[var(--text-muted)] font-mono text-[11px]">planitrentals.com</span>
             </div>
             
-            <h3 class="text-xl font-bold text-white">
-              Next.js E-Commerce Booking Flow (planitrentals.com)
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">
+              Next.js E-Commerce Booking Flow
             </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Engineered the end-to-end booking flow of a live rental e-commerce platform hosted on AWS Amplify, connecting Next.js frontend with AWS Lambda, RDS (MySQL), and Salesforce REST APIs.
+
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              <strong>Problem:</strong> Real-time rental reservations required immediate inventory locking and synchronization with Salesforce order dispatch.
             </p>
 
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-purple-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Real-Time Inventory:</strong> Concurrency-safe availability locking preventing double bookings during simultaneous user sessions.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-purple-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">AWS Infrastructure:</strong> Managed deployment across Amplify, EC2, Lambda, RDS, S3, CloudFront, Route 53 and ACM.</span>
-              </li>
+            <ul class="text-xs text-[var(--text-muted)] space-y-1.5">
+              <li>• Built the live booking flow on AWS Amplify using Next.js with Lambda microservices and RDS (MySQL).</li>
+              <li>• Consumed Salesforce REST APIs for customer account and order dispatch creation.</li>
+              <li>• Maintained infrastructure across 5 AWS services including S3, CloudFront, Route 53, and ACM.</li>
             </ul>
 
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-slate-800/80 text-purple-300">Next.js</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">AWS Lambda / RDS</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Salesforce REST</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">AWS Amplify</span>
+            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-[var(--border)]">
+              <span class="skill-chip text-xs">Next.js</span>
+              <span class="skill-chip text-xs">AWS Lambda</span>
+              <span class="skill-chip text-xs">RDS MySQL</span>
+              <span class="skill-chip text-xs">Salesforce REST</span>
             </div>
-          </div>
 
-          <!-- Project 8: Power BI Live Salesforce Sales Dashboard -->
-          <div class="project-card glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800" data-category="integration core">
-            <div class="flex items-center justify-between text-xs">
-              <span class="px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-300 font-semibold border border-amber-500/25">EXECUTIVE ANALYTICS</span>
-              <span class="text-amber-400 font-mono text-[11px] font-semibold"><i class="fa-solid fa-clock"></i> Saved ~5 Hours/Week</span>
-            </div>
-            
-            <h3 class="text-xl font-bold text-white">
-              Power BI Live Salesforce Analytics Dashboard
-            </h3>
-            
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Built a real-time Salesforce data ingestion pipeline powering executive Power BI dashboards for lead conversion velocity, opportunity pipeline health, and revenue forecasting.
-            </p>
-
-            <ul class="text-xs text-slate-400 space-y-2 pt-1">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-amber-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Automated Pipeline:</strong> Eliminated error-prone manual weekly spreadsheets, saving management ~5 hours per week.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-amber-400 mt-0.5"></i>
-                <span><strong class="text-slate-200">Security-Aware:</strong> Enforced Salesforce role hierarchy and object/field-level security permissions in data queries.</span>
-              </li>
-            </ul>
-
-            <div class="pt-2 flex flex-wrap gap-1.5 border-t border-slate-800/80">
-              <span class="badge-tag bg-slate-800/80 text-amber-300">Power BI</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Sales Cloud</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">SOQL Data Sync</span>
-              <span class="badge-tag bg-slate-800/80 text-slate-300">Executive KPIs</span>
+            <div class="pt-2 flex items-center justify-between">
+              <button data-open-case-study="nextjs-ecommerce" class="btn-secondary text-xs py-2 px-3">
+                Case Study
+              </button>
+              <div class="flex gap-2 text-xs font-mono text-[var(--text-muted)] opacity-60">
+                <span>[DEMO_URL]</span>
+                <span>[REPO_URL]</span>
+              </div>
             </div>
           </div>
 
@@ -826,215 +1116,168 @@
       </div>
     </section>
 
-    <!-- ARCHITECTURAL DEEP DIVE SECTION -->
-    <section id="architecture" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
-      <div class="max-w-6xl mx-auto space-y-12">
+    <!-- VIBE CODING SECTION ("Built with AI") -->
+    <!-- Dark navy section regardless of theme for striking visual contrast -->
+    <section id="vibe-coding" class="vibe-coding-section py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[1200px] mx-auto space-y-16">
         
         <div class="text-center space-y-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sf-accent/10 border border-sf-accent/20 text-sf-accent text-xs font-semibold uppercase tracking-wider">
-            Systems Engineering
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Architectural Deep Dives</h2>
-          <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
-            A peek behind the curtain at two major custom systems built from scratch.
+          <span class="text-xs font-bold uppercase tracking-wider font-mono text-purple-400">Engineering Philosophy</span>
+          <h2 class="text-h2 text-white">Vibe coding, with engineering discipline.</h2>
+          <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            I leverage AI to accelerate exploration, boilerplate, and syntax generation — but every single diff, architectural boundary, and test case is verified with rigorous engineering standards.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Horizontal "Prompt → Product" 6-Step Timeline -->
+        <div class="space-y-4">
+          <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+            Prompt → Product Pipeline (6 Stages)
+          </div>
           
-          <!-- Architecture Card 1: Outlook Add-in Architecture -->
-          <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-5 border-slate-800">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-              <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-envelope-open-text text-sf-blue text-lg"></i>
-                <h3 class="font-bold text-white text-base">In-House Outlook Add-in Flow</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+            
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-purple-400">01</span>
+                <span class="text-xs">🎯</span>
               </div>
-              <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-800 text-slate-300">Multi-Org OAuth PKCE</span>
+              <h4 class="font-bold text-sm text-white">Prompt</h4>
+              <p class="text-[11px] text-slate-300 leading-relaxed">Crisp specification of inputs, outputs, error conditions & governor limits.</p>
             </div>
 
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Solves the vendor lock-in problem of third-party mail connectors by establishing a stateless OAuth 2.0 PKCE flow that allows logging into arbitrary orgs (scratch, sandbox, custom domains, production) with zero hardcoded endpoints.
-            </p>
-
-            <!-- Visual Flowchart Box -->
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 font-mono text-[11px]">
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-sf-accent font-bold">1. Outlook Client</span>
-                <span class="text-slate-400 text-[10px]">Office.js / Manifest</span>
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-purple-400">02</span>
+                <span class="text-xs">📐</span>
               </div>
-              <div class="text-center text-slate-500"><i class="fa-solid fa-arrow-down"></i> PKCE Code Challenge (S256)</div>
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-purple-300 font-bold">2. Connected App Auth</span>
-                <span class="text-slate-400 text-[10px]">login / test.salesforce.com</span>
-              </div>
-              <div class="text-center text-slate-500"><i class="fa-solid fa-arrow-down"></i> instance_url + Access Token</div>
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-emerald-300 font-bold">3. Dynamic Metadata Discovery</span>
-                <span class="text-slate-400 text-[10px]">describeSObject() / Dynamic SOQL</span>
-              </div>
-              <div class="text-center text-slate-500"><i class="fa-solid fa-arrow-down"></i> Idempotent Upsert</div>
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-amber-300 font-bold">4. Salesforce Records</span>
-                <span class="text-slate-400 text-[10px]">Contacts, Leads, Tasks, Emails</span>
-              </div>
+              <h4 class="font-bold text-sm text-white">Plan</h4>
+              <p class="text-[11px] text-slate-300 leading-relaxed">Map data models, triggers vs flows, and async queue structures first.</p>
             </div>
 
-            <div class="text-xs text-slate-400 space-y-1">
-              <p>✔ <strong class="text-slate-200">Key Innovation:</strong> Eliminates duplicate task logging through SHA-256 InternetMessageId hashing.</p>
-              <p>✔ <strong class="text-slate-200">Flexibility:</strong> Schema discovery automatically respects field-level security and custom layouts.</p>
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-purple-400">03</span>
+                <span class="text-xs">⚡</span>
+              </div>
+              <h4 class="font-bold text-sm text-white">Generate</h4>
+              <p class="text-[11px] text-slate-300 leading-relaxed">Generate targeted snippets with Claude, Antigravity, or ChatGPT API.</p>
             </div>
+
+            <div class="vibe-card p-4 space-y-2 border border-purple-500/50 bg-[#112445]">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-emerald-400">04</span>
+                <span class="text-xs">🔍</span>
+              </div>
+              <h4 class="font-bold text-sm text-white">Review</h4>
+              <p class="text-[11px] text-slate-300 leading-relaxed"><strong>I check myself:</strong> security, SOQL in loops, naming, and null edge cases.</p>
+            </div>
+
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-purple-400">05</span>
+                <span class="text-xs">🧪</span>
+              </div>
+              <h4 class="font-bold text-sm text-white">Test</h4>
+              <p class="text-[11px] text-slate-300 leading-relaxed">Write unit tests (&gt;85% coverage) with realistic bulk mock data.</p>
+            </div>
+
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-purple-400">06</span>
+                <span class="text-xs">🚀</span>
+              </div>
+              <h4 class="font-bold text-sm text-white">Deploy</h4>
+              <p class="text-[11px] text-slate-300 leading-relaxed">Automated GitHub Actions validate and deploy with zero downtime.</p>
+            </div>
+
           </div>
-
-          <!-- Architecture Card 2: Agentforce Orchestration Pipeline -->
-          <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-5 border-slate-800">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-              <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-robot text-purple-400 text-lg"></i>
-                <h3 class="font-bold text-white text-base">Agentforce Action Pipeline</h3>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-purple-950/60 text-purple-300 border border-purple-800/50">GenAI Guardrails</span>
-            </div>
-
-            <p class="text-xs text-slate-300 leading-relaxed">
-              How the 4 production Agentforce agents reason over customer and employee inputs, guardrail against prompt injection, route across Topics, and trigger transactional Apex actions.
-            </p>
-
-            <!-- Visual Flowchart Box -->
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 font-mono text-[11px]">
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-purple-300 font-bold">1. User Query / Uploaded PDF</span>
-                <span class="text-slate-400 text-[10px]">Experience Cloud / Bot</span>
-              </div>
-              <div class="text-center text-slate-500"><i class="fa-solid fa-arrow-down"></i> Einstein Trust Layer & Masking</div>
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-sf-accent font-bold">2. Agentforce Agent Planner</span>
-                <span class="text-slate-400 text-[10px]">Topic Classifier (Shopping, Triage)</span>
-              </div>
-              <div class="text-center text-slate-500"><i class="fa-solid fa-arrow-down"></i> Parameter Extraction</div>
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-emerald-300 font-bold">3. Apex Invocable Action</span>
-                <span class="text-slate-400 text-[10px]">@InvocableMethod(Callout=true)</span>
-              </div>
-              <div class="text-center text-slate-500"><i class="fa-solid fa-arrow-down"></i> Execution & Status Return</div>
-              <div class="flex items-center justify-between p-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200">
-                <span class="text-amber-300 font-bold">4. CRM State & Response</span>
-                <span class="text-slate-400 text-[10px]">Data Cloud Sync & Natural Dialogue</span>
-              </div>
-            </div>
-
-            <div class="text-xs text-slate-400 space-y-1">
-              <p>✔ <strong class="text-slate-200">Zero Hallucinations:</strong> Strict instructions and grounding against live SOQL records.</p>
-              <p>✔ <strong class="text-slate-200">High Reliability:</strong> Graceful fallback to human agents with automated case creation.</p>
-            </div>
-          </div>
-
         </div>
 
-      </div>
-    </section>
-
-    <!-- PROFESSIONAL EXPERIENCE & LEADERSHIP -->
-    <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/40">
-      <div class="max-w-5xl mx-auto space-y-12">
-        
-        <div class="text-center space-y-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sf-blue/10 border border-sf-blue/20 text-sf-accent text-xs font-semibold uppercase tracking-wider">
-            Career Journey
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Work Experience & Leadership</h2>
-          <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
-            Delivering high-stakes Salesforce architectures and leading engineering delivery for US and global clients.
-          </p>
-        </div>
-
-        <div class="relative space-y-10 pl-6 sm:pl-8 border-l-2 border-slate-800">
+        <!-- Two Columns: Faux Terminal (Left) & My Rules Checklist (Right) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <!-- Role 1: Current -->
-          <div class="relative group">
-            <!-- Timeline Pin -->
-            <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-sf-blue border-4 border-slate-950 shadow-lg shadow-sf-blue/50"></div>
-            
-            <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-4 border-slate-800">
-              
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
-                <div>
-                  <h3 class="text-xl font-bold text-white">Software Developer – Salesforce & AI Integrations</h3>
-                  <div class="text-sm font-semibold text-sf-accent">Abacus System & Solution Pvt. Ltd. · Bhubaneswar, India</div>
-                </div>
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-sf-blue/15 text-sf-accent border border-sf-blue/25 text-xs font-mono font-bold w-fit">
-                  Nov 2024 – Present (Full-Time)
-                </div>
+          <!-- Faux Terminal with Typed Prompt and Applied Diff -->
+          <div class="lg:col-span-7 vibe-card p-5 space-y-4 font-mono text-xs border border-slate-700">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-400 text-[11px]">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                <span class="ml-2 text-slate-300">vibe-terminal.sh</span>
               </div>
+              <span>Claude / Antigravity Agent</span>
+            </div>
 
-              <div class="text-slate-300 text-sm space-y-3 leading-relaxed">
-                <p class="font-medium text-white flex items-center gap-2">
-                  <i class="fa-solid fa-users text-purple-400"></i>
-                  <span><strong>Leadership & Client Ownership:</strong> Lead technical delivery across 3 concurrent production client tracks (B2B Commerce, Health Cloud, Custom LWC), mentoring 4 junior developers with daily code reviews and sprint unblocking. Own day-to-day communication with US and global stakeholders in Agile/Scrum sprints.</span>
-                </p>
+            <!-- Prompt Typing Area -->
+            <div class="space-y-1 text-slate-300">
+              <p class="text-purple-400 font-bold">$ prompt-agent --task="triage-action"</p>
+              <p id="vibe-prompt-text" class="text-emerald-300 font-medium"></p>
+            </div>
 
-                <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside pl-1 marker:text-sf-blue">
-                  <li><strong>Agentforce Production Rollout:</strong> Designed and deployed 4 production Agentforce agents on Experience Cloud, cutting manual first-response handling time by ~40%.</li>
-                  <li><strong>Document AI Automation:</strong> Built an Agentforce PDF-extraction pipeline that auto-creates Salesforce records from unstructured documents, removing manual data entry.</li>
-                  <li><strong>Custom Outlook Add-in:</strong> Created an in-house demo-ready Outlook add-in with multi-org OAuth 2.0 PKCE, dynamic SOQL metadata discovery, and 1-click email logging.</li>
-                  <li><strong>Full-Stack Salesforce Delivery:</strong> Developed Apex triggers, batch/async jobs, unit tests, Visualforce, Aura, and 15+ LWCs pixel-matched to Zeplin designs.</li>
-                  <li><strong>Sales & B2B Commerce:</strong> Managed Pantero B2B Commerce (CloudCraze) lead-to-opportunity conversions, user access (MFA/SSO/profiles), and built a Lightning B2B storefront to resolve SEO limitations with Google Tag Manager tracking.</li>
-                  <li><strong>10+ Integrations & Middleware:</strong> Shipped integrations with Stripe, PayPal, CyberSource (SOAP), Google Sheets, Heymilo AI, Power BI, QuickBooks, and GoHighLevel via FastAPI middleware and Data Cloud.</li>
-                  <li><strong>DevOps & Quality:</strong> Set up automated GitHub CI/CD pipelines for Salesforce, cutting recurring production issues by ~30% with 99%+ release uptime.</li>
-                </ul>
-              </div>
+            <!-- Diff Box -->
+            <div id="vibe-diff-box" class="opacity-0 transition-opacity duration-500 p-3.5 rounded bg-slate-950 border border-slate-800 space-y-1 overflow-x-auto text-[11px]">
+              <p class="text-slate-500">@@ Apex Diff: StripeWebhookHandler.cls @@</p>
+              <p class="text-emerald-400">+ @InvocableMethod(label='Verify Payment & Triage')</p>
+              <p class="text-emerald-400">+ public static List&lt;SyncResult&gt; verifyAndResolve(List&lt;Id&gt; caseIds) {</p>
+              <p class="text-slate-400">    // Enforcing strict bulkification & sharing rules</p>
+              <p class="text-emerald-400">+   Map&lt;Id, Case&gt; cases = new Map&lt;Id, Case&gt;([SELECT Id, Status FROM Case WHERE Id IN :caseIds]);</p>
+              <p class="text-emerald-400">+   return PaymentGateway.syncWithStripe(cases);</p>
+              <p class="text-emerald-400">+ }</p>
+            </div>
 
+            <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1">
+              <span class="text-emerald-400">✔ Unit Test Passed (92% Coverage)</span>
+              <span>PMD Security Scan: Clean</span>
             </div>
           </div>
 
-          <!-- Role 2: Previous Intern -->
-          <div class="relative group">
-            <!-- Timeline Pin -->
-            <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-slate-600 border-4 border-slate-950"></div>
+          <!-- "My Rules" Checklist & AI-Assisted Showcase Card -->
+          <div class="lg:col-span-5 space-y-6">
             
-            <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-3 border-slate-800">
-              
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
-                <div>
-                  <h3 class="text-lg font-bold text-white">Web Development Intern</h3>
-                  <div class="text-sm font-semibold text-slate-300">Briskode Technology Pvt. Ltd.</div>
-                </div>
-                <div class="text-xs text-slate-400 font-mono">
-                  Mar 2024 – Oct 2024 (8 mos)
-                </div>
-              </div>
-
-              <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside pl-1 marker:text-slate-500">
-                <li>Built and shipped 10+ responsive UI components and pages using React.js and Next.js for client-facing SaaS products.</li>
-                <li>Designed and consumed REST APIs connecting frontend and backend, supporting seamless data flow for production features.</li>
-                <li>Gained hands-on experience with modern component architecture, agile sprints, and production deployment workflows.</li>
-              </ul>
-
-            </div>
-          </div>
-
-          <!-- Education & Training -->
-          <div class="relative group">
-            <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-emerald-500 border-4 border-slate-950"></div>
-            
-            <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800">
-              <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-graduation-cap text-emerald-400"></i> Education & Professional Training
+            <div class="vibe-card p-6 space-y-4 border border-slate-700">
+              <h3 class="font-bold text-base text-white flex items-center gap-2">
+                <span class="text-purple-400 font-mono">⚡</span> My Vibe Coding Rules
               </h3>
-              
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-1">
-                <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-                  <div class="font-bold text-white text-sm">B.Tech in Computer Science</div>
-                  <div class="text-slate-300">Raajdhani Engineering College, Bhubaneswar</div>
-                  <div class="text-slate-500 font-mono text-[11px]">Jan 2019 – Jul 2023</div>
+
+              <div class="space-y-3 text-xs sm:text-sm text-slate-300">
+                <div class="flex items-start gap-2.5">
+                  <span class="text-emerald-400 font-bold">✔</span>
+                  <span><strong>I read every diff:</strong> AI never commits straight to main. Every line is reviewed for logic and security.</span>
                 </div>
-                
-                <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-                  <div class="font-bold text-white text-sm">Python Full Stack & Data Science</div>
-                  <div class="text-slate-300">Abacus Systems (Professional Training)</div>
-                  <div class="text-slate-500 font-mono text-[11px]">Sep 2023 – Feb 2024</div>
+                <div class="flex items-start gap-2.5">
+                  <span class="text-emerald-400 font-bold">✔</span>
+                  <span><strong>I write tests for business logic:</strong> Generative code must pass strict unit test thresholds with real assertions.</span>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <span class="text-emerald-400 font-bold">✔</span>
+                  <span><strong>I never paste secrets into prompts:</strong> API keys, client tokens, and sensitive org data are strictly excluded.</span>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <span class="text-emerald-400 font-bold">✔</span>
+                  <span><strong>I own the code:</strong> The developer is accountable for maintainability, uptime, and edge-case behavior.</span>
                 </div>
               </div>
+
+              <!-- Tools Used Chips -->
+              <div class="pt-3 border-t border-slate-800 flex flex-wrap gap-2 text-xs">
+                <span class="px-2.5 py-1 rounded bg-slate-900 text-purple-300 font-mono border border-slate-800">Claude Code</span>
+                <span class="px-2.5 py-1 rounded bg-slate-900 text-sky-300 font-mono border border-slate-800">Google Antigravity</span>
+                <span class="px-2.5 py-1 rounded bg-slate-900 text-emerald-300 font-mono border border-slate-800">ChatGPT API</span>
+              </div>
             </div>
+
+            <!-- Example AI-Assisted Project Card -->
+            <div class="vibe-card p-5 space-y-2 border border-slate-700">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-white">Hospital Management System</span>
+                <span class="text-purple-400 font-mono text-[11px]">AI-Assisted Build</span>
+              </div>
+              <p class="text-xs text-slate-300">
+                Full-stack Next.js web application for patient record management and appointment booking, built and verified with AI-assisted development workflows.
+              </p>
+            </div>
+
           </div>
 
         </div>
@@ -1042,56 +1285,78 @@
       </div>
     </section>
 
-    <!-- INTERACTIVE "SALESFORCE CLI" EASTER EGG -->
-    <section id="terminal" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
-      <div class="max-w-4xl mx-auto space-y-8">
+    <!-- CERTIFICATIONS SECTION -->
+    <section id="certifications" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
+      <div class="max-w-[1200px] mx-auto space-y-12">
         
         <div class="text-center space-y-2">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sf-blue/10 border border-sf-blue/20 text-sf-accent text-xs font-semibold uppercase tracking-wider font-mono">
-            Interactive Playground
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Salesforce Developer CLI</h2>
-          <p class="text-slate-400 text-xs sm:text-sm">
-            Try running commands or click the shortcut buttons below to inspect my credentials, projects, and contact details in terminal format.
+          <span class="text-xs font-bold uppercase tracking-wider font-mono text-[var(--primary)]">Official Credentials</span>
+          <h2 class="text-h2">Verified Certifications</h2>
+          <p class="text-sm sm:text-base text-[var(--text-muted)] max-w-xl mx-auto">
+            Credentials demonstrating expertise on Salesforce's latest AI frontier and autonomous reasoning platform.
           </p>
         </div>
 
-        <!-- Terminal Window -->
-        <div class="terminal-window p-5 sm:p-6 space-y-4">
-          <!-- Window Header -->
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-            <div class="flex items-center space-x-2">
-              <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-              <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-              <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-              <span class="ml-2 font-mono text-xs text-slate-400">rakesh@salesforce-cli:~ (zsh)</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          
+          <!-- Certification 1: Agentforce Specialist (Original Shield Artwork) -->
+          <div class="cloud-card p-6 sm:p-7 space-y-4 border-[var(--primary)]/30">
+            <div class="flex items-start gap-4">
+              <!-- Original Shield Illustration -->
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--primary)] to-cyan-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                <svg viewBox="0 0 100 100" class="w-8 h-8 fill-current">
+                  <path d="M50 15 L80 25 V50 C80 70 50 85 50 85 C50 85 20 70 20 50 V25 Z" fill="none" stroke="currentColor" stroke-width="6"/>
+                  <circle cx="50" cy="48" r="10" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="space-y-1 flex-1">
+                <span class="text-[11px] font-mono font-bold text-[var(--primary)] uppercase tracking-wider">Specialist Level</span>
+                <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">Salesforce Certified Agentforce Specialist</h3>
+                <p class="text-xs text-[var(--text-muted)]">Issuer: Salesforce</p>
+              </div>
             </div>
-            <span class="text-[11px] font-mono text-slate-500">sf-cli v2.48.0</span>
+
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              Validated proficiency in architecting and deploying autonomous Agentforce Agents, defining Agent Builder Topics, configuring standard/custom Actions with Apex invocations, prompt engineering, and guardrails.
+            </p>
+
+            <div class="pt-3 border-t border-[var(--border)] flex items-center justify-between">
+              <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Active & Verified
+              </span>
+              <span class="text-xs font-mono text-[var(--primary)] font-semibold cursor-pointer">[CREDENTIAL_URL]</span>
+            </div>
           </div>
 
-          <!-- Command Shortcuts -->
-          <div class="flex flex-wrap items-center gap-2 pt-1 pb-2">
-            <span class="text-xs text-slate-400 font-mono">Quick run:</span>
-            <button onclick="runCliCommand('sf org display')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sf-accent font-mono text-xs border border-slate-700 transition-colors">sf org display</button>
-            <button onclick="runCliCommand('sf agentforce status')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-purple-300 font-mono text-xs border border-slate-700 transition-colors">sf agentforce status</button>
-            <button onclick="runCliCommand('sf certs list')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-emerald-300 font-mono text-xs border border-slate-700 transition-colors">sf certs list</button>
-            <button onclick="runCliCommand('sf contact get')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-mono text-xs border border-slate-700 transition-colors">sf contact get</button>
-            <button onclick="runCliCommand('clear')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 font-mono text-xs border border-slate-700 transition-colors">clear</button>
-          </div>
+          <!-- Certification 2: AI Associate (Original Shield Artwork) -->
+          <div class="cloud-card p-6 sm:p-7 space-y-4 border-purple-500/30">
+            <div class="flex items-start gap-4">
+              <!-- Original Shield Illustration -->
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                <svg viewBox="0 0 100 100" class="w-8 h-8 fill-current">
+                  <path d="M50 15 L80 25 V50 C80 70 50 85 50 85 C50 85 20 70 20 50 V25 Z" fill="none" stroke="currentColor" stroke-width="6"/>
+                  <path d="M38 48 L46 56 L62 40" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="space-y-1 flex-1">
+                <span class="text-[11px] font-mono font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">Associate Level</span>
+                <h3 class="text-lg sm:text-xl font-bold text-[var(--text)]">Salesforce AI Associate</h3>
+                <p class="text-xs text-[var(--text-muted)]">Issuer: Salesforce</p>
+              </div>
+            </div>
 
-          <!-- Terminal Output Area -->
-          <div id="terminal-output" class="font-mono text-xs text-slate-300 space-y-2 max-h-72 overflow-y-auto leading-relaxed bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
-            <p class="text-slate-400">Type <span class="text-sf-accent">help</span> or click any command above to query candidate state.</p>
-            <p class="text-emerald-400">✓ Connected to Developer Org: Rakesh Majhi (Status: Available)</p>
-          </div>
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+              Demonstrated command of foundational AI concepts on CRM, ethical AI principles, predictive vs generative models, Einstein trust layer features, and enterprise data governance.
+            </p>
 
-          <!-- Command Input Field -->
-          <div class="flex items-center gap-2 pt-2 border-t border-slate-800 font-mono text-xs">
-            <span class="text-emerald-400 font-bold">rakesh@sf:~$</span>
-            <input id="terminal-input" type="text" placeholder="Type a command (e.g. 'help', 'skills', 'projects') and press Enter..." class="flex-1 bg-transparent text-white focus:outline-none placeholder-slate-600 font-mono text-xs">
-            <button onclick="handleTerminalSubmit()" class="px-3 py-1 rounded bg-sf-blue hover:bg-sky-400 text-slate-950 font-bold text-xs transition-colors">
-              Execute
-            </button>
+            <div class="pt-3 border-t border-[var(--border)] flex items-center justify-between">
+              <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Active & Verified
+              </span>
+              <span class="text-xs font-mono text-[var(--primary)] font-semibold cursor-pointer">[CREDENTIAL_URL]</span>
+            </div>
           </div>
 
         </div>
@@ -1099,134 +1364,52 @@
       </div>
     </section>
 
-    <!-- CONTACT & CONNECT SECTION -->
-    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/30">
-      <div class="max-w-6xl mx-auto space-y-12">
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
+      <div class="max-w-[1000px] mx-auto">
         
-        <div class="text-center space-y-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sf-blue/10 border border-sf-blue/20 text-sf-accent text-xs font-semibold uppercase tracking-wider">
-            Let's Collaborate
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Get in Touch</h2>
-          <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
-            Looking for a high-impact Salesforce Developer, Agentforce Specialist, or Integration Architect? Let's connect directly.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
+        <!-- Large Rounded Panel with Cloud Shapes & Gradient Background -->
+        <div class="cloud-panel p-8 sm:p-12 relative overflow-hidden text-center space-y-8" style="background: var(--gradient-hero);">
           
-          <!-- Contact Direct Channels (2 cols) -->
-          <div class="lg:col-span-2 space-y-4">
+          <div class="space-y-3 max-w-2xl mx-auto relative z-10">
+            <span class="text-xs font-bold uppercase tracking-wider font-mono text-[var(--primary)]">Get in Touch</span>
+            <h2 class="text-h2 text-[var(--text)]">Let's build something great.</h2>
+            <p class="text-base text-[var(--text-muted)] leading-relaxed">
+              Whether you need an experienced Salesforce developer for complex Apex/LWC solutions, a specialist to ship autonomous Agentforce agents, or enterprise integration architecture — I'm ready to contribute.
+            </p>
+          </div>
+
+          <!-- Contact Buttons: Email, LinkedIn, GitHub (NO form backend, NO phone number) -->
+          <div class="flex flex-wrap items-center justify-center gap-4 relative z-10">
             
-            <!-- Email Card with Copy button -->
-            <div class="glass-card rounded-2xl p-5 border-slate-800 space-y-3">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-sf-blue/20 text-sf-accent flex items-center justify-center text-lg">
-                  <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div>
-                  <div class="text-xs text-slate-400">Direct Email</div>
-                  <div class="text-sm font-bold text-white break-all">rakeshmajhi.connect@gmail.com</div>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 pt-1">
-                <button onclick="copyEmail()" class="flex-1 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 transition-colors">
-                  <i class="fa-regular fa-copy text-sf-accent"></i> Copy Email
-                </button>
-                <a href="mailto:rakeshmajhi.connect@gmail.com?subject=Salesforce%20Opportunity%20-%20Discussion" class="flex-1 py-2 px-3 rounded-lg bg-sf-blue hover:bg-sky-400 text-slate-950 text-xs font-bold flex items-center justify-center gap-2 transition-colors">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Mail
-                </a>
-              </div>
-            </div>
+            <!-- Direct Mailto Button -->
+            <a href="mailto:rakeshmajhi.connect@gmail.com?subject=Salesforce%20&%20Agentforce%20Opportunity" class="btn-primary text-sm py-3 px-6">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              Send an Email
+            </a>
 
-            <!-- Phone / WhatsApp Card -->
-            <div class="glass-card rounded-2xl p-5 border-slate-800 space-y-3">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
-                  <i class="fa-solid fa-phone"></i>
-                </div>
-                <div>
-                  <div class="text-xs text-slate-400">Phone / WhatsApp</div>
-                  <div class="text-sm font-bold text-white">+91 8342849764</div>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 pt-1">
-                <a href="tel:+918342849764" class="flex-1 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 transition-colors">
-                  <i class="fa-solid fa-phone-flip text-emerald-400"></i> Direct Call
-                </a>
-                <a href="https://wa.me/918342849764?text=Hi%20Rakesh,%20I%20saw%20your%20Salesforce%20portfolio" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors">
-                  <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
-                </a>
-              </div>
-            </div>
+            <!-- Click to Copy Email -->
+            <button class="copy-email-trigger btn-secondary text-sm py-3 px-6">
+              <svg class="w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              Copy Email Address
+            </button>
 
-            <!-- LinkedIn & Location -->
-            <div class="glass-card rounded-2xl p-5 border-slate-800 space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-lg">
-                    <i class="fa-brands fa-linkedin-in"></i>
-                  </div>
-                  <div>
-                    <div class="text-xs text-slate-400">LinkedIn Profile</div>
-                    <div class="text-sm font-bold text-white">/in/rakeshmajhi57</div>
-                  </div>
-                </div>
-                <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors">
-                  Connect
-                </a>
-              </div>
-              <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
-                <span><i class="fa-solid fa-earth-americas text-sf-accent mr-1"></i> IST (UTC+5:30)</span>
-                <span>US Timezone Overlap</span>
-              </div>
-            </div>
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="btn-secondary text-sm py-3 px-5">
+              <svg class="w-5 h-5 fill-current text-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn Profile
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="btn-secondary text-sm py-3 px-5">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
 
           </div>
 
-          <!-- Quick Message Form (3 cols) -->
-          <div class="lg:col-span-3">
-            <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4 border-slate-800">
-              <h3 class="font-bold text-white text-base flex items-center gap-2">
-                <i class="fa-solid fa-paper-plane text-sf-accent"></i> Send a Direct Message
-              </h3>
-              <p class="text-xs text-slate-400">
-                Have a project, role, or integration challenge? Send a note directly to Rakesh's inbox.
-              </p>
-
-              <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4 pt-1">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div class="space-y-1">
-                    <label class="text-xs font-medium text-slate-300">Your Name</label>
-                    <input id="form-name" type="text" required placeholder="John Doe" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-sf-blue">
-                  </div>
-                  <div class="space-y-1">
-                    <label class="text-xs font-medium text-slate-300">Your Email</label>
-                    <input id="form-email" type="email" required placeholder="john@company.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-sf-blue">
-                  </div>
-                </div>
-
-                <div class="space-y-1">
-                  <label class="text-xs font-medium text-slate-300">Subject / Discussion Topic</label>
-                  <select id="form-subject" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-sf-blue">
-                    <option value="Salesforce Developer Full-Time Opportunity">Salesforce Developer Full-Time Opportunity</option>
-                    <option value="Agentforce & AI Consulting / Implementation">Agentforce & AI Consulting / Implementation</option>
-                    <option value="Enterprise Integration Project (Stripe/ERP/APIs)">Enterprise Integration Project (Stripe/ERP/APIs)</option>
-                    <option value="LWC / B2B Commerce / Health Cloud Architecture">LWC / B2B Commerce / Health Cloud Architecture</option>
-                    <option value="General Technical Inquiry">General Technical Inquiry</option>
-                  </select>
-                </div>
-
-                <div class="space-y-1">
-                  <label class="text-xs font-medium text-slate-300">Your Message</label>
-                  <textarea id="form-message" rows="4" required placeholder="Hi Rakesh, we are impressed with your Agentforce and Salesforce integration work..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-sf-blue"></textarea>
-                </div>
-
-                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-sf-blue to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-slate-950 font-bold text-xs glow-btn transition-all flex items-center justify-center gap-2">
-                  <i class="fa-solid fa-paper-plane"></i> Send Message via Email
-                </button>
-              </form>
-            </div>
+          <div class="pt-4 text-xs font-mono text-[var(--text-muted)] relative z-10">
+            rakeshmajhi.connect@gmail.com · Bhubaneswar, India (IST / US Timezone Overlap)
           </div>
 
         </div>
@@ -1236,117 +1419,129 @@
 
   </main>
 
-  <!-- RESUME VIEWER MODAL -->
-  <div id="resume-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+  <!-- FLOATING BACK TO TOP BUTTON -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top of page">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+  </button>
+
+  <!-- PROJECT CASE STUDY MODAL -->
+  <div id="project-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-project-title" aria-hidden="true">
+    <div class="modal-content p-6 sm:p-8 space-y-6">
       
       <!-- Modal Header -->
-      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950">
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 rounded-lg bg-sf-blue/20 text-sf-accent flex items-center justify-center">
-            <i class="fa-solid fa-file-lines"></i>
-          </div>
-          <div>
-            <h3 class="font-bold text-white text-sm">Rakesh Majhi - Professional Resume</h3>
-            <p class="text-xs text-slate-400 font-mono">Salesforce Developer & AI Specialist</p>
-          </div>
+      <div class="flex items-start justify-between pb-4 border-b border-[var(--border)]">
+        <div class="space-y-1">
+          <span id="modal-project-tag" class="text-xs font-mono font-bold text-[var(--primary)] uppercase tracking-wider"></span>
+          <h3 id="modal-project-title" class="text-xl sm:text-2xl font-bold text-[var(--text)]"></h3>
+        </div>
+        <button id="modal-close-btn" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--surface-2)]" aria-label="Close modal">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Case Study Body -->
+      <div class="space-y-4 text-sm text-[var(--text-muted)] leading-relaxed">
+        
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-[var(--text)] mb-1">Problem Statement</h4>
+          <p id="modal-project-problem" class="text-xs sm:text-sm"></p>
         </div>
 
-        <div class="flex items-center space-x-2">
-          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-semibold flex items-center gap-1.5 transition-colors">
-            <i class="fa-solid fa-print"></i> Print / Save PDF
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-[var(--text)] mb-1">Approach & Solution</h4>
+          <p id="modal-project-approach" class="text-xs sm:text-sm"></p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)]">
+          <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-[var(--primary)] mb-1">Architecture Flow</h4>
+          <p id="modal-project-arch" class="text-xs font-mono text-[var(--text)] leading-relaxed"></p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-[var(--text)] mb-1">Key Challenges Overcome</h4>
+          <p id="modal-project-challenges" class="text-xs sm:text-sm"></p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300">
+          <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-emerald-600 dark:text-emerald-400 mb-1">Measurable Result</h4>
+          <p id="modal-project-result" class="text-xs sm:text-sm font-semibold"></p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-[var(--text)] mb-2">Technologies Used</h4>
+          <div id="modal-project-tech" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RESUME VIEWER MODAL -->
+  <div id="resume-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Resume Modal" aria-hidden="true">
+    <div class="modal-content p-6 sm:p-8 space-y-6 max-w-4xl max-h-[90vh]">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-[var(--border)]">
+        <div>
+          <h3 class="text-lg font-bold text-[var(--text)]">Rakesh Majhi · Professional Resume</h3>
+          <p class="text-xs font-mono text-[var(--text-muted)]">Salesforce Developer & Agentforce Specialist</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="btn-secondary text-xs py-1.5 px-3">
+            Print / Save PDF
           </button>
-          <button onclick="closeResumeModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
-            <i class="fa-solid fa-xmark"></i>
+          <button id="resume-modal-close" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text)]" aria-label="Close resume">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
       </div>
 
-      <!-- Modal Body (Printable Resume) -->
-      <div class="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-300 text-xs sm:text-sm bg-[#0D1117] leading-relaxed">
+      <div class="space-y-6 text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
         
-        <!-- Header -->
-        <div class="text-center pb-4 border-b border-slate-800 space-y-1">
-          <h1 class="text-2xl font-black text-white tracking-wide">RAKESH MAJHI</h1>
-          <p class="font-semibold text-sf-accent">Salesforce Developer & Administrator · Apex, LWC & Flow · Integrations · Agentforce & AI Automation</p>
-          <p class="text-slate-400 font-mono text-xs">+91 8342849764 | rakeshmajhi.connect@gmail.com | linkedin.com/in/rakeshmajhi57 | Bhubaneswar, India</p>
+        <div class="text-center pb-3 border-b border-[var(--border)] space-y-1">
+          <h1 class="text-2xl font-extrabold text-[var(--text)]">RAKESH MAJHI</h1>
+          <p class="font-bold text-[var(--primary)]">Salesforce Developer & Administrator · Apex, LWC & Flow · Integrations · Agentforce & AI Automation</p>
+          <p class="text-xs font-mono">rakeshmajhi.connect@gmail.com · linkedin.com/in/rakeshmajhi57 · Bhubaneswar, India</p>
         </div>
 
-        <!-- Summary -->
-        <div class="space-y-1.5">
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider text-sf-accent border-b border-slate-800 pb-1">Professional Summary</h2>
-          <p class="text-slate-300 text-xs">
-            Salesforce Developer with 2 years of experience building Apex, Visualforce, Lightning Web Components (LWC), Aura and Flow solutions across Sales Cloud, Service Cloud, Experience Cloud, B2B Commerce (CloudCraze) and Health Cloud. Delivered 10+ integrations over REST/SOAP and OAuth (Stripe, PayPal, QuickBooks, CyberSource, GoHighLevel, Google Sheets, Power BI), deployed 4 production Agentforce agents, and owns release management through a GitHub CI/CD pipeline for 3 concurrent projects. Handles Salesforce administration (security model, user access, Flows, validation rules, reports and dashboards), mentors 4 junior developers, and works daily with US and global stakeholders in Agile/Scrum. Salesforce Certified Agentforce Specialist and AI Associate.
-          </p>
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-[var(--text)] border-b border-[var(--border)] pb-1 mb-2">Professional Summary</h4>
+          <p>Salesforce Developer with 2 years of experience building Apex, Visualforce, Lightning Web Components (LWC), Aura and Flow solutions across Sales Cloud, Service Cloud, Experience Cloud, B2B Commerce (CloudCraze) and Health Cloud. Delivered 10+ integrations over REST/SOAP and OAuth (Stripe, PayPal, QuickBooks, CyberSource, GoHighLevel, Google Sheets, Power BI), deployed 4 production Agentforce agents, and owns release management through a GitHub CI/CD pipeline for 3 concurrent projects.</p>
         </div>
 
-        <!-- Technical Skills -->
-        <div class="space-y-1.5">
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider text-sf-accent border-b border-slate-800 pb-1">Core Technical Skills</h2>
-          <div class="space-y-1 text-xs">
-            <p><strong>Salesforce Development:</strong> Apex (classes, triggers, batch/async, unit tests), Lightning Web Components (LWC), Aura, Visualforce, SOQL, SOSL, Platform Events, Connected Apps, Salesforce CLI</p>
-            <p><strong>Platforms:</strong> Sales Cloud, Service Cloud, Experience Cloud (Partner/Customer Communities), B2B Commerce (CloudCraze/VFP and Lightning), Health Cloud, Data Cloud</p>
-            <p><strong>Admin & Automation:</strong> Flow Builder (record-triggered, scheduled, screen, autolaunched), validation rules, approval processes, workflows, reports and dashboards, profiles, permission sets, roles, sharing rules, page layouts, user onboarding/offboarding, license management, password policies, MFA/SSO coordination, access audits</p>
-            <p><strong>Integrations & APIs:</strong> REST and SOAP APIs, OAuth 2.0 (PKCE), Webhooks, bidirectional data sync, FastAPI middleware, Outlook add-ins, Google Tag Manager</p>
-            <p><strong>AI on Salesforce:</strong> Agentforce (Agent Builder, Topics, Actions), Einstein Bots, PDF data extraction and record automation, ChatGPT API, generative AI workflows</p>
-            <p><strong>Languages & Web:</strong> Apex, Python, JavaScript (ES6+), HTML5/CSS3, React.js, Next.js</p>
-            <p><strong>Cloud & Databases:</strong> AWS (Amplify, EC2/Lambda, RDS, S3, CloudFront, Route 53, ACM); MySQL, PostgreSQL</p>
-            <p><strong>Delivery & Tools:</strong> Git, GitHub CI/CD, release management, VS Code, Postman, Workbench, Zeplin, Agile/Scrum</p>
-          </div>
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-[var(--text)] border-b border-[var(--border)] pb-1 mb-2">Core Technical Skills</h4>
+          <p><strong>Salesforce Development:</strong> Apex (classes, triggers, batch/async, unit tests), LWC, Aura, Visualforce, SOQL, SOSL, Platform Events, Connected Apps, Salesforce CLI.</p>
+          <p><strong>Platforms:</strong> Sales Cloud, Service Cloud, Experience Cloud, B2B Commerce, Health Cloud, Data Cloud.</p>
+          <p><strong>Admin & Automation:</strong> Flow Builder, validation rules, approval processes, reports, dashboards, profiles, permission sets, sharing rules, MFA/SSO.</p>
+          <p><strong>Integrations & AI:</strong> REST, SOAP, OAuth 2.0 PKCE, Agentforce, Einstein Bots, ChatGPT API, FastAPI, Python, Next.js, AWS Amplify/Lambda/RDS.</p>
         </div>
 
-        <!-- Professional Experience -->
-        <div class="space-y-3">
-          <h2 class="text-xs font-bold text-white uppercase tracking-wider text-sf-accent border-b border-slate-800 pb-1">Professional Experience</h2>
-          
-          <div class="space-y-1.5">
-            <div class="flex justify-between font-bold text-white text-xs">
-              <span>Software Developer – Salesforce & AI Integrations | Abacus System & Solution Pvt. Ltd., Bhubaneswar</span>
-              <span class="font-mono text-slate-400">Nov 2024 – Present</span>
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-[var(--text)] border-b border-[var(--border)] pb-1 mb-2">Experience</h4>
+          <div class="space-y-2">
+            <div class="flex justify-between font-bold text-[var(--text)]">
+              <span>Software Developer – Salesforce & AI Integrations · Abacus System & Solution Pvt. Ltd.</span>
+              <span class="font-mono text-xs">Nov 2024 – Present</span>
             </div>
-            <ul class="list-disc list-inside space-y-1 text-xs text-slate-300">
-              <li>Lead technical delivery and mentoring across 3 concurrent production projects (B2B Commerce, Health Cloud and a custom LWC build), supporting 4 junior developers with code reviews and unblocking.</li>
-              <li>Own day-to-day communication with US-based and global stakeholders across time zones, translating business requirements into sprint-ready technical tasks.</li>
-              <li>Designed and deployed 4 production Agentforce agents (Employee, Guided Shopping, Debug Log Analysis, Customer Service) live on Experience Cloud, cutting manual first-response handling time by ~40%.</li>
-              <li>Built an Agentforce PDF-extraction pipeline that auto-creates Salesforce records from unstructured documents, removing manual data entry.</li>
-              <li>Built a demo-ready Outlook add-in for Salesforce for the internal team, replacing third-party connectors: Connected App with OAuth 2.0 PKCE login for any org (login and test.salesforce.com).</li>
-              <li>Added a metadata-discovery layer using Salesforce REST APIs and dynamic SOQL to view and update standard and custom fields on Contacts, Leads, Accounts and Opportunities inside Outlook, plus 1-click email logging to Tasks/EmailMessage records with idempotent deduplication.</li>
-              <li>Developed Apex classes, triggers, batch/async jobs and unit tests, plus Visualforce pages, Aura components and 15+ LWCs pixel-matched to Zeplin designs for Experience Cloud and client-facing pages.</li>
-              <li>Worked on Sales Cloud for the Pantero B2B Commerce (CloudCraze) project, covering lead conversion into accounts and opportunities and opportunity-to-account flows, and managed user access: onboarding/offboarding, licenses, password policies, MFA/SSO coordination and access audits.</li>
-              <li>Delivered B2B Commerce (CloudCraze/VFP) for a US client covering order management, order splitting and billing resolution (open billing tickets down ~25%); built a Lightning B2B Commerce storefront to replace a CloudCraze site with SEO problems and added Google Tag Manager tracking.</li>
-              <li>Shipped 10+ integrations over REST/SOAP and OAuth, including bidirectional Stripe payment sync, PayPal, CyberSource (SOAP), Google Sheets customer-data sync and an e-signature workflow.</li>
-              <li>Integrated Heymilo AI, Power BI, QuickBooks and GoHighLevel with Salesforce via FastAPI middleware and Python services; used Platform Events and Data Cloud for real-time order billing automation.</li>
-              <li>Own the release lifecycle and set up a GitHub CI/CD pipeline for Salesforce, cutting recurring production issues by ~30% with 99%+ uptime across 3 project tracks.</li>
-              <li>Built the booking flow of a live Next.js e-commerce site (planitrentals.com) on AWS Amplify using Salesforce REST APIs with Lambda and RDS (MySQL).</li>
-            </ul>
-          </div>
-
-          <div class="space-y-1.5 pt-2">
-            <div class="flex justify-between font-bold text-white text-xs">
-              <span>Web Development Intern | Briskode Technology Pvt. Ltd.</span>
-              <span class="font-mono text-slate-400">Mar 2024 – Oct 2024</span>
-            </div>
-            <ul class="list-disc list-inside space-y-1 text-xs text-slate-300">
-              <li>Built and shipped 10+ responsive UI components and pages using React.js and Next.js for client-facing SaaS products.</li>
-              <li>Designed and consumed REST APIs connecting frontend and backend, supporting seamless data flow for production features.</li>
-              <li>Gained hands-on experience with component architecture, agile sprints and production deployment workflows.</li>
-            </ul>
+            <p>• Lead technical delivery and mentoring across 3 concurrent production projects, supporting 4 junior developers with code reviews.</p>
+            <p>• Designed and deployed 4 production Agentforce agents on Experience Cloud, cutting manual first-response handling time by ~40%.</p>
+            <p>• Built demo-ready in-house Outlook Add-in with OAuth 2.0 PKCE login and dynamic SOQL schema discovery.</p>
+            <p>• Delivered B2B Commerce (CloudCraze) order management & billing resolution (open tickets down ~25%).</p>
+            <p>• Owned GitHub CI/CD pipeline for Salesforce cutting production issues by ~30% with 99%+ uptime.</p>
           </div>
         </div>
 
-        <!-- Certifications & Education -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-800">
+        <div class="grid grid-cols-2 gap-4 pt-2 border-t border-[var(--border)]">
           <div>
-            <h2 class="text-xs font-bold text-white uppercase tracking-wider text-sf-accent mb-1">Certifications</h2>
-            <p class="text-xs text-slate-200">✔ Salesforce Certified Agentforce Specialist</p>
-            <p class="text-xs text-slate-200">✔ Salesforce AI Associate</p>
+            <h4 class="font-bold text-xs uppercase tracking-wider text-[var(--text)] mb-1">Certifications</h4>
+            <p>• Salesforce Certified Agentforce Specialist</p>
+            <p>• Salesforce AI Associate</p>
           </div>
           <div>
-            <h2 class="text-xs font-bold text-white uppercase tracking-wider text-sf-accent mb-1">Education</h2>
-            <p class="text-xs text-slate-200"><strong>B.Tech in Computer Science</strong> (2019 – 2023)</p>
-            <p class="text-[11px] text-slate-400">Raajdhani Engineering College, Bhubaneswar</p>
-            <p class="text-xs text-slate-200 mt-1"><strong>Python Full Stack & Data Science</strong> (2023 – 2024)</p>
-            <p class="text-[11px] text-slate-400">Abacus Systems, Bhubaneswar</p>
+            <h4 class="font-bold text-xs uppercase tracking-wider text-[var(--text)] mb-1">Education</h4>
+            <p>• B.Tech in Computer Science (2019 – 2023)</p>
+            <p>• Python Full Stack & Data Science (2023 – 2024)</p>
           </div>
         </div>
 
@@ -1356,31 +1551,20 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t border-slate-800/80 py-10 px-4 sm:px-6 lg:px-8 bg-slate-950 text-slate-500 text-xs">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center space-x-2">
-        <span class="font-bold text-slate-300">Rakesh Majhi</span>
-        <span>·</span>
-        <span>Salesforce Developer & Agentforce Specialist</span>
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="hover:text-sf-accent transition-colors">
-          <i class="fa-brands fa-linkedin text-base"></i>
-        </a>
-        <a href="mailto:rakeshmajhi.connect@gmail.com" class="hover:text-sf-accent transition-colors">
-          <i class="fa-solid fa-envelope text-base"></i>
-        </a>
-        <a href="tel:+918342849764" class="hover:text-sf-accent transition-colors">
-          <i class="fa-solid fa-phone text-base"></i>
-        </a>
+  <footer class="border-t border-[var(--border)] py-12 px-4 sm:px-6 lg:px-8 bg-[var(--surface)] text-[var(--text-muted)] text-xs">
+    <div class="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <p class="font-medium text-[var(--text)]">© 2026 Rakesh Majhi · Built with AI-assisted development · Not affiliated with Salesforce.</p>
       </div>
       <div>
-        Hosted on GitHub Pages · Built for high impact
+        <a href="#hero" class="hover:text-[var(--primary)] font-semibold flex items-center justify-center gap-1 transition-colors">
+          Back to top ↑
+        </a>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Main JavaScript File -->
   <script src="js/main.js"></script>
 </body>
 </html>
