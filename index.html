@@ -81,7 +81,6 @@
       <!-- Brand Monogram inside Cloud Shape -->
       <a href="#hero" class="flex items-center gap-3 group focus-visible:outline-none" aria-label="Rakesh Majhi - Return to top">
         <div class="w-10 h-10 flex items-center justify-center transition-transform group-hover:scale-105 text-[#0176D3]">
-          <!-- Original Cloud Monogram SVG -->
           <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-sm fill-current">
             <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z" fill="var(--surface-2)" stroke="var(--primary)" stroke-width="4"/>
             <text x="50" y="52" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" fill="var(--primary)" text-anchor="middle">RM</text>
@@ -128,12 +127,10 @@
     </div>
   </header>
 
-  <!-- Mobile Full-Height Slide-In Navigation Panel -->
+  <!-- Mobile Navigation Panel -->
   <div id="mobile-nav-panel" class="fixed inset-0 z-50 bg-[var(--surface)] text-[var(--text)] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col p-6 space-y-6 overflow-y-auto">
     <div class="flex items-center justify-between pb-4 border-b border-[var(--border)]">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-lg">Menu</span>
-      </div>
+      <span class="font-bold text-lg">Menu</span>
       <button id="close-mobile-nav" class="p-2 rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)]" aria-label="Close menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
@@ -163,13 +160,13 @@
   <main id="main-content" class="relative z-10 pt-20">
 
     <!-- HERO SECTION (Full Viewport Height) -->
-    <section id="hero" class="min-h-[calc(100vh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-16 lg:py-24" style="background: var(--gradient-hero);">
-      <div class="max-w-[1200px] mx-auto w-full space-y-16">
+    <section id="hero" class="min-h-[calc(100vh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-14 lg:py-20" style="background: var(--gradient-hero);">
+      <div class="max-w-[1200px] mx-auto w-full space-y-12">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           <!-- Hero Left Column -->
-          <div class="lg:col-span-7 space-y-6">
+          <div class="lg:col-span-6 space-y-6">
             
             <!-- Pulsing Status Pill -->
             <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-xs font-semibold text-[var(--text)] shadow-sm">
@@ -211,7 +208,7 @@
             </div>
 
             <!-- Social Links -->
-            <div class="pt-4 flex items-center gap-4 text-[var(--text-muted)] text-sm">
+            <div class="pt-2 flex items-center gap-4 text-[var(--text-muted)] text-sm">
               <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary)] flex items-center gap-1.5 transition-colors font-medium">
                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 LinkedIn
@@ -230,43 +227,15 @@
 
           </div>
 
-          <!-- Hero Right Column: Pure HTML/CSS Lightning App Mockup Window -->
-          <div class="lg:col-span-5 relative">
+          <!-- Hero Right Column: FEATURE 1: LIVE AGENTFORCE SIMULATOR -->
+          <div class="lg:col-span-6 relative">
             
-            <!-- Orbiting Chips (Original Illustration) -->
-            <div class="absolute -top-6 -left-6 z-20 floating-orbit-chip">
-              <span class="skill-chip shadow-md border-[var(--primary)] text-[var(--primary)] bg-[var(--surface)]">
-                <span class="w-2 h-2 rounded-full bg-[var(--primary)]"></span>
-                Apex
-              </span>
-            </div>
-            <div class="absolute -top-4 -right-4 z-20 floating-orbit-chip orbit-delay-1">
-              <span class="skill-chip shadow-md border-purple-400 text-purple-600 dark:text-purple-300 bg-[var(--surface)]">
-                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                Agentforce
-              </span>
-            </div>
-            <div class="absolute top-1/2 -right-8 z-20 floating-orbit-chip orbit-delay-2 hidden sm:block">
-              <span class="skill-chip shadow-md border-emerald-400 text-emerald-600 dark:text-emerald-300 bg-[var(--surface)]">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                LWC
-              </span>
-            </div>
-            <div class="absolute -bottom-6 left-12 z-20 floating-orbit-chip orbit-delay-3">
-              <span class="skill-chip shadow-md border-amber-400 text-amber-600 dark:text-amber-300 bg-[var(--surface)]">
-                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                OAuth 2.0 PKCE
-              </span>
-            </div>
-
-            <!-- Stylized Lightning Window -->
             <div class="lightning-window">
               
-              <!-- Window Title Bar -->
+              <!-- SLDS Window Title Bar -->
               <div class="lightning-header">
                 <div class="flex items-center gap-2">
-                  <!-- App Launcher 9 dots -->
-                  <div class="grid grid-cols-3 gap-0.5 w-3.5 h-3.5 opacity-70">
+                  <div class="grid grid-cols-3 gap-0.5 w-3.5 h-3.5 opacity-80" aria-hidden="true">
                     <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
                     <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
                     <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
@@ -277,59 +246,105 @@
                     <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
                     <div class="w-1 h-1 bg-[var(--primary)] rounded-[1px]"></div>
                   </div>
-                  <span class="text-xs font-bold text-[var(--navy)]">Cloud Workspace</span>
+                  <span class="text-xs font-bold text-[var(--navy)]">Agentforce Playground</span>
                 </div>
-                <div class="text-[11px] font-mono text-[var(--text-muted)] bg-[var(--surface)] px-2.5 py-0.5 rounded border border-[var(--border)]">
-                  Org: Production
+                <div class="flex items-center gap-2 text-[11px] font-mono">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">Active Org: 00DWC00000BtEyT2AV</span>
                 </div>
               </div>
 
-              <!-- Lightning Tabs -->
-              <div class="flex items-center px-4 pt-2 bg-[var(--surface-2)] border-b border-[var(--border)] gap-1">
-                <div class="lightning-tab flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              <!-- SLDS Tabs (Console vs Telemetry) -->
+              <div class="flex items-center px-4 pt-2 bg-[var(--surface-2)] border-b border-[var(--border)] gap-2">
+                <button id="sim-tab-console-btn" class="sim-tab-btn active" onclick="switchSimulatorTab('console')">
                   Agentforce Console
-                </div>
-                <div class="text-xs px-3 py-1.5 text-[var(--text-muted)]">Apex Action</div>
-                <div class="text-xs px-3 py-1.5 text-[var(--text-muted)] hidden sm:block">Schema</div>
+                </button>
+                <button id="sim-tab-telemetry-btn" class="sim-tab-btn" onclick="switchSimulatorTab('telemetry')">
+                  Under the Hood (Telemetry)
+                </button>
               </div>
 
-              <!-- Animated Agentforce Chat Body -->
-              <div class="p-5 space-y-4 text-xs font-mono bg-[var(--surface)] min-h-[290px] flex flex-col justify-between">
+              <!-- Persona Trigger Chips Bar -->
+              <div class="px-4 py-2.5 bg-[var(--surface)] border-b border-[var(--border)] flex items-center gap-1.5 overflow-x-auto text-xs">
+                <span class="text-[10px] font-mono font-bold uppercase text-[var(--text-muted)] shrink-0">Personas:</span>
+                <button class="agent-persona-chip active" data-persona="shopping" onclick="runAgentSimulator('shopping')">🛍️ Guided Shopping</button>
+                <button class="agent-persona-chip" data-persona="debug" onclick="runAgentSimulator('debug')">🛠️ Debug Log</button>
+                <button class="agent-persona-chip" data-persona="pdf" onclick="runAgentSimulator('pdf')">📄 PDF Parser</button>
+                <button class="agent-persona-chip" data-persona="employee" onclick="runAgentSimulator('employee')">👤 Employee Bot</button>
+              </div>
+
+              <!-- VIEW 1: Agentforce Console View -->
+              <div id="sim-console-view" class="p-4 sm:p-5 space-y-3.5 bg-[var(--surface)] min-h-[300px] max-h-[360px] overflow-y-auto font-mono text-xs flex flex-col justify-between">
                 
-                <div class="space-y-3">
-                  <!-- Message 1 (User) -->
+                <div id="sim-chat-transcript" class="space-y-3">
+                  <!-- User prompt bubble -->
                   <div class="flex items-start gap-2.5">
-                    <div class="w-6 h-6 rounded bg-[var(--border)] flex items-center justify-center font-bold text-[10px] text-[var(--text)]">U</div>
-                    <div class="p-2.5 rounded-lg bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] max-w-[85%]">
-                      Triage Case #10492 & verify Stripe transaction sync.
+                    <div class="w-6 h-6 rounded bg-[var(--border)] text-[var(--text)] flex items-center justify-center font-bold text-[10px] shrink-0">U</div>
+                    <div id="sim-user-bubble" class="agent-chat-bubble-user text-[11.5px] leading-relaxed">
+                      Check inventory for bulk enterprise order & verify live Stripe payment balance.
                     </div>
                   </div>
 
-                  <!-- Message 2 (Agentforce Bot) -->
+                  <!-- Agentforce AI Response bubble -->
                   <div class="flex items-start gap-2.5">
-                    <div class="w-6 h-6 rounded bg-purple-600 text-white flex items-center justify-center font-bold text-[10px]">AI</div>
-                    <div class="p-2.5 rounded-lg bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60 text-[var(--text)] space-y-1.5 max-w-[90%]">
-                      <p class="font-bold text-purple-700 dark:text-purple-300">Agentforce: Action Dispatched</p>
-                      <p class="text-[11px] text-[var(--text-muted)] font-mono">
-                        ✔ Stripe webhook verified: #ch_3N9 confirmed ($1,250.00).<br>
-                        ✔ Auto-updated Case status to <span class="text-emerald-600 dark:text-emerald-400 font-bold">Resolved</span>.<br>
-                        ✔ Task logged to Account with idempotent key.
+                    <div class="w-6 h-6 rounded bg-purple-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0">AI</div>
+                    <div class="agent-chat-bubble-ai space-y-2 flex-1">
+                      <div class="flex items-center justify-between text-[11px] pb-1 border-b border-purple-200 dark:border-purple-800/40">
+                        <span class="font-bold text-purple-700 dark:text-purple-300" id="sim-agent-name">Guided Shopping Agent</span>
+                        <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold" id="sim-agent-latency">✔ Latency: 78ms</span>
+                      </div>
+                      <p id="sim-agent-text" class="text-[11.5px] leading-relaxed text-[var(--text)]">
+                        Inventory verified across warehouses. Order #8821 allocated 50 units. Confirmed live Stripe transaction ($6,200.00) via webhook listener.
                       </p>
+                      
+                      <!-- CRM State Mutation Card -->
+                      <div id="sim-crm-card" class="p-2.5 rounded bg-[var(--surface)] border border-[var(--border)] text-[11px] space-y-1">
+                        <div class="font-bold text-[var(--navy)] flex items-center justify-between">
+                          <span>CRM Action: Order__c Created</span>
+                          <span class="text-emerald-600 dark:text-emerald-400 font-bold">Status: Confirmed</span>
+                        </div>
+                        <div class="text-[10px] text-[var(--text-muted)]">
+                          Apex Handler: <code class="text-purple-600 dark:text-purple-300">B2BOrderDispatcher.execute()</code> · Idempotency Key: <code class="text-slate-400">#ord_92019</code>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
-                  <!-- Live Apex Call Status -->
-                  <div class="p-2 rounded bg-slate-900 text-slate-200 text-[11px] font-mono flex items-center justify-between border border-slate-800">
-                    <span class="text-emerald-400">⚡ StripeSyncHandler.cls</span>
-                    <span class="text-slate-400">Response: 200 OK</span>
                   </div>
                 </div>
 
-                <!-- Input simulation -->
-                <div class="pt-3 border-t border-[var(--border)] flex items-center justify-between text-[11px] text-[var(--text-muted)]">
-                  <span>Topic: OrderManagement & Billing</span>
-                  <span class="text-purple-600 dark:text-purple-400 font-bold">● Active Agent</span>
+                <!-- Interactive Chat Input -->
+                <div class="pt-2 border-t border-[var(--border)] flex items-center gap-2">
+                  <input id="sim-user-input" type="text" placeholder="Or type a custom question (e.g. 'check limits', 'b2b status')..." class="flex-1 bg-[var(--surface-2)] text-[var(--text)] text-xs px-3 py-2 rounded-lg border border-[var(--border)] focus:outline-none focus:border-[var(--primary)] font-mono">
+                  <button onclick="handleSimCustomSubmit()" class="px-3 py-2 rounded-lg bg-[var(--primary)] text-white font-bold text-xs hover:bg-[var(--primary-hover)] transition-colors shrink-0">
+                    Send
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- VIEW 2: Under the Hood Telemetry View -->
+              <div id="sim-telemetry-view" class="hidden p-4 sm:p-5 space-y-2.5 bg-[var(--surface)] min-h-[300px] max-h-[360px] overflow-y-auto font-mono text-xs">
+                
+                <div class="telemetry-row">
+                  <span class="text-purple-600 dark:text-purple-400 font-bold">01. TRUST LAYER:</span>
+                  <span class="text-[var(--text-muted)]" id="tel-trust">Passed · Zero PII Leakage · Masking Applied · Toxicity: 0.00</span>
+                </div>
+
+                <div class="telemetry-row">
+                  <span class="text-sky-600 dark:text-sky-400 font-bold">02. TOPIC ROUTER:</span>
+                  <span class="text-[var(--text-muted)]" id="tel-topic">Classified Intent: OrderCatalogAndBilling (Confidence: 0.98)</span>
+                </div>
+
+                <div class="telemetry-row">
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold">03. APEX INVOCABLE:</span>
+                  <span class="text-[var(--text-muted)]" id="tel-apex">@InvocableMethod B2BOrderDispatcher.execute() · Limits: 1/100 SOQL</span>
+                </div>
+
+                <div class="telemetry-row">
+                  <span class="text-amber-600 dark:text-amber-400 font-bold">04. STATE MUTATION:</span>
+                  <span class="text-[var(--text-muted)]" id="tel-mutation">Upsert Order (ExternalId=ord_92019) · Audit Event Dispatched</span>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-[var(--surface-2)] border border-[var(--border)] text-[11px] text-[var(--text-muted)] leading-relaxed">
+                  💡 <strong>Engineering Note:</strong> Agent actions execute within strictly bulkified Apex bounds. Guardrails eliminate hallucinations by enforcing ground truth against live SOQL database queries.
                 </div>
 
               </div>
@@ -390,7 +405,6 @@
           <div class="lg:col-span-5 flex justify-center">
             <div class="relative w-64 h-64 sm:w-72 sm:h-72 p-1.5 rounded-[40px] bg-gradient-to-tr from-[var(--primary)] via-purple-500 to-[var(--accent-teal)] shadow-xl">
               <div class="w-full h-full bg-[var(--surface)] rounded-[36px] flex flex-col items-center justify-center p-6 text-center space-y-3 overflow-hidden">
-                <!-- Original Cloud Silhouette Graphic -->
                 <svg viewBox="0 0 100 80" class="w-20 h-20 text-[var(--primary)] fill-current" aria-hidden="true">
                   <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z" fill="var(--surface-2)" stroke="var(--primary)" stroke-width="3"/>
                   <circle cx="50" cy="40" r="12" fill="var(--primary)" opacity="0.2"/>
@@ -487,7 +501,6 @@
         <!-- GRID VIEW (Default) -->
         <div id="skills-grid-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
-          <!-- Group 1: Salesforce Development -->
           <div class="cloud-card p-6 space-y-4">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center font-bold text-base">⚡</div>
@@ -507,7 +520,6 @@
             </div>
           </div>
 
-          <!-- Group 2: Platforms & Clouds -->
           <div class="cloud-card p-6 space-y-4">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-base">☁️</div>
@@ -526,7 +538,6 @@
             </div>
           </div>
 
-          <!-- Group 3: Admin & Automation -->
           <div class="cloud-card p-6 space-y-4">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-bold text-base">🛡️</div>
@@ -544,7 +555,6 @@
             </div>
           </div>
 
-          <!-- Group 4: Agentforce & AI -->
           <div class="cloud-card p-6 space-y-4 border-purple-300 dark:border-purple-800/80">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-base">🤖</div>
@@ -563,7 +573,6 @@
             </div>
           </div>
 
-          <!-- Group 5: Integrations & APIs -->
           <div class="cloud-card p-6 space-y-4">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base">🔌</div>
@@ -582,7 +591,6 @@
             </div>
           </div>
 
-          <!-- Group 6: Full-stack & Cloud -->
           <div class="cloud-card p-6 space-y-4">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-base">💻</div>
@@ -600,7 +608,6 @@
             </div>
           </div>
 
-          <!-- Group 7: Delivery & Tools -->
           <div class="cloud-card p-6 space-y-4 md:col-span-2 lg:col-span-3">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-base">🚀</div>
@@ -620,7 +627,7 @@
 
         </div>
 
-        <!-- CLOUD VIEW (Cluster Canvas) -->
+        <!-- CLOUD VIEW -->
         <div id="skills-cloud-view" class="hidden">
           <div class="skill-cloud-canvas">
             <span class="skill-chip text-sm p-3">Apex Classes & Triggers <span class="chip-tooltip">Daily use · B2B Commerce, Health Cloud</span></span>
@@ -659,26 +666,18 @@
           </p>
         </div>
 
-        <!-- Vertical Timeline Container -->
         <div class="relative max-w-4xl mx-auto">
-          
-          <!-- Center line on desktop, Left line on mobile -->
           <div class="timeline-stem left-5 md:left-1/2 transform md:-translate-x-1/2" aria-hidden="true"></div>
 
-          <!-- Timeline Items -->
           <div class="space-y-12">
             
-            <!-- Item 1: Abacus System & Solution (Current Role) -->
             <div class="relative flex flex-col md:flex-row items-center reveal-on-scroll">
-              
-              <!-- Cloud Node Icon -->
               <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-[var(--surface)] border-2 border-[var(--primary)] shadow-md flex items-center justify-center text-[var(--primary)] z-20">
                 <svg viewBox="0 0 100 80" class="w-5 h-5 fill-current">
                   <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z"/>
                 </svg>
               </div>
 
-              <!-- Content Card (Slides from left on desktop) -->
               <div class="w-full md:w-[46%] ml-12 md:ml-0 md:mr-auto pl-2 md:pl-0 md:pr-6">
                 <div class="cloud-card p-6 sm:p-7 space-y-4">
                   <div class="space-y-1">
@@ -722,20 +721,15 @@
                   </div>
                 </div>
               </div>
-
             </div>
 
-            <!-- Item 2: Briskode Technology (Internship) -->
             <div class="relative flex flex-col md:flex-row items-center reveal-on-scroll">
-              
-              <!-- Cloud Node Icon -->
               <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-[var(--surface)] border-2 border-[var(--border)] shadow-md flex items-center justify-center text-[var(--text-muted)] z-20">
                 <svg viewBox="0 0 100 80" class="w-4 h-4 fill-current">
                   <path d="M25 65 h50 a20 20 0 0 0 0-40 a26 26 0 0 0-49-7 a20 20 0 0 0-1 47 z"/>
                 </svg>
               </div>
 
-              <!-- Content Card (Slides from right on desktop) -->
               <div class="w-full md:w-[46%] ml-12 md:ml-auto pl-2 md:pl-6 md:pr-0">
                 <div class="cloud-card p-5 space-y-3">
                   <div class="space-y-1">
@@ -760,7 +754,6 @@
                   </div>
                 </div>
               </div>
-
             </div>
 
           </div>
@@ -783,7 +776,6 @@
             </p>
           </div>
 
-          <!-- Project Filter Bar with Animated Pill Indicator -->
           <div class="overflow-x-auto pb-2 md:pb-0">
             <div class="filter-pill-container">
               <button class="project-filter-btn filter-btn active" data-filter="all">All</button>
@@ -798,7 +790,7 @@
         <!-- Projects Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          <!-- FEATURE CARD (Double Width): Outlook Add-in for Salesforce -->
+          <!-- FEATURE CARD: In-House Outlook Add-in + FEATURE 2: STEP-BY-STEP PKCE SIMULATOR -->
           <div class="project-item cloud-card p-6 sm:p-8 space-y-6 md:col-span-2 border-[var(--primary)]/30" data-category="salesforce integration">
             
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
@@ -807,12 +799,12 @@
                   ✉️
                 </div>
                 <div>
-                  <span class="text-[11px] font-mono font-bold uppercase text-[var(--primary)] tracking-wider">Featured Productivity Tool</span>
+                  <span class="text-[11px] font-mono font-bold uppercase text-[var(--primary)] tracking-wider">Featured Productivity Suite</span>
                   <h3 class="text-xl sm:text-2xl font-bold text-[var(--text)]">In-House Outlook Add-in for Salesforce</h3>
                 </div>
               </div>
               <div class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 w-fit">
-                Demo-Ready · Company-Wide Tool
+                Demo-Ready · Multi-Org PKCE
               </div>
             </div>
 
@@ -820,41 +812,92 @@
               <strong>Problem:</strong> Replaced expensive commercial third-party connectors with an in-house Connected App featuring seamless OAuth 2.0 PKCE authentication for arbitrary sandbox and production orgs without hardcoded limits.
             </p>
 
-            <!-- INTERACTIVE OAUTH 2.0 PKCE FLOW DIAGRAM -->
-            <div class="pkce-flow-container space-y-3">
-              <div class="flex items-center justify-between text-xs font-bold text-[var(--text)]">
-                <span class="flex items-center gap-1.5 font-mono">
+            <!-- FEATURE 2: STEP-BY-STEP ARCHITECTURE PROTOCOL SIMULATOR -->
+            <div class="pkce-stepper-container space-y-4">
+              
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="text-xs font-bold text-[var(--text)] flex items-center gap-1.5 font-mono">
                   <svg class="w-4 h-4 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                  Interactive Architecture: OAuth 2.0 PKCE Flow (Hover to animate)
-                </span>
-                <span class="text-[11px] font-mono text-[var(--text-muted)]">Zero Hardcoded Endpoints</span>
+                  Interactive Architecture Protocol Simulator
+                </div>
+                <div class="flex items-center gap-2">
+                  <button id="pkce-prev-btn" onclick="stepPkceSimulator(-1)" class="px-2.5 py-1 rounded bg-[var(--surface-2)] border border-[var(--border)] text-xs font-mono font-bold hover:border-[var(--primary)] text-[var(--text)] transition-colors">
+                    ◀ Prev
+                  </button>
+                  <button id="pkce-next-btn" onclick="stepPkceSimulator(1)" class="px-2.5 py-1 rounded bg-[var(--primary)] text-white text-xs font-mono font-bold hover:bg-[var(--primary-hover)] transition-colors">
+                    Next Step ▶
+                  </button>
+                  <button id="pkce-autoplay-btn" onclick="togglePkceAutoplay()" class="px-2.5 py-1 rounded bg-[var(--surface-2)] border border-[var(--border)] text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text)] transition-colors">
+                    Auto-Play
+                  </button>
+                </div>
               </div>
 
-              <!-- Animated Diagram Nodes -->
-              <div class="grid grid-cols-1 sm:grid-cols-6 gap-2 text-center items-center">
-                <div class="pkce-node">Outlook Add-in</div>
-                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs">──►</div>
-                <div class="pkce-node">login / test.salesforce.com</div>
-                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs">──►</div>
-                <div class="pkce-node">Token & instance_url</div>
-                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs">──►</div>
+              <!-- Stepper Progress Bar -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button class="pkce-step-btn active" id="pkce-step-btn-1" onclick="jumpToPkceStep(1)">1. PKCE Init</button>
+                <button class="pkce-step-btn" id="pkce-step-btn-2" onclick="jumpToPkceStep(2)">2. OAuth Token</button>
+                <button class="pkce-step-btn" id="pkce-step-btn-3" onclick="jumpToPkceStep(3)">3. Schema REST</button>
+                <button class="pkce-step-btn" id="pkce-step-btn-4" onclick="jumpToPkceStep(4)">4. Idempotent Sync</button>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-center">
-                <div class="pkce-node">Dynamic SOQL & Describe API</div>
-                <div class="pkce-arrow text-[var(--primary)] font-bold text-xs self-center">──►</div>
-                <div class="pkce-node text-emerald-600 dark:text-emerald-400">1-Click Idempotent Logging</div>
+
+              <!-- Node Network Diagram -->
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+                <div class="pkce-flow-node active-node" id="pkce-node-1">
+                  <div class="text-[10px] text-[var(--text-muted)] font-mono">Stage 1: Client</div>
+                  <div class="font-bold text-[var(--text)] mt-0.5">Outlook Add-in</div>
+                  <div class="text-[10px] text-emerald-600 dark:text-emerald-400 mt-1">S256 Challenge Ready</div>
+                </div>
+
+                <div class="pkce-flow-node" id="pkce-node-2">
+                  <div class="text-[10px] text-[var(--text-muted)] font-mono">Stage 2: Auth Gate</div>
+                  <div class="font-bold text-[var(--text)] mt-0.5">login / test.salesforce</div>
+                  <div class="text-[10px] text-purple-600 dark:text-purple-400 mt-1">Bearer + instance_url</div>
+                </div>
+
+                <div class="pkce-flow-node" id="pkce-node-3">
+                  <div class="text-[10px] text-[var(--text-muted)] font-mono">Stage 3: Metadata</div>
+                  <div class="font-bold text-[var(--text)] mt-0.5">Describe REST API</div>
+                  <div class="text-[10px] text-sky-600 dark:text-sky-400 mt-1">Dynamic SOQL Schema</div>
+                </div>
+
+                <div class="pkce-flow-node" id="pkce-node-4">
+                  <div class="text-[10px] text-[var(--text-muted)] font-mono">Stage 4: CRM Core</div>
+                  <div class="font-bold text-[var(--text)] mt-0.5">Tasks & EmailMessage</div>
+                  <div class="text-[10px] text-amber-600 dark:text-amber-400 mt-1">SHA-256 Deduplication</div>
+                </div>
               </div>
+
+              <!-- Inspector Panel (Cryptographic payloads & REST HTTP) -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-[11px] font-mono text-[var(--text-muted)]">
+                  <span id="pkce-inspector-title">PAYLOAD INSPECTOR: Stage 1 (PKCE Challenge Generation)</span>
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold" id="pkce-inspector-status">Status: Client Side Initialized</span>
+                </div>
+                <div class="pkce-inspector-code" id="pkce-inspector-body">
+// 1. Generate cryptographic cryptographically random verifier (128 chars)
+const verifier = generateRandomCodeVerifier(128); // e.g., 'd8f92a10c7e2b...449'
+
+// 2. Compute SHA-256 hash and base64url-encode
+const challenge = base64UrlEncode(crypto.subtle.digest('SHA-256', verifier));
+
+// 3. Initiate Connected App authorization redirect:
+// https://login.salesforce.com/services/oauth2/authorize?response_type=code
+// &client_id=3MVG9...&code_challenge_method=S256&code_challenge=${challenge}
+                </div>
+              </div>
+
             </div>
 
             <!-- Outcomes & Highlights -->
             <ul class="text-xs sm:text-sm text-[var(--text-muted)] space-y-2">
               <li class="flex items-start gap-2">
                 <span class="text-emerald-500 font-bold">✔</span>
-                <span><strong>Metadata Discovery Layer:</strong> REST APIs & dynamic SOQL view and edit standard/custom fields on Contacts, Leads, Accounts & Opportunities.</span>
+                <span><strong>Metadata Discovery Layer:</strong> REST APIs & dynamic SOQL view and edit standard/custom fields on Contacts, Leads, Accounts & Opportunities inside Outlook.</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-emerald-500 font-bold">✔</span>
-                <span><strong>Idempotent Email Sync:</strong> Deduplication logic prevents duplicate Tasks and EmailMessage records on multiple thread replies.</span>
+                <span><strong>Idempotent Email Sync:</strong> Deduplication logic prevents duplicate Tasks and EmailMessage records on multiple thread replies using InternetMessageId hashing.</span>
               </li>
             </ul>
 
@@ -1137,7 +1180,7 @@
           
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
             
-            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60 rounded-xl">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono font-bold text-purple-400">01</span>
                 <span class="text-xs">🎯</span>
@@ -1146,7 +1189,7 @@
               <p class="text-[11px] text-slate-300 leading-relaxed">Crisp specification of inputs, outputs, error conditions & governor limits.</p>
             </div>
 
-            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60 rounded-xl">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono font-bold text-purple-400">02</span>
                 <span class="text-xs">📐</span>
@@ -1155,7 +1198,7 @@
               <p class="text-[11px] text-slate-300 leading-relaxed">Map data models, triggers vs flows, and async queue structures first.</p>
             </div>
 
-            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60 rounded-xl">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono font-bold text-purple-400">03</span>
                 <span class="text-xs">⚡</span>
@@ -1164,7 +1207,7 @@
               <p class="text-[11px] text-slate-300 leading-relaxed">Generate targeted snippets with Claude, Antigravity, or ChatGPT API.</p>
             </div>
 
-            <div class="vibe-card p-4 space-y-2 border border-purple-500/50 bg-[#112445]">
+            <div class="vibe-card p-4 space-y-2 border border-purple-500/50 bg-[#112445] rounded-xl">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono font-bold text-emerald-400">04</span>
                 <span class="text-xs">🔍</span>
@@ -1173,7 +1216,7 @@
               <p class="text-[11px] text-slate-300 leading-relaxed"><strong>I check myself:</strong> security, SOQL in loops, naming, and null edge cases.</p>
             </div>
 
-            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60 rounded-xl">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono font-bold text-purple-400">05</span>
                 <span class="text-xs">🧪</span>
@@ -1182,7 +1225,7 @@
               <p class="text-[11px] text-slate-300 leading-relaxed">Write unit tests (&gt;85% coverage) with realistic bulk mock data.</p>
             </div>
 
-            <div class="vibe-card p-4 space-y-2 border border-slate-700/60">
+            <div class="vibe-card p-4 space-y-2 border border-slate-700/60 rounded-xl">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono font-bold text-purple-400">06</span>
                 <span class="text-xs">🚀</span>
@@ -1194,51 +1237,123 @@
           </div>
         </div>
 
-        <!-- Two Columns: Faux Terminal (Left) & My Rules Checklist (Right) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- FEATURE 3: VIBE CODING BEFORE & AFTER DIFF INSPECTOR -->
+        <div class="space-y-6 pt-4">
           
-          <!-- Faux Terminal with Typed Prompt and Applied Diff -->
-          <div class="lg:col-span-7 vibe-card p-5 space-y-4 font-mono text-xs border border-slate-700">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-400 text-[11px]">
-              <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
-                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
-                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-                <span class="ml-2 text-slate-300">vibe-terminal.sh</span>
-              </div>
-              <span>Claude / Antigravity Agent</span>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+            <div>
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <span class="text-purple-400 font-mono">⚡</span> Engineering Review: Raw AI Generation vs. Production Refactor
+              </h3>
+              <p class="text-xs text-slate-400">
+                Click scenarios and flaw tags to inspect how naive AI code is reviewed and refactored for enterprise production.
+              </p>
             </div>
 
-            <!-- Prompt Typing Area -->
-            <div class="space-y-1 text-slate-300">
-              <p class="text-purple-400 font-bold">$ prompt-agent --task="triage-action"</p>
-              <p id="vibe-prompt-text" class="text-emerald-300 font-medium"></p>
-            </div>
-
-            <!-- Diff Box -->
-            <div id="vibe-diff-box" class="opacity-0 transition-opacity duration-500 p-3.5 rounded bg-slate-950 border border-slate-800 space-y-1 overflow-x-auto text-[11px]">
-              <p class="text-slate-500">@@ Apex Diff: StripeWebhookHandler.cls @@</p>
-              <p class="text-emerald-400">+ @InvocableMethod(label='Verify Payment & Triage')</p>
-              <p class="text-emerald-400">+ public static List&lt;SyncResult&gt; verifyAndResolve(List&lt;Id&gt; caseIds) {</p>
-              <p class="text-slate-400">    // Enforcing strict bulkification & sharing rules</p>
-              <p class="text-emerald-400">+   Map&lt;Id, Case&gt; cases = new Map&lt;Id, Case&gt;([SELECT Id, Status FROM Case WHERE Id IN :caseIds]);</p>
-              <p class="text-emerald-400">+   return PaymentGateway.syncWithStripe(cases);</p>
-              <p class="text-emerald-400">+ }</p>
-            </div>
-
-            <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1">
-              <span class="text-emerald-400">✔ Unit Test Passed (92% Coverage)</span>
-              <span>PMD Security Scan: Clean</span>
+            <div class="flex items-center gap-2">
+              <button class="diff-scenario-btn active" id="diff-scen-1-btn" onclick="switchDiffScenario(1)">
+                Scenario 1: Stripe Webhook (Limits)
+              </button>
+              <button class="diff-scenario-btn" id="diff-scen-2-btn" onclick="switchDiffScenario(2)">
+                Scenario 2: Data Security & Sharing
+              </button>
             </div>
           </div>
 
-          <!-- "My Rules" Checklist & AI-Assisted Showcase Card -->
-          <div class="lg:col-span-5 space-y-6">
+          <!-- Interactive Flaw Highlight Tags -->
+          <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+            <span class="text-slate-400 font-mono text-[11px]">Inspect Review Checks:</span>
+            <button class="diff-tag-pill bg-rose-950/80 text-rose-300 border border-rose-800/80 hover:bg-rose-900" onclick="highlightDiffFlaw('governor')">
+              🚨 Governor Limit: SOQL in Loop
+            </button>
+            <button class="diff-tag-pill bg-amber-950/80 text-amber-300 border border-amber-800/80 hover:bg-amber-900" onclick="highlightDiffFlaw('sharing')">
+              🔒 Security: Missing 'with sharing'
+            </button>
+            <button class="diff-tag-pill bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 hover:bg-emerald-900" onclick="highlightDiffFlaw('bulk')">
+              ⚡ Bulk Safety: Map Set Collections
+            </button>
+          </div>
+
+          <!-- Side-by-Side Diff Container -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            <div class="vibe-card p-6 space-y-4 border border-slate-700">
-              <h3 class="font-bold text-base text-white flex items-center gap-2">
+            <!-- Left: Raw AI Generation (With Flaws) -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-rose-400 font-bold flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                  Raw AI Generation (Naive with Flaws)
+                </span>
+                <span class="text-rose-400 font-semibold" id="diff-raw-badge">Risk: 101 SOQL limit on bulk batch</span>
+              </div>
+              <div class="diff-pane" id="diff-raw-code">
+// NAIVE AI CODE: Fails under high-volume batch
+public class StripeWebhookReceiver {
+  
+  public static void processEvents(List&lt;StripeEvent&gt; events) {
+    for (StripeEvent ev : events) {
+      // 🚨 FLAW 1: SOQL query inside for-loop! Hits limit 101
+      Account acc = [SELECT Id FROM Account WHERE Stripe_Id__c = :ev.customerId];
+      
+      // 🚨 FLAW 2: Missing null safety on payment fields
+      acc.Balance__c += ev.amount;
+      update acc; // 🚨 FLAW 3: DML inside loop!
+    }
+  }
+}
+              </div>
+            </div>
+
+            <!-- Right: Rakesh's Reviewed & Refactored Code -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                  Rakesh's Review & Refactor (Production Ready)
+                </span>
+                <span class="text-emerald-400 font-semibold" id="diff-clean-badge">Governor Safe · Bulkified · 94% Test Cov</span>
+              </div>
+              <div class="diff-pane" id="diff-clean-code">
+// PRODUCTION-READY: Bulkified, secure & fault-tolerant
+public with sharing class StripeWebhookReceiver {
+  
+  public static void processEvents(List&lt;StripeEvent&gt; events) {
+    Set&lt;String&gt; stripeIds = new Set&lt;String&gt;();
+    for (StripeEvent ev : events) {
+      if (String.isNotBlank(ev.customerId)) stripeIds.add(ev.customerId);
+    }
+
+    // ✔ FIX: 1 Bulk SOQL Query outside loop
+    Map&lt;String, Account&gt; accMap = new Map&lt;String, Account&gt;();
+    for (Account a : [SELECT Id, Stripe_Id__c, Balance__c 
+                     FROM Account WHERE Stripe_Id__c IN :stripeIds WITH USER_MODE]) {
+      accMap.put(a.Stripe_Id__c, a);
+    }
+
+    List&lt;Account&gt; toUpdate = new List&lt;Account&gt;();
+    for (StripeEvent ev : events) {
+      Account acc = accMap.get(ev.customerId);
+      if (acc != null &amp;&amp; ev.amount != null) {
+        acc.Balance__c = (acc.Balance__c == null ? 0 : acc.Balance__c) + ev.amount;
+        toUpdate.add(acc);
+      }
+    }
+    // ✔ FIX: 1 Single DML statement for entire batch
+    if (!toUpdate.isEmpty()) Database.update(toUpdate, false);
+  }
+}
+              </div>
+            </div>
+
+          </div>
+
+          <!-- "My Rules" Checklist & Hospital Management Card -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-4">
+            
+            <div class="lg:col-span-7 vibe-card p-6 space-y-4 border border-slate-700 rounded-xl">
+              <h4 class="font-bold text-base text-white flex items-center gap-2">
                 <span class="text-purple-400 font-mono">⚡</span> My Vibe Coding Rules
-              </h3>
+              </h4>
 
               <div class="space-y-3 text-xs sm:text-sm text-slate-300">
                 <div class="flex items-start gap-2.5">
@@ -1247,7 +1362,7 @@
                 </div>
                 <div class="flex items-start gap-2.5">
                   <span class="text-emerald-400 font-bold">✔</span>
-                  <span><strong>I write tests for business logic:</strong> Generative code must pass strict unit test thresholds with real assertions.</span>
+                  <span><strong>I write tests for business logic:</strong> Generative code must pass strict unit test thresholds with real assertions (&gt;85% coverage).</span>
                 </div>
                 <div class="flex items-start gap-2.5">
                   <span class="text-emerald-400 font-bold">✔</span>
@@ -1259,7 +1374,6 @@
                 </div>
               </div>
 
-              <!-- Tools Used Chips -->
               <div class="pt-3 border-t border-slate-800 flex flex-wrap gap-2 text-xs">
                 <span class="px-2.5 py-1 rounded bg-slate-900 text-purple-300 font-mono border border-slate-800">Claude Code</span>
                 <span class="px-2.5 py-1 rounded bg-slate-900 text-sky-300 font-mono border border-slate-800">Google Antigravity</span>
@@ -1267,15 +1381,19 @@
               </div>
             </div>
 
-            <!-- Example AI-Assisted Project Card -->
-            <div class="vibe-card p-5 space-y-2 border border-slate-700">
+            <div class="lg:col-span-5 vibe-card p-6 space-y-3 border border-slate-700 rounded-xl">
               <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-white">Hospital Management System</span>
-                <span class="text-purple-400 font-mono text-[11px]">AI-Assisted Build</span>
+                <span class="font-bold text-white text-sm">Hospital Management System</span>
+                <span class="text-purple-400 font-mono text-[11px] font-bold">AI-Assisted Build</span>
               </div>
-              <p class="text-xs text-slate-300">
+              <p class="text-xs text-slate-300 leading-relaxed">
                 Full-stack Next.js web application for patient record management and appointment booking, built and verified with AI-assisted development workflows.
               </p>
+              <div class="pt-2 flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-400">
+                <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Next.js</span>
+                <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">PostgreSQL</span>
+                <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Auth & Roles</span>
+              </div>
             </div>
 
           </div>
@@ -1299,10 +1417,8 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           
-          <!-- Certification 1: Agentforce Specialist (Original Shield Artwork) -->
           <div class="cloud-card p-6 sm:p-7 space-y-4 border-[var(--primary)]/30">
             <div class="flex items-start gap-4">
-              <!-- Original Shield Illustration -->
               <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--primary)] to-cyan-500 text-white flex items-center justify-center shrink-0 shadow-md">
                 <svg viewBox="0 0 100 100" class="w-8 h-8 fill-current">
                   <path d="M50 15 L80 25 V50 C80 70 50 85 50 85 C50 85 20 70 20 50 V25 Z" fill="none" stroke="currentColor" stroke-width="6"/>
@@ -1329,10 +1445,8 @@
             </div>
           </div>
 
-          <!-- Certification 2: AI Associate (Original Shield Artwork) -->
           <div class="cloud-card p-6 sm:p-7 space-y-4 border-purple-500/30">
             <div class="flex items-start gap-4">
-              <!-- Original Shield Illustration -->
               <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
                 <svg viewBox="0 0 100 100" class="w-8 h-8 fill-current">
                   <path d="M50 15 L80 25 V50 C80 70 50 85 50 85 C50 85 20 70 20 50 V25 Z" fill="none" stroke="currentColor" stroke-width="6"/>
@@ -1368,7 +1482,6 @@
     <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
       <div class="max-w-[1000px] mx-auto">
         
-        <!-- Large Rounded Panel with Cloud Shapes & Gradient Background -->
         <div class="cloud-panel p-8 sm:p-12 relative overflow-hidden text-center space-y-8" style="background: var(--gradient-hero);">
           
           <div class="space-y-3 max-w-2xl mx-auto relative z-10">
@@ -1379,28 +1492,23 @@
             </p>
           </div>
 
-          <!-- Contact Buttons: Email, LinkedIn, GitHub (NO form backend, NO phone number) -->
           <div class="flex flex-wrap items-center justify-center gap-4 relative z-10">
             
-            <!-- Direct Mailto Button -->
             <a href="mailto:rakeshmajhi.connect@gmail.com?subject=Salesforce%20&%20Agentforce%20Opportunity" class="btn-primary text-sm py-3 px-6">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               Send an Email
             </a>
 
-            <!-- Click to Copy Email -->
             <button class="copy-email-trigger btn-secondary text-sm py-3 px-6">
               <svg class="w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
               Copy Email Address
             </button>
 
-            <!-- LinkedIn -->
             <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="btn-secondary text-sm py-3 px-5">
               <svg class="w-5 h-5 fill-current text-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               LinkedIn Profile
             </a>
 
-            <!-- GitHub -->
             <a href="https://github.com/rakeshmajhi57" target="_blank" rel="noopener noreferrer" class="btn-secondary text-sm py-3 px-5">
               <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               GitHub
@@ -1428,7 +1536,6 @@
   <div id="project-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-project-title" aria-hidden="true">
     <div class="modal-content p-6 sm:p-8 space-y-6">
       
-      <!-- Modal Header -->
       <div class="flex items-start justify-between pb-4 border-b border-[var(--border)]">
         <div class="space-y-1">
           <span id="modal-project-tag" class="text-xs font-mono font-bold text-[var(--primary)] uppercase tracking-wider"></span>
@@ -1439,9 +1546,7 @@
         </button>
       </div>
 
-      <!-- Case Study Body -->
       <div class="space-y-4 text-sm text-[var(--text-muted)] leading-relaxed">
-        
         <div>
           <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-[var(--text)] mb-1">Problem Statement</h4>
           <p id="modal-project-problem" class="text-xs sm:text-sm"></p>
@@ -1471,7 +1576,6 @@
           <h4 class="font-bold text-xs uppercase tracking-wider font-mono text-[var(--text)] mb-2">Technologies Used</h4>
           <div id="modal-project-tech" class="flex flex-wrap gap-1.5"></div>
         </div>
-
       </div>
 
     </div>
