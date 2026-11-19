@@ -1,14 +1,18 @@
-# Technical Details to Confirm with Rakesh Majhi
+# Confirm with Rakesh Majhi
 
-The following items are functional in the portfolio using accurate production baseline patterns, but specific client-confidential parameters should be reviewed and verified by Rakesh:
+The following unconfirmed parameters, metrics, and dates have been removed from the live page and preserved here for review:
 
-1. **Amazon Connect & Salesforce Service Cloud CTI Integration**
-   - **Status**: Implemented in `src/data/projects.ts` (Project 07) and `src/components/sections/ArchitectureBuilder.tsx` (Preset 5).
-   - **Question**: Confirm specific CTI adapter version (e.g., Salesforce CTI Adapter v5.x vs Open CTI Lightning) and contact flow screen-pop routing matrix. Currently generic illustrative reference is shown.
+### 1. Unconfirmed Metrics & Engineering Claims
+- **Apex Trigger count**: "20+ production triggers" (removed from page; only 6 verified project systems displayed).
+- **Nightly Volume**: "50K+ nightly records batch processing" (removed from page).
+- **Test Coverage Claim**: ">85% test coverage standard" (removed from page).
+- **Vendor / Partner Mentions**: UPS Logistics API, Avalara AvaTax, NACHA ACH generator, HIPAA compliance, WMS sync, Salesforce CTI adapter version, Omni-Channel skill-based routing, sub-100ms CloudFront response time.
 
-2. **Full-Stack Tenure at Briskode Technology**
-   - **Status**: Implemented in `src/components/sections/ExperienceSection.tsx` (Track 00, Mar 2024 – Oct 2024) and `src/data/projects.ts` (Project 06).
-   - **Question**: Confirm any additional AWS services deployed beyond Amplify, CloudFront, ACM, RDS MySQL, Lambda, S3, Route 53, and EC2.
+### 2. Timeline & Experience Alignment
+- **AWS Cloud Work**: Verified as engineered at **ASSPL** (Amplify, CloudFront, ACM, RDS MySQL, Lambda API, S3), aligning with resume.
+- **Briskode Scope**: Confirmed as React/Next.js frontend UI engineering and REST API consumption.
 
-3. **Client IP & NDAs**
-   - **Status**: Fully compliant. No client names, credentials, internal endpoints, or proprietary schemas are exposed anywhere in code or UI.
+### 3. Dates to Confirm ([DATE] Placeholders)
+- **Outlook Add-in Deployment Date**: [DATE - CONFIRM WITH RAKESH]
+- **Agentforce Specialist Certification Date**: [DATE - CONFIRM WITH RAKESH]
+- **AI Associate Certification Date**: [DATE - CONFIRM WITH RAKESH]

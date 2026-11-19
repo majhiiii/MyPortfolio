@@ -1,44 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
   --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --color-paper: #F3F1EC;
-  --color-ink: #0D0D0F;
-  --color-surface: #FFFFFF;
-  --color-muted: #6E6E73;
-  --color-accent: #0F6BFF;
-  --color-amber: #FFB020;
+  --color-paper: #F6EFE0;
+  --color-surface: #FFFBF2;
+  --color-ink: #1A1410;
+  --color-muted: #6B5D4F;
+  --color-hairline: #E3D6BD;
+  --color-turmeric: #E8A317;
+  --color-vermilion: #C8372D;
+  --color-indigo: #1F2A5C;
+  --color-leaf: #3C6E47;
+  --color-clay: #8A4B2A;
 }
 
 :root {
-  --bg: #F3F1EC;
-  --ink: #0D0D0F;
-  --surface: #FFFFFF;
-  --muted: #6E6E73;
-  --hairline: rgba(13, 13, 15, 0.12);
-  --accent: #0F6BFF;
-  --signal-amber: #FFB020;
-  --card-bg: #FFFFFF;
-  --grain-opacity: 0.025;
+  --bg: #F6EFE0;
+  --surface: #FFFBF2;
+  --ink: #1A1410;
+  --muted: #6B5D4F;
+  --hairline: #E3D6BD;
+  --turmeric: #E8A317;
+  --vermilion: #C8372D;
+  --indigo: #1F2A5C;
+  --leaf: #3C6E47;
+  --clay: #8A4B2A;
+  --accent: #1F2A5C;
 }
 
 [data-theme="dark"] {
-  --bg: #0B0B0D;
-  --ink: #F3F1EC;
-  --surface: #141417;
-  --muted: #8E8E93;
-  --hairline: rgba(243, 241, 236, 0.12);
-  --accent: #4C8DFF;
-  --signal-amber: #FFB020;
-  --card-bg: #141417;
-  --grain-opacity: 0.035;
+  --bg: #14100C;
+  --surface: #1D1813;
+  --ink: #F3E9D6;
+  --muted: #A09080;
+  --hairline: rgba(243, 233, 214, 0.15);
+  --turmeric: #E8A317;
+  --vermilion: #E04B40;
+  --indigo: #4A5EA8;
+  --leaf: #5B996A;
+  --clay: #B36841;
+  --accent: #E8A317;
 }
 
 html {
   background-color: var(--bg);
   color: var(--ink);
+  scroll-behavior: smooth;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
@@ -46,17 +54,17 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   overflow-x: hidden;
-  font-size: 18px;
-  line-height: 1.6;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  font-size: 17.5px;
+  line-height: 1.65;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 62ch max-width reading line */
+/* 65ch max-width reading line */
 .prose-measure {
-  max-width: 62ch;
+  max-width: 65ch;
 }
 
-/* Hairline border - exactly ONE clean border style site-wide */
+/* Hairline border */
 .border-hairline {
   border-color: var(--hairline);
 }
@@ -65,33 +73,26 @@ body {
   border-color: var(--hairline);
 }
 
-/* Subtle Film Grain Overlay (Static SVG data URI, 0 performance cost) */
-.film-grain {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 999;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--hairline);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
+}
+
+/* Focus visible styles (indigo ring) */
+:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
 }
 
 /* Skip link */
@@ -99,36 +100,13 @@ body {
   position: absolute;
   top: -100px;
   left: 1rem;
-  z-index: 100;
+  background: var(--indigo);
+  color: #FFFBF2;
   padding: 0.5rem 1rem;
-  background: var(--ink);
-  color: var(--bg);
-  font-family: var(--font-geist-mono);
-  font-size: 0.75rem;
-  transition: top 0.2s;
+  z-index: 9999;
+  border-radius: 4px;
+  transition: top 0.2s ease;
 }
 .skip-link:focus {
   top: 1rem;
-}
-
-/* View Transition Theme Toggle circular reveal fallback */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: -24;
-  }
 }

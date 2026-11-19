@@ -11,9 +11,9 @@ export function CpqConfigurator() {
   const [beamLevels, setBeamLevels] = useState<number>(3);
   const [copied, setCopied] = useState<boolean>(false);
 
-  // Accurate Calculations based on Industrial Equipment Standards
+  // Calculations based on equipment standards
   const isPallet = rackType === "pallet";
-  const capacityPerLevel = isPallet ? 5000 : 3500; // lbs per beam pair or arm set
+  const capacityPerLevel = isPallet ? 5000 : 3500;
   const totalCapacity = beamLevels * capacityPerLevel;
 
   const basePrice = isPallet ? 340 : 580;
@@ -36,7 +36,6 @@ export function CpqConfigurator() {
 
   const handleCopyPayload = () => {
     const payload = {
-      systemCategory: "Industrial Warehouse Storage Solutions",
       rackType: isPallet ? "Teardrop Pallet Rack System" : "Heavy-Duty Cantilever Storage System",
       dimensionalSpecifications: {
         heightInches: frameHeight,
@@ -44,13 +43,8 @@ export function CpqConfigurator() {
         depthInches: uprightDepth,
         tiers: beamLevels,
       },
-      structuralEngineering: {
-        capacityPerLevelLbs: capacityPerLevel,
-        totalBayCapacityLbs: totalCapacity,
-        calculatedWholesalePriceUSD: unitPrice,
-      },
+      calculatedWholesalePriceUSD: unitPrice,
       billOfMaterials: bom,
-      generatedTimestamp: new Date().toISOString(),
     };
     navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
     setCopied(true);
@@ -58,49 +52,49 @@ export function CpqConfigurator() {
   };
 
   return (
-    <div className="space-y-6 font-mono text-xs">
+    <div className="space-y-6 font-mono text-xs text-white/90">
       {/* Header bar */}
-      <div className="flex items-center justify-between text-[11px] text-[var(--muted)] border-b border-hairline pb-3">
-        <div className="flex items-center gap-2">
-          <Sliders className="w-4 h-4 text-[var(--ink)]" />
-          <span>Interactive Dimensional CPQ Engine · LWC Quoting Module</span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+        <div className="flex items-center gap-2 text-white/70">
+          <Sliders className="w-4 h-4 text-[#E8A317]" />
+          <span>Dimensional CPQ Quoting Tool</span>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setRackType("pallet")}
-            className={`px-3 py-1.5 text-[11px] rounded-xs border transition-colors ${
+            className={`px-3 py-1.5 text-[11px] rounded-sm border transition-colors cursor-pointer ${
               isPallet
-                ? "bg-[var(--ink)] text-[var(--surface)] border-[var(--ink)] font-bold"
-                : "border-hairline text-[var(--muted)] hover:text-[var(--ink)]"
+                ? "bg-white text-[#14182E] border-white font-bold"
+                : "border-white/20 text-white/60 hover:text-white"
             }`}
           >
-            Pallet Rack Elevation
+            Pallet Elevation
           </button>
           <button
             onClick={() => setRackType("cantilever")}
-            className={`px-3 py-1.5 text-[11px] rounded-xs border transition-colors ${
+            className={`px-3 py-1.5 text-[11px] rounded-sm border transition-colors cursor-pointer ${
               !isPallet
-                ? "bg-[var(--ink)] text-[var(--surface)] border-[var(--ink)] font-bold"
-                : "border-hairline text-[var(--muted)] hover:text-[var(--ink)]"
+                ? "bg-white text-[#14182E] border-white font-bold"
+                : "border-white/20 text-white/60 hover:text-white"
             }`}
           >
-            Cantilever Rack Elevation
+            Cantilever Elevation
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Controls Column */}
-        <div className="lg:col-span-5 space-y-4 bg-[var(--surface)] border border-hairline p-4 rounded-sm">
-          <div className="text-[10px] uppercase font-bold text-[var(--ink)] tracking-wider">
+        <div className="lg:col-span-5 space-y-4 bg-[#181D38] border border-white/10 p-4 rounded-md">
+          <div className="text-[10px] uppercase font-bold text-white/60 tracking-wider">
             Dimensional Parameters
           </div>
 
           {/* Width */}
           <div className="space-y-1.5">
             <div className="flex justify-between text-[11px]">
-              <span className="text-[var(--muted)]">Bay Span / Width:</span>
-              <span className="font-bold text-[var(--ink)]">{bayWidth / 12} ft ({bayWidth}&quot;)</span>
+              <span className="text-white/60">Bay Span / Width:</span>
+              <span className="font-bold text-white">{bayWidth / 12} ft ({bayWidth}&quot;)</span>
             </div>
             <input
               type="range"
@@ -109,15 +103,15 @@ export function CpqConfigurator() {
               step={12}
               value={bayWidth}
               onChange={(e) => setBayWidth(Number(e.target.value))}
-              className="w-full accent-[var(--ink)] cursor-pointer"
+              className="w-full accent-[#E8A317] cursor-pointer"
             />
           </div>
 
           {/* Height */}
           <div className="space-y-1.5">
             <div className="flex justify-between text-[11px]">
-              <span className="text-[var(--muted)]">Column Height:</span>
-              <span className="font-bold text-[var(--ink)]">{frameHeight / 12} ft ({frameHeight}&quot;)</span>
+              <span className="text-white/60">Column Height:</span>
+              <span className="font-bold text-white">{frameHeight / 12} ft ({frameHeight}&quot;)</span>
             </div>
             <input
               type="range"
@@ -126,38 +120,32 @@ export function CpqConfigurator() {
               step={24}
               value={frameHeight}
               onChange={(e) => setFrameHeight(Number(e.target.value))}
-              className="w-full accent-[var(--ink)] cursor-pointer"
+              className="w-full accent-[#E8A317] cursor-pointer"
             />
           </div>
 
           {/* Depth */}
           <div className="space-y-1.5">
             <div className="flex justify-between text-[11px]">
-              <span className="text-[var(--muted)]">Arm / Frame Depth:</span>
-              <span className="font-bold text-[var(--ink)]">{uprightDepth}&quot;</span>
+              <span className="text-white/60">Upright Depth / Arm:</span>
+              <span className="font-bold text-white">{uprightDepth}&quot; ({uprightDepth / 12} ft)</span>
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              {[36, 42, 48].map((d) => (
-                <button
-                  key={d}
-                  onClick={() => setUprightDepth(d)}
-                  className={`py-1 text-[10px] rounded-xs border transition-colors ${
-                    uprightDepth === d
-                      ? "bg-[var(--ink)] text-[var(--surface)] border-[var(--ink)] font-bold"
-                      : "border-hairline text-[var(--muted)] hover:text-[var(--ink)]"
-                  }`}
-                >
-                  {d}&quot;
-                </button>
-              ))}
-            </div>
+            <input
+              type="range"
+              min={36}
+              max={54}
+              step={6}
+              value={uprightDepth}
+              onChange={(e) => setUprightDepth(Number(e.target.value))}
+              className="w-full accent-[#E8A317] cursor-pointer"
+            />
           </div>
 
           {/* Levels */}
           <div className="space-y-1.5">
             <div className="flex justify-between text-[11px]">
-              <span className="text-[var(--muted)]">Load Tiers / Levels:</span>
-              <span className="font-bold text-[var(--ink)]">{beamLevels} Tiers</span>
+              <span className="text-white/60">Storage Tier Levels:</span>
+              <span className="font-bold text-white">{beamLevels} Levels</span>
             </div>
             <input
               type="range"
@@ -166,149 +154,104 @@ export function CpqConfigurator() {
               step={1}
               value={beamLevels}
               onChange={(e) => setBeamLevels(Number(e.target.value))}
-              className="w-full accent-[var(--ink)] cursor-pointer"
+              className="w-full accent-[#E8A317] cursor-pointer"
             />
           </div>
 
-          {/* Quoting Summary */}
-          <div className="pt-3 border-t border-hairline space-y-1.5">
-            <div className="flex justify-between text-xs">
-              <span className="text-[var(--muted)]">Total Structural Capacity:</span>
-              <span className="font-bold text-[var(--ink)]">{totalCapacity.toLocaleString()} lbs</span>
+          {/* Summary Box */}
+          <div className="pt-3 border-t border-white/10 space-y-2 text-[11px]">
+            <div className="flex justify-between">
+              <span className="text-white/60">Capacity / Level:</span>
+              <span className="font-bold text-white">{capacityPerLevel.toLocaleString()} lbs</span>
             </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-[var(--muted)]">Calculated Unit Price:</span>
-              <span className="font-bold text-sm text-[var(--ink)]">${unitPrice.toFixed(2)}</span>
+            <div className="flex justify-between">
+              <span className="text-white/60">Total Bay Rating:</span>
+              <span className="font-bold text-[#E8A317]">{totalCapacity.toLocaleString()} lbs</span>
+            </div>
+            <div className="flex justify-between items-baseline pt-2 border-t border-white/10">
+              <span className="text-white/60 font-semibold">Calculated Quote:</span>
+              <span className="text-lg font-bold text-white">${unitPrice.toLocaleString()} USD</span>
             </div>
           </div>
         </div>
 
-        {/* Blueprint SVG Schematic Column */}
+        {/* CAD Elevation & Bill of Materials */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="border border-hairline rounded-sm p-4 bg-[var(--surface)] flex flex-col justify-between min-h-[300px]">
-            <div className="flex items-center justify-between text-[10px] uppercase text-[var(--muted)] mb-2">
-              <span>Technical Elevation Schematic (Scale 1:24)</span>
-              <span>TYPE: {isPallet ? "PALLET RACK" : "CANTILEVER RACK"}</span>
+          {/* Elevation Blueprint Canvas */}
+          <div className="h-60 rounded-md bg-[#0F1326] border border-white/10 flex items-center justify-center p-4 relative overflow-hidden">
+            <div className="absolute top-2 left-3 text-[10px] text-white/40">
+              CAD Schematic Elevation &bull; {isPallet ? "Pallet Rack" : "Cantilever"}
             </div>
 
-            {/* Dynamic Scaled SVG Blueprint */}
-            <div className="w-full flex items-center justify-center py-4 bg-[var(--bg)] border border-hairline rounded-xs">
+            <svg
+              className="w-full h-full max-h-48"
+              viewBox="0 0 320 180"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               {isPallet ? (
-                // Pallet Rack Blueprint
-                <svg
-                  className="w-full max-w-[380px] h-[220px]"
-                  viewBox="0 0 380 220"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Floor Line */}
-                  <line x1="20" y1="200" x2="360" y2="200" stroke="currentColor" strokeWidth="1.5" />
-                  <text x="360" y="214" textAnchor="end" fontSize="8" fontFamily="var(--font-geist-mono)" fill="var(--muted)">0.00 FLOOR</text>
-
-                  {/* Left Upright Frame */}
-                  <rect x="60" y="30" width="12" height="170" stroke="currentColor" strokeWidth="1.5" fill="var(--surface)" />
-                  <line x1="60" y1="50" x2="72" y2="80" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 2" />
-                  <line x1="60" y1="110" x2="72" y2="140" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 2" />
-                  <line x1="60" y1="170" x2="72" y2="200" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 2" />
-
-                  {/* Right Upright Frame */}
-                  <rect x="300" y="30" width="12" height="170" stroke="currentColor" strokeWidth="1.5" fill="var(--surface)" />
-                  <line x1="300" y1="50" x2="312" y2="80" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 2" />
-                  <line x1="300" y1="110" x2="312" y2="140" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 2" />
-                  <line x1="300" y1="170" x2="312" y2="200" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 2" />
-
-                  {/* Dynamic Beam Levels */}
+                <>
+                  {/* Left Column */}
+                  <rect x="50" y="20" width="8" height="140" fill="#E8A317" rx="1" />
+                  {/* Right Column */}
+                  <rect x="260" y="20" width="8" height="140" fill="#E8A317" rx="1" />
+                  {/* Levels */}
                   {Array.from({ length: beamLevels }).map((_, i) => {
-                    const spacing = 150 / (beamLevels + 0.5);
-                    const y = 190 - (i + 1) * spacing;
+                    const y = 140 - (i * 110) / Math.max(beamLevels - 1, 1);
                     return (
                       <g key={i}>
-                        <rect x="72" y={y} width="228" height="8" stroke="currentColor" strokeWidth="1.2" fill="var(--surface)" />
-                        <text x="186" y={y - 3} textAnchor="middle" fontSize="7" fontFamily="var(--font-geist-mono)" fill="var(--muted)">
-                          TIER {i + 1}: {capacityPerLevel.toLocaleString()} LBS
-                        </text>
+                        <rect x="58" y={y} width="202" height="6" fill="#C8372D" rx="1" />
+                        <line x1="58" y1={y + 3} x2="260" y2={y + 3} stroke="#FFF" strokeWidth="0.5" strokeDasharray="3 3" />
                       </g>
                     );
                   })}
-
-                  {/* Annotations */}
-                  <line x1="72" y1="210" x2="300" y2="210" stroke="currentColor" strokeWidth="0.8" />
-                  <text x="186" y="218" textAnchor="middle" fontSize="8" fontFamily="var(--font-geist-mono)" fill="currentColor">
-                    {bayWidth}&quot; SPAN
-                  </text>
-                  <line x1="45" y1="30" x2="45" y2="200" stroke="currentColor" strokeWidth="0.8" />
-                  <text x="38" y="115" textAnchor="middle" fontSize="8" fontFamily="var(--font-geist-mono)" fill="currentColor" transform="rotate(-90 38 115)">
-                    {frameHeight}&quot; HEIGHT
-                  </text>
-                </svg>
+                  {/* Diagonal X-bracing */}
+                  <line x1="58" y1="20" x2="260" y2="160" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                  <line x1="58" y1="160" x2="260" y2="20" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                </>
               ) : (
-                // Cantilever Rack Blueprint
-                <svg
-                  className="w-full max-w-[380px] h-[220px]"
-                  viewBox="0 0 380 220"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line x1="20" y1="200" x2="360" y2="200" stroke="currentColor" strokeWidth="1.5" />
-                  <text x="360" y="214" textAnchor="end" fontSize="8" fontFamily="var(--font-geist-mono)" fill="var(--muted)">0.00 FLOOR</text>
-
-                  {/* Base Plate */}
-                  <rect x="130" y="190" width="120" height="10" stroke="currentColor" strokeWidth="1.5" fill="var(--surface)" />
-
-                  {/* Central Column */}
-                  <rect x="180" y="30" width="20" height="160" stroke="currentColor" strokeWidth="1.5" fill="var(--surface)" />
-                  <line x1="190" y1="30" x2="190" y2="190" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 2" />
-
-                  {/* Dynamic Cantilever Arms */}
+                <>
+                  {/* Center Column */}
+                  <rect x="154" y="20" width="12" height="140" fill="#E8A317" rx="1" />
+                  <rect x="100" y="155" width="120" height="8" fill="#8A4B2A" rx="1" />
+                  {/* Cantilever Arms */}
                   {Array.from({ length: beamLevels }).map((_, i) => {
-                    const spacing = 140 / (beamLevels + 0.5);
-                    const y = 180 - (i + 1) * spacing;
+                    const y = 135 - (i * 100) / Math.max(beamLevels - 1, 1);
                     return (
                       <g key={i}>
-                        {/* Left Arm */}
-                        <path d={`M180 ${y} L100 ${y - 4} L100 ${y + 6} L180 ${y + 8} Z`} stroke="currentColor" strokeWidth="1.2" fill="var(--surface)" />
-                        <rect x="96" y={y - 8} width="4" height="12" stroke="currentColor" strokeWidth="1" fill="currentColor" />
-
-                        {/* Right Arm */}
-                        <path d={`M200 ${y} L280 ${y - 4} L280 ${y + 6} L200 ${y + 8} Z`} stroke="currentColor" strokeWidth="1.2" fill="var(--surface)" />
-                        <rect x="280" y={y - 8} width="4" height="12" stroke="currentColor" strokeWidth="1" fill="currentColor" />
-
-                        <text x="190" y={y - 6} textAnchor="middle" fontSize="7" fontFamily="var(--font-geist-mono)" fill="var(--muted)">
-                          {capacityPerLevel.toLocaleString()} LBS / ARM
-                        </text>
+                        <polygon points={`154,${y} 85,${y - 4} 85,${y + 4} 154,${y + 6}`} fill="#C8372D" />
+                        <polygon points={`166,${y} 235,${y - 4} 235,${y + 4} 166,${y + 6}`} fill="#C8372D" />
                       </g>
                     );
                   })}
-
-                  <line x1="310" y1="30" x2="310" y2="200" stroke="currentColor" strokeWidth="0.8" />
-                  <text x="325" y="115" textAnchor="middle" fontSize="8" fontFamily="var(--font-geist-mono)" fill="currentColor" transform="rotate(90 325 115)">
-                    {frameHeight}&quot; COLUMN HEIGHT
-                  </text>
-                </svg>
+                </>
               )}
+            </svg>
+          </div>
+
+          {/* Bill of Materials Table */}
+          <div className="bg-[#181D38] border border-white/10 p-3.5 rounded-md space-y-2">
+            <div className="flex items-center justify-between text-[10px] text-white/50">
+              <span>GENERATED BILL OF MATERIALS (BOM)</span>
+              <button
+                onClick={handleCopyPayload}
+                className="flex items-center gap-1 text-[#E8A317] hover:underline cursor-pointer"
+              >
+                {copied ? <Check className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
+                <span>{copied ? "Copied JSON" : "Copy Payload"}</span>
+              </button>
             </div>
 
-            {/* Bill of Materials Output */}
-            <div className="pt-3 border-t border-hairline space-y-1.5">
-              <div className="flex items-center justify-between text-[10px] uppercase text-[var(--muted)]">
-                <span>Calculated Bill of Materials (BOM)</span>
-                <button
-                  onClick={handleCopyPayload}
-                  className="flex items-center gap-1 hover:text-[var(--ink)] transition-colors font-semibold"
-                >
-                  {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                  <span>{copied ? "Copied Spec Payload" : "Copy Spec Payload (JSON)"}</span>
-                </button>
-              </div>
-
-              <div className="divide-y divide-hairline border-y border-hairline text-[10px]">
-                {bom.map((item, idx) => (
-                  <div key={idx} className="py-1 flex justify-between">
-                    <span className="text-[var(--ink)] font-semibold">{item.qty}x {item.part}</span>
-                    <span className="text-[var(--muted)]">{item.spec}</span>
+            <div className="divide-y divide-white/10 text-[11px]">
+              {bom.map((item, idx) => (
+                <div key={idx} className="py-1.5 flex justify-between items-center text-white/80">
+                  <div className="space-x-2">
+                    <span className="font-semibold text-white">{item.part}</span>
+                    <span className="text-white/50 text-[10px]">{item.spec}</span>
                   </div>
-                ))}
-              </div>
+                  <span className="font-mono text-[#E8A317]">x{item.qty}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
