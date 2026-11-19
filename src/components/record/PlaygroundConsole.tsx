@@ -40,7 +40,7 @@ export function PlaygroundConsole() {
   const activeMoreLabel = MORE_TOOLS.find((t) => t.id === activeTab)?.label || "More Tools";
 
   return (
-    <section id="playground" className="space-y-4 pt-10 pb-12">
+    <section id="playground" className="space-y-4 pt-4 pb-6">
       {/* Title & Plain Label */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
         <div>

@@ -3,44 +3,46 @@
 @theme {
   --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --color-paper: #F6EFE0;
-  --color-surface: #FFFBF2;
-  --color-ink: #1A1410;
-  --color-muted: #6B5D4F;
-  --color-hairline: #E3D6BD;
-  --color-turmeric: #E8A317;
-  --color-vermilion: #C8372D;
-  --color-indigo: #1F2A5C;
-  --color-leaf: #3C6E47;
-  --color-clay: #8A4B2A;
 }
 
 :root {
-  --bg: #F6EFE0;
-  --surface: #FFFBF2;
-  --ink: #1A1410;
-  --muted: #6B5D4F;
-  --hairline: #E3D6BD;
-  --turmeric: #E8A317;
-  --vermilion: #C8372D;
-  --indigo: #1F2A5C;
-  --leaf: #3C6E47;
-  --clay: #8A4B2A;
-  --accent: #1F2A5C;
+  /* Crisp, vibrant, high-contrast light mode */
+  --bg: #F4F6F9;
+  --surface: #FFFFFF;
+  --surface-alt: #F8FAFC;
+  --ink: #0F172A;
+  --muted: #475569;
+  --hairline: #E2E8F0;
+  --hairline-subtle: #EDF2F7;
+  
+  /* Vibrant tech signature colors */
+  --turmeric: #F59E0B;
+  --vermilion: #EF4444;
+  --indigo: #0284C7;
+  --blue: #0176D3;
+  --purple: #7C3AED;
+  --leaf: #10B981;
+  --clay: #D97706;
+  --accent: #0176D3;
 }
 
 [data-theme="dark"] {
-  --bg: #14100C;
-  --surface: #1D1813;
-  --ink: #F3E9D6;
-  --muted: #A09080;
-  --hairline: rgba(243, 233, 214, 0.15);
-  --turmeric: #E8A317;
-  --vermilion: #E04B40;
-  --indigo: #4A5EA8;
-  --leaf: #5B996A;
-  --clay: #B36841;
-  --accent: #E8A317;
+  --bg: #0B0E14;
+  --surface: #151922;
+  --surface-alt: #1A202C;
+  --ink: #F8FAFC;
+  --muted: #94A3B8;
+  --hairline: rgba(226, 232, 240, 0.12);
+  --hairline-subtle: rgba(226, 232, 240, 0.06);
+  
+  --turmeric: #FBBF24;
+  --vermilion: #F87171;
+  --indigo: #38BDF8;
+  --blue: #38BDF8;
+  --purple: #A78BFA;
+  --leaf: #34D399;
+  --clay: #F59E0B;
+  --accent: #38BDF8;
 }
 
 html {
@@ -54,12 +56,12 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   overflow-x: hidden;
-  font-size: 17.5px;
-  line-height: 1.65;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 15px;
+  line-height: 1.55;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* 65ch max-width reading line */
+/* Scannable reading max width */
 .prose-measure {
   max-width: 65ch;
 }
@@ -75,23 +77,23 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--hairline);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
 }
 
-/* Focus visible styles (indigo ring) */
+/* Focus visible styles */
 :focus-visible {
-  outline: 2px solid var(--indigo);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -100,11 +102,12 @@ body {
   position: absolute;
   top: -100px;
   left: 1rem;
-  background: var(--indigo);
-  color: #FFFBF2;
-  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #FFFFFF;
+  padding: 0.4rem 0.8rem;
   z-index: 9999;
   border-radius: 4px;
+  font-size: 12px;
   transition: top 0.2s ease;
 }
 .skip-link:focus {

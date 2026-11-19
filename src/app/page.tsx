@@ -7,7 +7,7 @@ import { ContactActivitySection } from "@/components/record/ContactActivitySecti
 
 export default function RecordPage() {
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-20 py-6 sm:py-10">
+    <div className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 py-4 sm:py-6">
       {/* SCREEN 1: Overview (The Record Header) */}
       <OverviewSection />
 
