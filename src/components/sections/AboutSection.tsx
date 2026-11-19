@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { FACTS, CERTIFICATIONS } from "@/lib/data";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 function Word({ children, progress, range }: { children: string; progress: any; range: [number, number] }) {
   const opacity = useTransform(progress, range, [0.18, 1]);
@@ -27,10 +27,10 @@ export default function AboutSection() {
   const words = narrativeText.split(" ");
 
   return (
-    <section id="about" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)]">
+    <section id="about" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)] transition-colors">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-16">
         
-        {/* Left Column: Sticky Editorial Portrait / Identity Card */}
+        {/* Left Column: Sticky Editorial Portrait / Identity Card with Colored Offset Block */}
         <div className="col-span-12 lg:col-span-5">
           <div className="lg:sticky lg:top-28 space-y-8">
             
@@ -41,37 +41,47 @@ export default function AboutSection() {
               </h2>
             </div>
 
-            {/* Editorial Portrait Frame with Mask Reveal */}
-            <motion.div
-              initial={{ clipPath: "inset(100% 0% 0% 0%)", opacity: 0 }}
-              whileInView={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="relative aspect-[4/5] max-w-sm rounded-sm bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] border border-hairline p-6 flex flex-col justify-between overflow-hidden shadow-xs"
-            >
-              <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
-                <span>PORTRAIT // ARCHIVE</span>
-                <span className="text-[var(--ink)] font-medium">ASSPL &bull; 2024&ndash;PRESENT</span>
-              </div>
+            {/* Editorial Portrait Frame with Colored Offset Block */}
+            <div className="relative max-w-sm">
+              {/* Colored offset shadow block */}
+              <div
+                className="absolute inset-0 translate-x-3 translate-y-3 rounded-lg opacity-40 transition-colors duration-500"
+                style={{ backgroundColor: "var(--accent)" }}
+              />
 
-              {/* Architectural Monogram Visual */}
-              <div className="my-auto flex flex-col items-center justify-center text-center py-8">
-                <div className="w-24 h-24 rounded-full border border-hairline flex items-center justify-center font-serif text-5xl font-light text-[var(--ink)] mb-4">
-                  RM
+              <motion.div
+                initial={{ clipPath: "inset(100% 0% 0% 0%)", opacity: 0 }}
+                whileInView={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                className="relative aspect-[4/5] rounded-lg bg-[var(--surface)] border border-hairline p-6 flex flex-col justify-between overflow-hidden shadow-xs z-10"
+              >
+                <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
+                  <span>PORTRAIT // ARCHIVE</span>
+                  <span className="text-[var(--ink)] font-medium">ASSPL &bull; 2024&ndash;PRESENT</span>
                 </div>
-                <span className="font-serif text-2xl text-[var(--ink)] font-normal tracking-tight">
-                  Rakesh Majhi
-                </span>
-                <span className="text-xs font-mono text-[var(--muted)] mt-1 tracking-wider uppercase">
-                  Salesforce Developer &bull; Bhubaneswar
-                </span>
-              </div>
 
-              <div className="border-t border-hairline pt-3 flex items-center justify-between text-[10px] font-mono text-[var(--muted)]">
-                <span>3 CLIENT TRACKS</span>
-                <span className="text-[var(--accent)] font-medium">VERIFIED PRODUCTION</span>
-              </div>
-            </motion.div>
+                {/* Architectural Monogram Visual */}
+                <div className="my-auto flex flex-col items-center justify-center text-center py-8">
+                  <div className="w-24 h-24 rounded-full border border-hairline flex items-center justify-center font-serif text-5xl font-light text-[var(--ink)] mb-4 shadow-xs bg-[var(--bg)]">
+                    RM
+                  </div>
+                  <span className="font-serif text-2xl text-[var(--ink)] font-normal tracking-tight">
+                    Rakesh Majhi
+                  </span>
+                  <span className="text-xs font-mono text-[var(--muted)] mt-1 tracking-wider uppercase">
+                    Salesforce Developer &bull; Bhubaneswar
+                  </span>
+                </div>
+
+                <div className="border-t border-hairline pt-3 flex items-center justify-between text-[10px] font-mono text-[var(--muted)]">
+                  <span>3 CLIENT TRACKS</span>
+                  <span className="font-medium" style={{ color: "var(--accent)" }}>
+                    VERIFIED PRODUCTION
+                  </span>
+                </div>
+              </motion.div>
+            </div>
 
           </div>
         </div>
@@ -97,7 +107,7 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* Quick Facts: Clean Hairline Rows, No Box Outlines */}
+          {/* Quick Facts */}
           <div className="border-t border-hairline pt-8 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
@@ -123,13 +133,15 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Verified Credentials: Clean Rows with Large Numbers */}
+          {/* Verified Credentials */}
           <div className="border-t border-hairline pt-8 space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
                 Verified Credentials &amp; Standards
               </h3>
-              <span className="text-[11px] font-mono text-[var(--accent)] font-medium">Official Badges</span>
+              <span className="text-[11px] font-mono font-medium" style={{ color: "var(--accent)" }}>
+                Official Badges
+              </span>
             </div>
 
             <div className="divide-y divide-hairline">
@@ -143,7 +155,7 @@ export default function AboutSection() {
                   </div>
                   <div className="col-span-12 sm:col-span-7 space-y-1">
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                      <ShieldCheck className="w-4 h-4 text-[#0176D3] shrink-0" />
                       <h4 className="font-serif text-lg font-medium text-[var(--ink)] leading-snug">
                         {cert.title}
                       </h4>

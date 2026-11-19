@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Command } from "cmdk";
 import { usePortfolioStore } from "@/lib/store";
-import { Search, FolderGit2, Sparkles, Terminal, Code2, Sun, Moon, Mail, Cpu, Workflow } from "lucide-react";
+import { STACK_DATA, SKILL_GROUPS } from "@/data/stack";
+import { PROJECTS_DATA } from "@/data/projects";
+import { Search, FolderGit2, Sparkles, Terminal, Code2, Sun, Moon, Mail, Cpu, Workflow, Layers, Cloud } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function CommandPalette() {
-  const { isCommandPaletteOpen, setCommandPaletteOpen, theme, toggleTheme } = usePortfolioStore();
+  const { isCommandPaletteOpen, setCommandPaletteOpen, theme, toggleTheme, setActiveAccentColor } = usePortfolioStore();
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -22,8 +25,9 @@ export default function CommandPalette() {
 
   if (!isCommandPaletteOpen) return null;
 
-  const navigateTo = (id: string) => {
+  const navigateTo = (id: string, color?: string) => {
     setCommandPaletteOpen(false);
+    if (color) setActiveAccentColor(color);
     const elem = document.getElementById(id);
     if (elem) elem.scrollIntoView({ behavior: "smooth" });
   };
@@ -32,6 +36,25 @@ export default function CommandPalette() {
     setCommandPaletteOpen(false);
     navigator.clipboard.writeText("rakeshmajhi.connect@gmail.com");
   };
+
+  // Filter tech stack matches
+  const matchingTech = query.trim()
+    ? STACK_DATA.filter(
+        (t) =>
+          t.name.toLowerCase().includes(query.toLowerCase()) ||
+          t.id.toLowerCase().includes(query.toLowerCase()) ||
+          t.monogram.toLowerCase().includes(query.toLowerCase())
+      ).slice(0, 5)
+    : [];
+
+  // Filter project matches
+  const matchingProjects = query.trim()
+    ? PROJECTS_DATA.filter(
+        (p) =>
+          p.title.toLowerCase().includes(query.toLowerCase()) ||
+          p.tech.some((tid) => tid.toLowerCase().includes(query.toLowerCase()))
+      ).slice(0, 4)
+    : [];
 
   return (
     <AnimatePresence>
@@ -53,7 +76,9 @@ export default function CommandPalette() {
             <div className="flex items-center px-4 py-3 border-b border-hairline">
               <Search className="w-4 h-4 text-[var(--muted)] mr-3 shrink-0" />
               <Command.Input
-                placeholder="Jump to section or tool..."
+                value={query}
+                onValueChange={setQuery}
+                placeholder="Search tech ('lambda', 'apex'), project or jump..."
                 className="w-full bg-transparent text-[var(--ink)] placeholder-[var(--muted)] focus:outline-none text-sm font-sans"
                 autoFocus
               />
@@ -62,9 +87,56 @@ export default function CommandPalette() {
 
             <Command.List className="max-h-80 overflow-y-auto p-2 space-y-1">
               <Command.Empty className="p-6 text-center text-xs font-mono text-[var(--muted)]">
-                No matching destination found.
+                No matching destination or technology found.
               </Command.Empty>
 
+              {/* Matching Tech Stack Items */}
+              {matchingTech.length > 0 && (
+                <Command.Group heading="Technologies" className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted)] px-3 py-1.5">
+                  {matchingTech.map((tech) => {
+                    const group = SKILL_GROUPS[tech.group];
+                    return (
+                      <Command.Item
+                        key={tech.id}
+                        onSelect={() => navigateTo("skills", tech.color)}
+                        className="flex items-center justify-between px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span
+                            className="px-1.5 py-0.5 rounded-xs font-mono font-bold text-[9px] text-white"
+                            style={{ backgroundColor: tech.color }}
+                          >
+                            {tech.monogram}
+                          </span>
+                          <span className="font-sans font-medium">{tech.name}</span>
+                        </div>
+                        <span className="font-mono text-[10px] text-[var(--muted)]">{group.name}</span>
+                      </Command.Item>
+                    );
+                  })}
+                </Command.Group>
+              )}
+
+              {/* Matching Projects */}
+              {matchingProjects.length > 0 && (
+                <Command.Group heading="Projects" className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted)] px-3 py-1.5">
+                  {matchingProjects.map((p) => (
+                    <Command.Item
+                      key={p.id}
+                      onSelect={() => navigateTo("projects")}
+                      className="flex items-center justify-between px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <FolderGit2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+                        <span className="font-sans font-medium line-clamp-1">{p.title}</span>
+                      </div>
+                      <span className="font-mono text-[10px] text-[var(--muted)]">{p.number}</span>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )}
+
+              {/* Primary Navigation */}
               <Command.Group heading="Navigation" className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted)] px-3 py-1.5">
                 <Command.Item
                   onSelect={() => navigateTo("hero")}
@@ -78,35 +150,49 @@ export default function CommandPalette() {
                   className="flex items-center gap-3 px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
                 >
                   <Code2 className="w-4 h-4 text-[var(--muted)]" />
-                  <span className="font-serif text-sm">About Rakesh Majhi</span>
+                  <span className="font-serif text-sm">About &bull; Tenure &amp; Background</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => navigateTo("skills")}
                   className="flex items-center gap-3 px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
                 >
                   <Sparkles className="w-4 h-4 text-[var(--muted)]" />
-                  <span className="font-serif text-sm">Skills Architecture</span>
+                  <span className="font-serif text-sm">Stack Explorer &bull; Technologies</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => navigateTo("experience")}
                   className="flex items-center gap-3 px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
                 >
                   <Workflow className="w-4 h-4 text-[var(--muted)]" />
-                  <span className="font-serif text-sm">Experience Rail &bull; ASSPL</span>
+                  <span className="font-serif text-sm">Experience Rail &bull; Briskode &rarr; ASSPL</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => navigateTo("projects")}
                   className="flex items-center gap-3 px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
                 >
                   <FolderGit2 className="w-4 h-4 text-[var(--muted)]" />
-                  <span className="font-serif text-sm">Projects Index & Demos</span>
+                  <span className="font-serif text-sm">Projects Index &amp; Blueprints</span>
+                </Command.Item>
+                <Command.Item
+                  onSelect={() => navigateTo("stack-pit")}
+                  className="flex items-center gap-3 px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
+                >
+                  <Layers className="w-4 h-4 text-[#FF5A5F]" />
+                  <span className="font-serif text-sm">The Stack Pit &bull; Physics Sandbox</span>
+                </Command.Item>
+                <Command.Item
+                  onSelect={() => navigateTo("architecture-builder")}
+                  className="flex items-center gap-3 px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
+                >
+                  <Cloud className="w-4 h-4 text-[#00A38C]" />
+                  <span className="font-serif text-sm">Architecture Builder &bull; Topologies</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => navigateTo("playground")}
                   className="flex items-center gap-3 px-3 py-2 rounded text-[var(--ink)] hover:bg-[var(--bg)] cursor-pointer text-xs transition-colors"
                 >
                   <Cpu className="w-4 h-4 text-[var(--accent)]" />
-                  <span className="font-serif text-sm">Developer Playground & Tools</span>
+                  <span className="font-serif text-sm">Developer Playground &amp; 10 Tools</span>
                 </Command.Item>
                 <Command.Item
                   onSelect={() => navigateTo("contact")}
@@ -117,6 +203,7 @@ export default function CommandPalette() {
                 </Command.Item>
               </Command.Group>
 
+              {/* Actions */}
               <Command.Group heading="Actions" className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted)] px-3 py-1.5 pt-2 border-t border-hairline">
                 <Command.Item
                   onSelect={copyEmail}
@@ -137,18 +224,18 @@ export default function CommandPalette() {
                 >
                   <span className="flex items-center gap-3">
                     {theme === "dark" ? <Sun className="w-4 h-4 text-[var(--signal-amber)]" /> : <Moon className="w-4 h-4 text-[var(--muted)]" />}
-                    <span>Toggle Visual Theme</span>
+                    <span>Toggle Theme</span>
                   </span>
                   <span className="font-mono text-[11px] text-[var(--muted)]">
-                    {theme === "dark" ? "Switch to Light" : "Switch to Dark"}
+                    {theme === "dark" ? "Light" : "Dark"}
                   </span>
                 </Command.Item>
               </Command.Group>
             </Command.List>
 
             <div className="p-2 border-t border-hairline bg-[var(--bg)]/40 flex items-center justify-between text-[11px] font-mono text-[var(--muted)] px-4">
-              <span>Navigate with &uarr;&darr; &bull; Select with Enter</span>
-              <span>ASSPL Engineering</span>
+              <span>Press ` for Terminal &bull; ESC to exit</span>
+              <span>ASSPL &bull; 8 Stack Domains</span>
             </div>
           </Command>
         </motion.div>

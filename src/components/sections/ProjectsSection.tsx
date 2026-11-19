@@ -1,17 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PROJECTS_LIST, PERSONAL_DATA } from "@/lib/data";
+import { PROJECTS_DATA, Project } from "@/data/projects";
+import { STACK_DATA, SKILL_GROUPS } from "@/data/stack";
 import { ArrowUpRight, ShieldCheck, X, CheckCircle2 } from "lucide-react";
 import { ProjectDiagram } from "@/components/diagrams/ProjectDiagrams";
+import { TechIcon } from "@/components/ui/TechIcon";
 import { motion, AnimatePresence, useSpring } from "framer-motion";
+import { usePortfolioStore } from "@/lib/store";
 
 export default function ProjectsSection() {
   const [activeModalId, setActiveModalId] = useState<string | null>(null);
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
 
-  const selectedProject = PROJECTS_LIST.find((p) => p.id === activeModalId);
-  const hoveredProject = PROJECTS_LIST.find((p) => p.id === hoveredProjectId);
+  const { setActiveAccentColor } = usePortfolioStore();
+
+  const selectedProject = PROJECTS_DATA.find((p) => p.id === activeModalId);
+  const hoveredProject = PROJECTS_DATA.find((p) => p.id === hoveredProjectId);
 
   // Esc key closes modal
   useEffect(() => {
@@ -35,11 +40,19 @@ export default function ProjectsSection() {
     springY.set(e.clientY - 80);
   };
 
+  const handleRowHover = (p: Project | null) => {
+    setHoveredProjectId(p ? p.id : null);
+    if (p) {
+      const groupColor = SKILL_GROUPS[p.primaryGroup]?.color || "#0176D3";
+      setActiveAccentColor(groupColor);
+    }
+  };
+
   return (
     <section
       id="projects"
       onMouseMove={handleMouseMove}
-      className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)] relative"
+      className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)] relative transition-colors"
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         
@@ -47,35 +60,38 @@ export default function ProjectsSection() {
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
-              05 / PRODUCTION INDEX
+              05 / PRODUCTION SYSTEMS INDEX
             </span>
             <div className="flex items-center gap-2 text-xs font-mono text-[var(--muted)]">
               <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent)]" />
-              <span>{PERSONAL_DATA.privacyNotice}</span>
+              <span>Private &bull; Built at ASSPL</span>
             </div>
           </div>
           <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
             Engineered <span className="italic">Systems</span>
           </h2>
-          <p className="text-base font-sans text-[var(--muted)] max-w-2xl">
-            Selected enterprise deployments engineered during my tenure at ASSPL. Click any row to expand technical architectures, governor limit protections, and verification traces.
+          <p className="text-base font-sans text-[var(--muted)] max-w-2xl leading-relaxed">
+            Built at ASSPL. Source and live systems are private. Walkthroughs use sample data. Click any row to expand the technical specifications and architectural blueprints.
           </p>
         </div>
 
-        {/* Index Table List with Huge Titles */}
+        {/* Index Table List with Huge Titles & Tech Icon Tiles */}
         <div className="border-t border-hairline divide-y divide-hairline">
-          {PROJECTS_LIST.map((project) => {
+          {PROJECTS_DATA.map((project) => {
             const isHovered = hoveredProjectId === project.id;
             const isFaded = hoveredProjectId !== null && !isHovered;
+            const group = SKILL_GROUPS[project.primaryGroup] || SKILL_GROUPS.salesforce;
+
+            const projectTechItems = STACK_DATA.filter((t) => project.tech.includes(t.id));
 
             return (
               <div
                 key={project.id}
                 data-cursor="view"
-                onMouseEnter={() => setHoveredProjectId(project.id)}
-                onMouseLeave={() => setHoveredProjectId(null)}
+                onMouseEnter={() => handleRowHover(project)}
+                onMouseLeave={() => handleRowHover(null)}
                 onClick={() => setActiveModalId(project.id)}
-                className={`py-8 sm:py-10 grid grid-cols-12 gap-4 items-center group cursor-pointer transition-opacity duration-200 px-2 ${
+                className={`py-8 sm:py-10 grid grid-cols-12 gap-4 items-center group cursor-pointer transition-all duration-200 px-2 ${
                   isFaded ? "opacity-30" : "opacity-100"
                 }`}
               >
@@ -85,29 +101,32 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* Huge Title */}
-                <div className="col-span-10 sm:col-span-7 space-y-2">
+                <div className="col-span-10 sm:col-span-6 space-y-2">
                   <h3 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal text-[var(--ink)] tracking-tight group-hover:italic group-hover:translate-x-2 transition-all duration-300">
                     {project.title}
                   </h3>
                   <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[var(--muted)]">
                     <span className="font-medium text-[var(--ink)]">{project.subtitle}</span>
                     <span>&bull;</span>
-                    <span className="text-[var(--accent)]">{project.companyBadge}</span>
+                    <span
+                      className="px-2 py-0.5 rounded-full text-[10px] font-bold"
+                      style={{ backgroundColor: group.tint, color: group.color }}
+                    >
+                      {project.companyBadge}
+                    </span>
                   </div>
                 </div>
 
-                {/* Platform Tag */}
-                <div className="hidden sm:block sm:col-span-3 text-right sm:text-left text-xs font-mono text-[var(--muted)]">
-                  <div className="flex flex-wrap gap-1.5 justify-end sm:justify-start">
-                    {project.tech.slice(0, 3).map((t, i) => (
-                      <span
-                        key={i}
-                        className="px-2.5 py-0.5 rounded-full border border-hairline bg-[var(--surface)] text-[var(--ink)] text-[10px]"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                {/* Tech Icon Tiles per Row */}
+                <div className="hidden sm:flex sm:col-span-4 items-center gap-2 justify-end sm:justify-start flex-wrap">
+                  {projectTechItems.slice(0, 5).map((tech) => (
+                    <TechIcon key={tech.id} item={tech} size="sm" showTooltip={false} />
+                  ))}
+                  {projectTechItems.length > 5 && (
+                    <span className="text-[10px] font-mono text-[var(--muted)]">
+                      +{projectTechItems.length - 5}
+                    </span>
+                  )}
                 </div>
 
                 {/* Arrow */}
@@ -119,7 +138,7 @@ export default function ProjectsSection() {
           })}
         </div>
 
-        {/* Floating Preview Card that follows cursor on Desktop */}
+        {/* Floating Preview Card */}
         <AnimatePresence>
           {hoveredProject && (
             <motion.div
@@ -128,11 +147,11 @@ export default function ProjectsSection() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.18 }}
               style={{ x: springX, y: springY }}
-              className="fixed top-0 left-0 pointer-events-none z-50 hidden lg:block w-80 p-4 rounded-sm bg-[var(--surface)] border border-hairline shadow-2xl"
+              className="fixed top-0 left-0 pointer-events-none z-50 hidden lg:block w-88 p-5 rounded-md bg-[var(--surface)] border border-hairline shadow-2xl"
             >
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex items-center justify-between text-[10px] text-[var(--muted)]">
-                  <span className="text-[var(--accent)] font-semibold">{hoveredProject.companyBadge}</span>
+                  <span className="font-semibold text-[var(--accent)]">{hoveredProject.companyBadge}</span>
                   <span>{hoveredProject.number}</span>
                 </div>
                 <div className="font-serif text-lg font-medium text-[var(--ink)] leading-snug">
@@ -150,7 +169,7 @@ export default function ProjectsSection() {
           )}
         </AnimatePresence>
 
-        {/* Full-Screen Shared-Element Case Study Drawer */}
+        {/* Full-Screen Shared-Element Case Study Drawer Tinted by Main Group Color */}
         <AnimatePresence>
           {selectedProject && (
             <div
@@ -164,14 +183,24 @@ export default function ProjectsSection() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 40, scale: 0.98 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-4xl bg-[var(--surface)] border border-hairline rounded-sm p-6 sm:p-10 space-y-8 max-h-[92vh] overflow-y-auto shadow-2xl"
+                className="w-full max-w-4xl rounded-sm p-6 sm:p-10 space-y-8 max-h-[92vh] overflow-y-auto shadow-2xl border border-hairline"
+                style={{
+                  backgroundColor: "var(--surface)",
+                  borderTop: `4px solid ${SKILL_GROUPS[selectedProject.primaryGroup]?.color || "var(--accent)"}`,
+                }}
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Header */}
                 <div className="flex items-start justify-between pb-6 border-b border-hairline">
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--accent)] px-2.5 py-0.5 rounded-full border border-hairline bg-[var(--bg)] font-medium">
+                      <span
+                        className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full font-bold"
+                        style={{
+                          backgroundColor: SKILL_GROUPS[selectedProject.primaryGroup]?.tint,
+                          color: SKILL_GROUPS[selectedProject.primaryGroup]?.color,
+                        }}
+                      >
                         {selectedProject.companyBadge}
                       </span>
                       <span className="text-xs font-mono text-[var(--muted)]">
@@ -194,7 +223,7 @@ export default function ProjectsSection() {
                   </button>
                 </div>
 
-                {/* Architecture Technical SVG */}
+                {/* Blueprint Diagram */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-mono text-[var(--muted)]">
                     <span className="uppercase tracking-widest">Architectural Blueprint</span>
@@ -205,42 +234,43 @@ export default function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* Technical Description & Impact */}
+                {/* Problem & Solution */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-sans pt-2">
                   <div className="space-y-2 p-5 rounded-sm bg-[var(--bg)] border border-hairline">
-                    <span className="text-xs font-mono uppercase tracking-wider text-[var(--muted)] block">
-                      Architectural Deliverable
+                    <span className="text-xs font-mono uppercase tracking-wider text-[var(--muted)] block font-semibold">
+                      Challenge &amp; Context
                     </span>
                     <p className="text-[var(--ink)] leading-relaxed text-sm">
-                      {selectedProject.description}
+                      {selectedProject.problem}
                     </p>
                   </div>
 
                   <div className="space-y-2 p-5 rounded-sm bg-[var(--bg)] border border-hairline">
-                    <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] block">
-                      Quantitative Metric / Result
+                    <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] block font-semibold">
+                      Engineered Solution
                     </span>
                     <p className="text-[var(--ink)] leading-relaxed text-sm">
-                      {selectedProject.metrics}
+                      {selectedProject.solution}
                     </p>
                   </div>
                 </div>
 
-                {/* Tech Badges & Footer */}
-                <div className="pt-6 border-t border-hairline flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedProject.tech.map((t, i) => (
-                      <span
-                        key={i}
-                        className="px-2.5 py-0.5 rounded-full border border-hairline text-[var(--ink)] bg-[var(--bg)] text-[11px]"
-                      >
-                        {t}
-                      </span>
+                {/* Tech Icons Tray */}
+                <div className="space-y-3 pt-2">
+                  <span className="text-xs font-mono uppercase tracking-widest text-[var(--muted)] block">
+                    Verified Technology Stack
+                  </span>
+                  <div className="flex flex-wrap gap-2.5">
+                    {STACK_DATA.filter((t) => selectedProject.tech.includes(t.id)).map((tech) => (
+                      <TechIcon key={tech.id} item={tech} size="md" />
                     ))}
                   </div>
-                  <span className="text-[var(--muted)] text-[11px]">
-                    Private Client IP &bull; Built &amp; Maintained at ASSPL
-                  </span>
+                </div>
+
+                {/* Mandatory Disclaimer Footer */}
+                <div className="pt-6 border-t border-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-[var(--muted)]">
+                  <span>{selectedProject.verifiedNotes}</span>
+                  <span className="text-[11px] text-[var(--accent)] font-semibold">Private &bull; Built at ASSPL</span>
                 </div>
               </motion.div>
             </div>

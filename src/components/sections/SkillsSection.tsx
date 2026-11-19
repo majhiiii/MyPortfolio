@@ -1,163 +1,246 @@
 "use client";
 
 import { useState } from "react";
-import { SKILLS_TREE } from "@/lib/data";
-import { Search, ArrowUpRight } from "lucide-react";
+import { STACK_DATA, SKILL_GROUPS, SkillGroupId, TechItem } from "@/data/stack";
+import { PROJECTS_DATA } from "@/data/projects";
+import { Search, Sparkles, Filter, CheckCircle2, ArrowRight } from "lucide-react";
+import { TechIcon } from "@/components/ui/TechIcon";
 import { usePortfolioStore } from "@/lib/store";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function SkillsSection() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState(SKILLS_TREE[0].id);
-  const { setSelectedSkill } = usePortfolioStore();
+  const [activeGroup, setActiveGroup] = useState<SkillGroupId | "all">("all");
+  const [filterMode, setFilterMode] = useState<"all" | "daily" | "projects">("all");
+  const [selectedTechId, setSelectedTechId] = useState<string | null>(null);
 
-  const currentCategory = SKILLS_TREE.find((c) => c.id === activeCategory) || SKILLS_TREE[0];
+  const { setActiveAccentColor } = usePortfolioStore();
 
-  const filteredItems = currentCategory.items.filter(
-    (item) =>
+  const selectedTech = STACK_DATA.find((t) => t.id === selectedTechId) || null;
+
+  // Linked projects for selected tech
+  const linkedProjects = selectedTech
+    ? PROJECTS_DATA.filter((p) => selectedTech.usedIn.includes(p.id))
+    : [];
+
+  const filteredItems = STACK_DATA.filter((item) => {
+    const matchesGroup = activeGroup === "all" || item.group === activeGroup;
+    const matchesSearch =
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.context.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+      item.note.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.monogram.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter =
+      filterMode === "all"
+        ? true
+        : filterMode === "daily"
+        ? item.dailyUse === true
+        : item.usedIn.length > 0;
+
+    return matchesGroup && matchesSearch && matchesFilter;
+  });
+
+  const handleGroupSelect = (groupKey: SkillGroupId | "all") => {
+    setActiveGroup(groupKey);
+    if (groupKey !== "all") {
+      setActiveAccentColor(SKILL_GROUPS[groupKey].color);
+    }
+  };
 
   return (
-    <section id="skills" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)]">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-16">
+    <section id="skills" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)] transition-colors">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-12">
         
         {/* Section Header */}
-        <div className="col-span-12 space-y-3">
+        <div className="space-y-3">
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
-            <span>03 / SKILLS MATRIX</span>
+            <span>03 / STACK EXPLORER</span>
             <span>&bull;</span>
-            <span>ASSPL Technical Arsenal</span>
+            <span>Single Source of Truth (data/stack.ts)</span>
           </div>
-          <h2 className="font-serif text-[clamp(2.5rem,5.5vw,5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
-            Architectural <span className="italic">Competencies</span>
+          <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
+            Architectural <span className="italic">Stack</span>
           </h2>
-          <p className="text-base font-sans text-[var(--muted)] max-w-2xl">
-            Engineered across 3 enterprise client tracks: daily production Apex patterns, Lightning Web Components, and asynchronous integration pipelines.
+          <p className="text-base font-sans text-[var(--muted)] max-w-2xl leading-relaxed">
+            Every platform, framework, and integration engineered during my tenure at ASSPL and Briskode. Color-coded by real technology domain with direct links to production deliverables.
           </p>
         </div>
 
-        {/* Left Column: Large Group Names as Vertical Editorial List */}
-        <div className="col-span-12 lg:col-span-5 space-y-6">
+        {/* Filter and Search Bar */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pt-2 border-b border-hairline pb-6">
           
           {/* Quick Find Search */}
-          <div className="relative">
+          <div className="relative flex-1 max-w-md">
             <Search className="w-4 h-4 text-[var(--muted)] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search competencies or patterns..."
+              placeholder="Search technologies, monograms or notes..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-[var(--surface)] text-[var(--ink)] border border-hairline rounded-full pl-10 pr-4 py-2.5 text-xs font-mono placeholder-[var(--muted)] focus:outline-none focus:border-[var(--accent)] transition-colors"
             />
           </div>
 
-          {/* Group Names in Big Expressive Serif Type */}
-          <div className="space-y-2 pt-2" data-cursor="explore">
-            {SKILLS_TREE.map((category, idx) => {
-              const isActive = activeCategory === category.id;
+          {/* Daily / Project Filters */}
+          <div className="flex items-center gap-1.5 text-xs font-mono bg-[var(--surface)] p-1 rounded-full border border-hairline shrink-0">
+            <button
+              onClick={() => setFilterMode("all")}
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                filterMode === "all" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
+              }`}
+            >
+              All ({STACK_DATA.length})
+            </button>
+            <button
+              onClick={() => setFilterMode("daily")}
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                filterMode === "daily" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
+              }`}
+            >
+              Daily Production
+            </button>
+            <button
+              onClick={() => setFilterMode("projects")}
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                filterMode === "projects" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
+              }`}
+            >
+              Used in Projects
+            </button>
+          </div>
+
+        </div>
+
+        {/* Grid Layout: Left Categories + Right Icons Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          
+          {/* Left Column: Color-coded Skill Groups */}
+          <div className="lg:col-span-4 space-y-2">
+            <div className="text-xs font-mono uppercase tracking-widest text-[var(--muted)] mb-3">
+              Skill Domains
+            </div>
+
+            <button
+              onClick={() => handleGroupSelect("all")}
+              className={`w-full text-left py-3 px-3.5 rounded-sm transition-all flex items-center justify-between text-xs font-mono ${
+                activeGroup === "all"
+                  ? "bg-[var(--surface)] text-[var(--ink)] font-bold border-l-3 border-[var(--ink)]"
+                  : "text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/50"
+              }`}
+            >
+              <span>All Stack Domains</span>
+              <span>{STACK_DATA.length}</span>
+            </button>
+
+            {Object.values(SKILL_GROUPS).map((group) => {
+              const isActive = activeGroup === group.id;
+              const count = STACK_DATA.filter((s) => s.group === group.id).length;
+
               return (
                 <button
-                  key={category.id}
-                  onClick={() => {
-                    setActiveCategory(category.id);
-                    setSelectedSkill(category.items[0]?.name || null);
-                  }}
-                  onMouseEnter={() => setSelectedSkill(category.items[0]?.name || null)}
-                  className={`w-full text-left py-3.5 px-4 rounded-sm transition-all duration-200 flex items-baseline justify-between group ${
+                  key={group.id}
+                  onClick={() => handleGroupSelect(group.id)}
+                  className={`w-full text-left py-3 px-3.5 rounded-sm transition-all flex items-center justify-between group ${
                     isActive
-                      ? "bg-[var(--surface)] text-[var(--ink)] border-l-2 border-[var(--accent)]"
+                      ? "bg-[var(--surface)] text-[var(--ink)] shadow-2xs font-semibold"
                       : "text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/50"
                   }`}
+                  style={{
+                    borderLeft: isActive ? `3px solid ${group.color}` : "3px solid transparent",
+                  }}
                 >
-                  <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-xs text-[var(--muted)] opacity-60">
-                      0{idx + 1}
-                    </span>
-                    <span
-                      className={`font-serif text-2xl sm:text-3xl transition-transform ${
-                        isActive ? "font-normal italic translate-x-1" : "font-normal"
-                      }`}
-                    >
-                      {category.category}
-                    </span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: group.color }} />
+                    <span className="font-sans text-xs">{group.name}</span>
                   </div>
-                  <span className="text-xs font-mono text-[var(--muted)]">
-                    {category.items.length}
-                  </span>
+                  <span className="text-[11px] font-mono text-[var(--muted)]">{count}</span>
                 </button>
               );
             })}
           </div>
 
-          <div className="p-4 border border-hairline rounded-sm bg-[var(--surface)]/50 text-xs font-mono text-[var(--muted)] space-y-1 hidden sm:block">
-            <div className="text-[var(--ink)] font-medium">3D Orbit Sync</div>
-            <p className="text-[11px] leading-relaxed">
-              Hovering skill clusters dynamically focuses the 3D particle cloud nodes.
-            </p>
-          </div>
-
-        </div>
-
-        {/* Right Column: Active Group Skills Staggered List with "Where I used it" */}
-        <div className="col-span-12 lg:col-span-7">
-          <div className="space-y-6">
+          {/* Right Column: Icon Grid with FLIP Reflow Animation */}
+          <div className="lg:col-span-8 space-y-6">
             
-            <div className="flex items-baseline justify-between pb-3 border-b border-hairline">
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono uppercase tracking-widest text-[var(--muted)]">
-                  Active Domain
-                </span>
-                <h3 className="font-serif text-2xl font-normal text-[var(--ink)]">
-                  {currentCategory.category}
-                </h3>
-              </div>
-              <span className="text-xs font-mono text-[var(--muted)]">
-                {filteredItems.length} Verified Entries
-              </span>
+            <div className="flex items-center justify-between text-xs font-mono text-[var(--muted)] pb-2 border-b border-hairline">
+              <span>{filteredItems.length} Technologies Active</span>
+              <span>Hover for context &bull; Click to connect projects</span>
             </div>
 
-            {/* Staggered Skills List with Animated Reflow */}
-            <motion.div layout className="divide-y divide-hairline">
-              <AnimatePresence mode="popLayout">
-                {filteredItems.map((item, idx) => (
+            {/* Icon Tiles Grid */}
+            <motion.div layout className="flex flex-wrap gap-2.5 sm:gap-3">
+              <AnimatePresence>
+                {filteredItems.map((tech) => (
                   <motion.div
-                    key={item.name}
+                    key={tech.id}
                     layout
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.25, delay: idx * 0.03 }}
-                    className="py-4 px-2 hover:bg-[var(--surface)]/60 transition-colors rounded-sm group"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <span className="font-serif text-xl font-medium text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">
-                          {item.name}
-                        </span>
-                      </div>
-                      <span className="text-[10px] font-mono tracking-wider px-2 py-0.5 rounded-full border border-hairline text-[var(--muted)] self-start sm:self-auto bg-[var(--surface)]">
-                        {item.tier}
-                      </span>
-                    </div>
-
-                    {/* Where I used it at ASSPL */}
-                    <div className="mt-1.5 pl-3.5 border-l border-hairline sm:border-0 sm:pl-0">
-                      <span className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider block sm:inline mr-2">
-                        Where I used it:
-                      </span>
-                      <span className="text-xs font-sans text-[var(--muted)] leading-relaxed">
-                        {item.context}
-                      </span>
-                    </div>
+                    <TechIcon
+                      item={tech}
+                      size="md"
+                      onClick={() => {
+                        setSelectedTechId(tech.id === selectedTechId ? null : tech.id);
+                        setActiveAccentColor(tech.color);
+                      }}
+                    />
                   </motion.div>
                 ))}
               </AnimatePresence>
             </motion.div>
 
+            {/* Connected Project Line / Drawer */}
+            <AnimatePresence>
+              {selectedTech && (
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 15 }}
+                  className="p-5 rounded-sm bg-[var(--surface)] border border-hairline space-y-3 mt-4"
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-hairline">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="px-2 py-0.5 rounded-xs text-[10px] font-mono font-bold text-white uppercase"
+                        style={{ backgroundColor: selectedTech.color }}
+                      >
+                        {selectedTech.monogram}
+                      </span>
+                      <h4 className="font-serif text-lg font-medium text-[var(--ink)]">
+                        {selectedTech.name} &bull; Project Connections
+                      </h4>
+                    </div>
+                    <span className="text-xs font-mono text-[var(--muted)]">
+                      {linkedProjects.length} Verified Production Project{linkedProjects.length > 1 ? "s" : ""}
+                    </span>
+                  </div>
+
+                  <p className="text-xs font-sans text-[var(--muted)] leading-relaxed">
+                    {selectedTech.note}
+                  </p>
+
+                  {/* Connected Projects Badges */}
+                  <div className="pt-2 flex flex-wrap gap-2">
+                    {linkedProjects.map((p) => (
+                      <a
+                        key={p.id}
+                        href="#projects"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hairline bg-[var(--bg)] hover:border-[var(--ink)] transition-colors text-xs font-mono text-[var(--ink)]"
+                      >
+                        <span className="text-[10px] text-[var(--accent)] font-bold">{p.number}</span>
+                        <span>{p.title}</span>
+                        <ArrowRight className="w-3 h-3 text-[var(--muted)]" />
+                      </a>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
           </div>
+
         </div>
 
       </div>

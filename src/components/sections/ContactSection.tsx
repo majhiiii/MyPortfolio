@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PERSONAL_DATA } from "@/lib/data";
 import { Check, Copy, ArrowUpRight, Mail } from "lucide-react";
 import { Magnetic } from "@/components/ui/Magnetic";
@@ -14,8 +14,24 @@ const AVAILABILITY_STRIP = [
   "OPEN TO TECHNICAL DISCUSSIONS",
 ];
 
+const ROTATING_WORDS = [
+  { word: "architecture.", color: "#0176D3" },
+  { word: "Agentforce.", color: "#6B4EFF" },
+  { word: "integrations.", color: "#00A38C" },
+  { word: "production.", color: "#FF8A1F" },
+  { word: "systems.", color: "#FF5A5F" },
+];
+
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
+  const [wordIdx, setWordIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setWordIdx((prev) => (prev + 1) % ROTATING_WORDS.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_DATA.email);
@@ -36,7 +52,20 @@ export default function ContactSection() {
           </div>
 
           <h2 className="font-serif text-[clamp(4rem,10.5vw,11rem)] font-normal text-[var(--ink)] leading-[0.88] tracking-[-0.03em] select-none">
-            Let&apos;s <span className="italic">talk.</span>
+            Let&apos;s talk{" "}
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={ROTATING_WORDS[wordIdx].word}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="italic inline-block"
+                style={{ color: ROTATING_WORDS[wordIdx].color }}
+              >
+                {ROTATING_WORDS[wordIdx].word}
+              </motion.span>
+            </AnimatePresence>
           </h2>
 
           <p className="font-sans text-lg sm:text-xl text-[var(--muted)] max-w-2xl leading-relaxed">
@@ -139,11 +168,11 @@ export default function ContactSection() {
               &copy; {new Date().getFullYear()} Rakesh Majhi &bull; Bhubaneswar, India
             </div>
             <div className="text-[11px] text-[var(--muted)]/80">
-              {PERSONAL_DATA.disclaimer}
+              Not affiliated with Salesforce, AWS or any listed vendor. Logos belong to their owners.
             </div>
           </div>
           <div className="text-[11px]">
-            Editorial Studio &bull; Next.js Static Export &bull; Hosted on GitHub Pages
+            Colorful Stack &bull; Next.js Static Export &bull; Hosted on GitHub Pages
           </div>
         </footer>
 

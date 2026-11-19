@@ -2,28 +2,23 @@
 
 import React from "react";
 import { PERSONAL_DATA } from "@/lib/data";
+import { STACK_DATA, SKILL_GROUPS } from "@/data/stack";
 import { ArrowDown, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/ui/Magnetic";
-
-const MARQUEE_ITEMS = [
-  "APEX ARCHITECTURE",
-  "AGENTFORCE SPECIALIST",
-  "B2B COMMERCE",
-  "CUSTOM CPQ ENGINE",
-  "OAUTH 2.0 PKCE",
-  "LIGHTNING WEB COMPONENTS",
-  "ENTERPRISE INTEGRATIONS",
-  "ASSPL CLIENT TRACKS",
-];
+import { TechIcon } from "@/components/ui/TechIcon";
+import { usePortfolioStore } from "@/lib/store";
 
 export default function HeroSection() {
   const name = "Rakesh Majhi";
+  const { setActiveAccentColor } = usePortfolioStore();
+
+  const marqueeItems = STACK_DATA.slice(0, 16);
 
   return (
     <section
       id="hero"
-      className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-between border-b border-hairline pt-8 md:pt-16 overflow-hidden bg-[var(--bg)]"
+      className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-between border-b border-hairline pt-8 md:pt-16 overflow-hidden bg-[var(--bg)] transition-colors"
     >
       {/* 12-Column Grid Container */}
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full grid grid-cols-12 gap-8 items-center flex-1 my-auto">
@@ -33,12 +28,12 @@ export default function HeroSection() {
           
           {/* Metadata pill */}
           <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[var(--muted)]">
-            <span className="flex items-center gap-2 px-2.5 py-1 rounded-full border border-hairline bg-[var(--surface)] text-[var(--ink)]">
-              <span className="w-2 h-2 rounded-full bg-[var(--signal-amber)] animate-pulse" />
+            <span className="flex items-center gap-2 px-3 py-1 rounded-full border border-hairline bg-[var(--surface)] text-[var(--ink)] shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#FFB020] animate-pulse" />
               <span>Available for Enterprise Roles</span>
             </span>
             <span className="hidden sm:inline text-[var(--hairline)]">&bull;</span>
-            <span className="hidden sm:inline">ASSPL Bhubaneswar &bull; 2024 &mdash; Present</span>
+            <span className="hidden sm:inline">Bhubaneswar &bull; ASSPL Tenure</span>
           </div>
 
           {/* Giant Display Name */}
@@ -71,7 +66,8 @@ export default function HeroSection() {
               <span className="italic relative inline-block text-[var(--ink)]">
                 Agentforce Specialist
                 <svg
-                  className="absolute -bottom-1.5 left-0 w-full h-2 text-[var(--accent)] overflow-visible"
+                  className="absolute -bottom-1.5 left-0 w-full h-2 overflow-visible"
+                  style={{ color: "var(--accent)" }}
                   viewBox="0 0 100 8"
                   preserveAspectRatio="none"
                 >
@@ -87,11 +83,11 @@ export default function HeroSection() {
                   />
                 </svg>
               </span>{" "}
-              architecting resilient enterprise engines at ASSPL.
+              architecting enterprise engines at ASSPL.
             </p>
 
             <p className="font-sans text-base sm:text-lg text-[var(--muted)] leading-relaxed">
-              Leading 3 concurrent client tracks across B2B Commerce, CloudCraze, custom CPQ configurators, and 10+ hardened enterprise integrations (FastAPI, Avalara, NACHA, UPS).
+              Leading 3 concurrent client tracks across B2B Commerce, CloudCraze, custom CPQ configurators, AWS cloud deployments, and 10+ hardened enterprise integrations.
             </p>
           </div>
 
@@ -102,59 +98,69 @@ export default function HeroSection() {
                 href="#projects"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium hover:opacity-90 transition-all shadow-sm"
               >
-                <span>Explore Projects</span>
+                <span>Explore Projects (05)</span>
                 <span className="font-mono text-xs">&rarr;</span>
               </a>
             </Magnetic>
 
             <Magnetic strength={0.3} radius={70}>
               <a
-                href="#playground"
+                href="#skills"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-hairline text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--surface)] transition-all"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[var(--accent)]" />
-                <span>Launch Lab Tools (06)</span>
+                <span>Stack Explorer (03)</span>
               </a>
             </Magnetic>
 
-            <Magnetic strength={0.2} radius={50}>
+            <Magnetic strength={0.3} radius={70}>
               <a
-                href="#contact"
-                className="px-4 py-3 text-[var(--muted)] hover:text-[var(--ink)] transition-colors underline underline-offset-4"
+                href="#stack-pit"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-hairline text-[var(--ink)] hover:bg-[var(--surface)] transition-all"
               >
-                Let&apos;s talk
+                <span>The Stack Pit</span>
               </a>
             </Magnetic>
           </div>
 
         </div>
 
-        {/* Right Column: Open 3D Stage (No boxes, pure negative space for 3D cloud) */}
+        {/* Right Column: Open 3D Stage (Stage Anchor) */}
         <div
+          data-stage="hero"
           data-cursor="drag"
           className="col-span-12 lg:col-span-5 h-[340px] sm:h-[420px] lg:h-[540px] relative pointer-events-auto flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
-          title="Click and drag to rotate the 3D model"
+          title="Click and drag to rotate the 3D model. Click 5 times for easter egg!"
         >
-          {/* Subtle indicator only when hovering */}
           <div className="absolute bottom-4 right-4 text-[10px] font-mono text-[var(--muted)] opacity-60 hidden lg:block">
-            Drag to rotate &bull; Scroll to morph
+            Orbiting 3D Tech Tiles &bull; Click cloud 5x for rain
           </div>
         </div>
 
       </div>
 
-      {/* Infinite Marquee Strip */}
+      {/* Opposing Infinite Marquee Strip 1: Tech Monograms and Groups */}
       <div className="w-full border-t border-hairline bg-[var(--surface)] py-3 overflow-hidden select-none">
-        <div className="flex whitespace-nowrap animate-[marquee_28s_linear_infinite]">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
-            <span
-              key={idx}
-              className="mx-6 text-xs sm:text-sm font-mono tracking-widest text-[var(--muted)] flex items-center gap-4"
-            >
-              <span>{item}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]/50" />
-            </span>
-          ))}
+        <div className="flex whitespace-nowrap animate-[marquee_30s_linear_infinite]">
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, idx) => {
+            const group = SKILL_GROUPS[item.group] || SKILL_GROUPS.salesforce;
+            return (
+              <span
+                key={idx}
+                onMouseEnter={() => setActiveAccentColor(item.color)}
+                className="mx-6 text-xs sm:text-sm font-mono tracking-wider text-[var(--ink)] flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform"
+              >
+                <span
+                  className="px-2 py-0.5 rounded-xs font-bold text-[10px] text-white"
+                  style={{ backgroundColor: group.color }}
+                >
+                  {item.monogram}
+                </span>
+                <span>{item.name}</span>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: group.color }} />
+              </span>
+            );
+          })}
         </div>
       </div>
 
@@ -162,12 +168,12 @@ export default function HeroSection() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full py-4 border-t border-hairline">
         <div className="grid grid-cols-12 gap-4 text-xs font-mono text-[var(--muted)] items-center">
           <div className="col-span-12 sm:col-span-4 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--signal-amber)]" />
+            <span className="w-2 h-2 rounded-full bg-[#FFB020]" />
             <span className="text-[var(--ink)] font-medium">Bhubaneswar, India</span>
             <span>&bull; {PERSONAL_DATA.status}</span>
           </div>
           <div className="col-span-12 sm:col-span-4 text-left sm:text-center text-[11px]">
-            Apex &bull; LWC &bull; Agentforce &bull; OAuth 2.0 PKCE &bull; CPQ
+            Apex &bull; Agentforce &bull; LWC &bull; AWS &bull; REST/SOAP &bull; CPQ
           </div>
           <div className="col-span-12 sm:col-span-4 text-left sm:text-right flex items-center justify-start sm:justify-end gap-2">
             <span>Explore down</span>

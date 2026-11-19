@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useRef, useMemo, useEffect } from "react";
+import React, { useRef, useMemo, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { usePortfolioStore } from "@/lib/store";
+import { STACK_DATA, SKILL_GROUPS } from "@/data/stack";
 
 interface SphereData {
   id: number;
@@ -33,14 +34,21 @@ const SPHERES: SphereData[] = [
   { id: 11, radius: 0.28, categoryIndex: 3, heroPos: [1.8, 1.2, -0.2], aboutPos: [2.0, 1.0, -0.7], skillsPos: [0.2, -1.2, 0.4], projectsPos: [0.4, 2.4, -0.6], contactPos: [0.6, 0.9, -0.2] },
 ];
 
+// 14 Orbiting Tech Tile Samples
+const ORBIT_TILES = STACK_DATA.slice(0, 14);
+
 export function CloudModel() {
   const groupRef = useRef<THREE.Group>(null);
+  const orbitGroupRef = useRef<THREE.Group>(null);
   const meshRefs = useRef<(THREE.Mesh | null)[]>([]);
+  const tileRefs = useRef<(THREE.Mesh | null)[]>([]);
   const { mouse, viewport } = useThree();
 
   const theme = usePortfolioStore((s) => s.theme);
   const activeSection = usePortfolioStore((s) => s.activeSection);
   const selectedSkill = usePortfolioStore((s) => s.selectedSkill);
+  const incrementCloudClick = usePortfolioStore((s) => s.incrementCloudClick);
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
 
   // Drag interaction states
   const dragRotation = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
@@ -49,7 +57,6 @@ export function CloudModel() {
 
   useEffect(() => {
     const onPointerDown = (e: PointerEvent) => {
-      // Allow drag when clicking near right side of screen or canvas
       if (e.clientX > window.innerWidth * 0.4) {
         isDragging.current = true;
         prevPointer.current = { x: e.clientX, y: e.clientY };
@@ -81,40 +88,42 @@ export function CloudModel() {
   const isMobile = viewport.width < 6;
   const isTablet = viewport.width >= 6 && viewport.width < 10;
 
-  // Pure monochrome materials
+  // Studio materials
   const materials = useMemo(() => {
     const isDark = theme === "dark";
 
     const baseMaterial = new THREE.MeshStandardMaterial({
-      color: isDark ? new THREE.Color("#121214") : new THREE.Color("#EFEFEF"),
-      roughness: isDark ? 0.8 : 0.85,
-      metalness: isDark ? 0.1 : 0.02,
+      color: isDark ? new THREE.Color("#18181B") : new THREE.Color("#F8F7F4"),
+      roughness: isDark ? 0.75 : 0.85,
+      metalness: 0.05,
     });
 
     const highlightMaterial = new THREE.MeshStandardMaterial({
-      color: isDark ? new THREE.Color("#FFFFFF") : new THREE.Color("#000000"),
-      roughness: 0.3,
+      color: isDark ? new THREE.Color("#FFFFFF") : new THREE.Color("#0176D3"),
+      roughness: 0.25,
       metalness: 0.2,
-      emissive: isDark ? new THREE.Color("#FFFFFF") : new THREE.Color("#000000"),
-      emissiveIntensity: isDark ? 0.25 : 0.0,
+      emissive: isDark ? new THREE.Color("#4C8DFF") : new THREE.Color("#0176D3"),
+      emissiveIntensity: 0.2,
     });
 
     const wireMaterial = new THREE.MeshBasicMaterial({
-      color: isDark ? new THREE.Color("#444444") : new THREE.Color("#CCCCCC"),
+      color: isDark ? new THREE.Color("#3F3F46") : new THREE.Color("#D4D4D8"),
       wireframe: true,
     });
 
     return { base: baseMaterial, highlight: highlightMaterial, wire: wireMaterial };
   }, [theme]);
 
-  const highlightedCategory = useMemo(() => {
-    if (!selectedSkill) return -1;
-    if (selectedSkill.includes("dev") || selectedSkill.includes("apex") || selectedSkill.includes("lwc")) return 0;
-    if (selectedSkill.includes("ai") || selectedSkill.includes("agentforce")) return 1;
-    if (selectedSkill.includes("integration") || selectedSkill.includes("api")) return 2;
-    if (selectedSkill.includes("admin") || selectedSkill.includes("flow")) return 3;
-    return -1;
-  }, [selectedSkill]);
+  // Tile materials per tech color
+  const tileMaterials = useMemo(() => {
+    return ORBIT_TILES.map((t) => {
+      return new THREE.MeshStandardMaterial({
+        color: new THREE.Color(t.color),
+        roughness: 0.35,
+        metalness: 0.15,
+      });
+    });
+  }, []);
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
@@ -152,7 +161,7 @@ export function CloudModel() {
     groupRef.current.position.y = THREE.MathUtils.damp(groupRef.current.position.y, targetGroupY, 2.5, delta);
     groupRef.current.scale.setScalar(THREE.MathUtils.damp(groupRef.current.scale.x, targetScale, 2.5, delta));
 
-    // Update spheres
+    // Update cloud spheres
     meshRefs.current.forEach((mesh, i) => {
       if (!mesh) return;
       const data = SPHERES[i];
@@ -170,17 +179,41 @@ export function CloudModel() {
       mesh.position.y = THREE.MathUtils.damp(mesh.position.y, targetCoords[1] + idleFloatY, 3.0, delta);
       mesh.position.z = THREE.MathUtils.damp(mesh.position.z, targetCoords[2], 3.0, delta);
 
-      const isHighlighted = highlightedCategory === data.categoryIndex;
       if (activeSection === "playground") {
         mesh.material = materials.wire;
       } else {
-        mesh.material = isHighlighted ? materials.highlight : materials.base;
+        mesh.material = materials.base;
       }
     });
+
+    // Update orbiting tech tiles ring
+    if (orbitGroupRef.current) {
+      orbitGroupRef.current.rotation.y = time * 0.18 + dragRotation.current.y;
+      orbitGroupRef.current.rotation.x = Math.sin(time * 0.1) * 0.15;
+
+      const orbitRadius = activeSection === "skills" ? 2.8 : 2.3;
+      tileRefs.current.forEach((tile, idx) => {
+        if (!tile) return;
+        const angle = (idx / ORBIT_TILES.length) * Math.PI * 2;
+        const tx = Math.cos(angle) * orbitRadius + 1.8;
+        const tz = Math.sin(angle) * orbitRadius;
+        const ty = Math.sin(time * 0.8 + idx * 0.4) * 0.15;
+
+        tile.position.x = THREE.MathUtils.damp(tile.position.x, tx, 3.0, delta);
+        tile.position.y = THREE.MathUtils.damp(tile.position.y, ty, 3.0, delta);
+        tile.position.z = THREE.MathUtils.damp(tile.position.z, tz, 3.0, delta);
+        tile.lookAt(0, 0, 0);
+      });
+    }
   });
 
+  const handleCloudClick = () => {
+    incrementCloudClick();
+  };
+
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} onClick={handleCloudClick}>
+      {/* Central Matte Cloud Spheres */}
       {SPHERES.map((sphere, index) => (
         <mesh
           key={sphere.id}
@@ -194,6 +227,27 @@ export function CloudModel() {
           <primitive object={materials.base} attach="material" />
         </mesh>
       ))}
+
+      {/* Orbiting Tech Icon Tiles Ring */}
+      <group ref={orbitGroupRef}>
+        {ORBIT_TILES.map((tech, idx) => (
+          <mesh
+            key={tech.id}
+            ref={(el) => {
+              tileRefs.current[idx] = el;
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveAccentColor(tech.color);
+              const projectsEl = document.getElementById("projects");
+              if (projectsEl) projectsEl.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <boxGeometry args={[0.34, 0.34, 0.05]} />
+            <primitive object={tileMaterials[idx]} attach="material" />
+          </mesh>
+        ))}
+      </group>
     </group>
   );
 }

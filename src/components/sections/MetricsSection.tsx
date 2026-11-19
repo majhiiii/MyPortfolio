@@ -2,18 +2,23 @@
 
 import { useState } from "react";
 import { METRICS } from "@/lib/data";
-import { ArrowUpRight, ChevronDown, CheckCircle2 } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePortfolioStore } from "@/lib/store";
+
+const METRIC_COLORS = ["#0176D3", "#6B4EFF", "#00A38C", "#FF8A1F", "#FF5A5F", "#2E9E5B"];
 
 export default function MetricsSection() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+  const { setActiveAccentColor } = usePortfolioStore();
 
-  const toggleExpand = (idx: number) => {
+  const toggleExpand = (idx: number, color: string) => {
     setExpandedIdx(expandedIdx === idx ? null : idx);
+    setActiveAccentColor(color);
   };
 
   return (
-    <section id="metrics" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)]">
+    <section id="metrics" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)] transition-colors">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         
         {/* Section Header */}
@@ -31,20 +36,25 @@ export default function MetricsSection() {
           </p>
         </div>
 
-        {/* Metrics Grid with Huge Serif Numerals */}
+        {/* Metrics Grid with Huge Serif Numerals in Tech Group Colors */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {METRICS.map((metric, idx) => {
             const isExpanded = expandedIdx === idx;
+            const color = METRIC_COLORS[idx % METRIC_COLORS.length];
 
             return (
               <div
                 key={idx}
-                onClick={() => toggleExpand(idx)}
+                onClick={() => toggleExpand(idx, color)}
+                onMouseEnter={() => setActiveAccentColor(color)}
                 className="group cursor-pointer border-t border-hairline pt-6 space-y-4 hover:border-[var(--ink)] transition-colors"
               >
                 <div className="flex items-center justify-between text-xs font-mono text-[var(--muted)]">
-                  <span className="uppercase tracking-wider">{metric.tag}</span>
-                  <div className="flex items-center gap-1 group-hover:text-[var(--accent)] transition-colors">
+                  <span className="uppercase tracking-wider flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+                    <span>{metric.tag}</span>
+                  </span>
+                  <div className="flex items-center gap-1 group-hover:text-[var(--ink)] transition-colors">
                     <span className="text-[11px] font-mono">
                       {isExpanded ? "Collapse" : "Story"}
                     </span>
@@ -58,7 +68,10 @@ export default function MetricsSection() {
                 </div>
 
                 {/* Huge Serif Numeral */}
-                <div className="font-serif text-6xl sm:text-7xl lg:text-8xl font-normal tracking-tight text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors leading-none">
+                <div
+                  className="font-serif text-6xl sm:text-7xl lg:text-8xl font-normal tracking-tight leading-none transition-transform group-hover:translate-x-1 duration-300"
+                  style={{ color }}
+                >
                   {metric.value}
                 </div>
 
@@ -81,7 +94,7 @@ export default function MetricsSection() {
                         <p>{metric.narrative}</p>
                         <div className="pt-2 border-t border-hairline flex items-center justify-between text-[10px] font-mono text-[var(--muted)]">
                           <span>ASSPL Production Record</span>
-                          <span className="text-[var(--accent)]">Verified Standard</span>
+                          <span style={{ color }}>Verified Metric</span>
                         </div>
                       </div>
                     </motion.div>

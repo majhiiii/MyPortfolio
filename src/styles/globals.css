@@ -126,3 +126,9 @@ body {
     transform: translateX(-50%);
   }
 }
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}

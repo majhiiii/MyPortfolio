@@ -9,6 +9,7 @@ import { CanvasContainer } from "@/components/3d/CanvasContainer";
 import { Preloader } from "@/components/ui/Preloader";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { TerminalModal } from "@/components/ui/TerminalModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,6 +72,7 @@ export default function RootLayout({
           </main>
           <UtilityBar />
           <CommandPalette />
+          <TerminalModal />
         </SmoothScroll>
       </body>
     </html>

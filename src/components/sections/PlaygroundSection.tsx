@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Terminal, Code2, Network, Shield, Cpu, GitBranch, Sparkles, Layers, Sliders } from "lucide-react";
+import { Terminal, Code2, Network, Shield, Cpu, GitBranch, Sparkles, Layers, Sliders, Cloud } from "lucide-react";
 import { CpqConfigurator } from "@/components/demos/CpqConfigurator";
 import { SoqlStudio } from "@/components/demos/SoqlStudio";
 import { PkceLab } from "@/components/demos/PkceLab";
@@ -11,22 +11,31 @@ import { AgentforceSim } from "@/components/demos/AgentforceSim";
 import { GovernorGame } from "@/components/demos/GovernorGame";
 import { PipelineVisualizer } from "@/components/demos/PipelineVisualizer";
 import { VibeLabDiff } from "@/components/demos/VibeLabDiff";
+import { AwsDeployWalkthrough } from "@/components/demos/AwsDeployWalkthrough";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePortfolioStore } from "@/lib/store";
 
 const UTILITY_TABS = [
-  { id: "cpq", label: "CPQ Configurator", icon: Sliders, badge: "Dimensional Engine" },
-  { id: "soql", label: "SOQL Studio", icon: Code2, badge: "Query Runner" },
-  { id: "pkce", label: "OAuth PKCE", icon: Shield, badge: "Web Crypto" },
-  { id: "flow", label: "Flow Builder", icon: Network, badge: "Graph Canvas" },
-  { id: "integration", label: "Integration Map", icon: Layers, badge: "Topology Hub" },
-  { id: "agentforce", label: "Agentforce Trace", icon: Sparkles, badge: "Topics & Apex" },
-  { id: "governor", label: "Governor Limits", icon: Cpu, badge: "Limits Engine" },
-  { id: "pipeline", label: "Release Pipeline", icon: GitBranch, badge: "CI/CD Gate" },
-  { id: "vibelab", label: "Code Review", icon: Terminal, badge: "Hardened Review" },
+  { id: "cpq", label: "CPQ Configurator", icon: Sliders, badge: "Dimensional Engine", groupColor: "#0176D3" },
+  { id: "soql", label: "SOQL Studio", icon: Code2, badge: "Query Runner", groupColor: "#0176D3" },
+  { id: "pkce", label: "OAuth PKCE", icon: Shield, badge: "Web Crypto", groupColor: "#00A38C" },
+  { id: "flow", label: "Flow Builder", icon: Network, badge: "Graph Canvas", groupColor: "#0176D3" },
+  { id: "integration", label: "Integration Map", icon: Layers, badge: "Topology Hub", groupColor: "#00A38C" },
+  { id: "agentforce", label: "Agentforce Trace", icon: Sparkles, badge: "Topics & Apex", groupColor: "#6B4EFF" },
+  { id: "governor", label: "Governor Limits", icon: Cpu, badge: "Limits Engine", groupColor: "#0176D3" },
+  { id: "pipeline", label: "Release Pipeline", icon: GitBranch, badge: "CI/CD Gate", groupColor: "#FF5A5F" },
+  { id: "vibelab", label: "Code Review", icon: Terminal, badge: "Hardened Review", groupColor: "#FFC93C" },
+  { id: "aws", label: "AWS Deploy Walkthrough", icon: Cloud, badge: "Cloud Infra", groupColor: "#FF8A1F" },
 ];
 
 export default function PlaygroundSection() {
   const [activeTab, setActiveTab] = useState(UTILITY_TABS[0].id);
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
+
+  const handleSelectTab = (tab: typeof UTILITY_TABS[0]) => {
+    setActiveTab(tab.id);
+    setActiveAccentColor(tab.groupColor);
+  };
 
   const renderActiveUtility = () => {
     switch (activeTab) {
@@ -48,6 +57,8 @@ export default function PlaygroundSection() {
         return <PipelineVisualizer />;
       case "vibelab":
         return <VibeLabDiff />;
+      case "aws":
+        return <AwsDeployWalkthrough />;
       default:
         return <CpqConfigurator />;
     }
@@ -71,8 +82,8 @@ export default function PlaygroundSection() {
               <span>Full-Bleed Engine Suite</span>
             </div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#8E8E93]">
-              <span className="w-2 h-2 rounded-full bg-[#FFB020] animate-pulse" />
-              <span>9 Production Utilities Ready</span>
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: activeTabData.groupColor }} />
+              <span>10 Production Utilities Ready</span>
             </div>
           </div>
 
@@ -80,7 +91,7 @@ export default function PlaygroundSection() {
             Developer <span className="italic">Playground</span>
           </h2>
           <p className="text-base font-sans text-[#8E8E93] max-w-2xl leading-relaxed">
-            Authentic client-side testing environments executing real browser APIs: dimensional SVG drafting, Web Crypto SHA-256 digests, graph topologies, and governor limit simulations.
+            Authentic client-side testing environments executing real browser APIs: dimensional SVG drafting, Web Crypto SHA-256 digests, graph topologies, AWS deployment walkthroughs, and governor limit simulations.
           </p>
         </div>
 
@@ -92,7 +103,7 @@ export default function PlaygroundSection() {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleSelectTab(tab)}
                 className={`relative flex items-center gap-2.5 px-4 py-3 rounded-full transition-colors shrink-0 z-10 ${
                   isActive ? "text-[#0D0D0F]" : "text-[#8E8E93] hover:text-[#F3F1EC]"
                 }`}
@@ -126,13 +137,13 @@ export default function PlaygroundSection() {
           {/* Top Stage Bar */}
           <div className="flex items-center justify-between pb-4 border-b border-white/10 text-xs font-mono text-[#8E8E93] mb-6">
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#0F6BFF]" />
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: activeTabData.groupColor }} />
               <span className="text-[#F3F1EC] font-medium">{activeTabData.label}</span>
               <span className="hidden sm:inline text-white/30">&bull;</span>
               <span className="hidden sm:inline text-[11px] text-[#8E8E93]">Client-Side Runtime</span>
             </div>
             <div className="text-[11px]">
-              Module ID: <span className="text-[#4C8DFF]">{activeTab.toUpperCase()}_v2.4</span>
+              Module ID: <span style={{ color: activeTabData.groupColor }}>{activeTab.toUpperCase()}_v3.0</span>
             </div>
           </div>
 
@@ -154,8 +165,8 @@ export default function PlaygroundSection() {
 
           {/* Bottom Stage Footer */}
           <div className="pt-6 mt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-[#8E8E93]">
-            <span>Zero Server Latency &bull; In-Memory Execution</span>
-            <span className="text-[11px]">Built for Salesforce Engineering Evaluations</span>
+            <span>Zero Server Latency &bull; Sample data, simulated in your browser</span>
+            <span className="text-[11px]">Built for Salesforce &amp; Cloud Engineering Evaluations</span>
           </div>
         </div>
 
