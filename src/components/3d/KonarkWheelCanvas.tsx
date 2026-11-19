@@ -42,7 +42,7 @@ export function KonarkWheelCanvas({
         }
       >
         <Canvas
-          camera={{ position: [0, 0, 5.2], fov: 45 }}
+          camera={{ position: [0, 0, 7.5], fov: 45 }}
           gl={{ antialias: true, alpha: true }}
           style={{ width: "100%", height: "100%", background: "transparent" }}
         >

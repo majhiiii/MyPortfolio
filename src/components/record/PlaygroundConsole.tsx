@@ -56,11 +56,11 @@ export function PlaygroundConsole() {
         </span>
       </div>
 
-      {/* Dark Indigo-Black Console Window Container */}
-      <div className="rounded-lg bg-[#14182E] border border-white/15 overflow-hidden shadow-lg text-white transition-colors">
+      {/* Dark Indigo Raised Glass Console Window Container */}
+      <div className="rounded-[20px] bg-[#14182E]/80 backdrop-blur-[26px] border border-white/20 shadow-[0_28px_60px_-28px_rgba(20,24,46,0.6)] overflow-hidden text-white transition-colors">
         
         {/* Console Window Titlebar */}
-        <div className="bg-[#0F1326] px-4 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+        <div className="bg-[#0F1326]/90 px-4 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
           
           {/* Left: Window Controls + Tabs */}
           <div className="flex items-center gap-4">

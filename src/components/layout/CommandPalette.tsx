@@ -73,7 +73,7 @@ export default function CommandPalette() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: -10 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-lg bg-[var(--surface)] border border-hairline rounded-lg shadow-2xl overflow-hidden font-sans text-sm"
+          className="w-full max-w-lg glass-overlay rounded-[20px] shadow-[0_32px_64px_-24px_rgba(26,20,16,0.40)] overflow-hidden font-sans text-sm ring-1 ring-black/5 dark:ring-white/10"
           onClick={(e) => e.stopPropagation()}
         >
           <Command className="w-full">

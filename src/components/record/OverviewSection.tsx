@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { PattachitraBorder } from "@/components/ui/PattachitraBorder";
 import { KonarkWheelCanvas } from "@/components/3d/KonarkWheelCanvas";
 import { KonarkWheelSvg } from "@/components/3d/KonarkWheelSvg";
-import { Download, Mail, ChevronRight, Award, GraduationCap, MapPin, Briefcase, Sparkles, ExternalLink, Rocket } from "lucide-react";
+import { GlassPanel } from "@/components/ui/GlassPanel";
+import { Download, Mail, Award, GraduationCap, MapPin, Briefcase, Sparkles, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SkillGroupId } from "@/data/stack";
 
@@ -14,43 +15,38 @@ interface PathStage {
   subtitle: string;
   summary: string;
   badge: string;
-  badgeColor: string;
   isCurrent?: boolean;
 }
 
 const PATH_STAGES: PathStage[] = [
   {
     id: "learning",
-    title: "Full-Stack Training",
+    title: "Python Full Stack",
     subtitle: "Abacus Systems (Sep 2023 – Feb 2024)",
     badge: "Foundation",
-    badgeColor: "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300",
-    summary: "Intensive training in Python, full-stack web architectures, relational database schemas, and data science fundamentals.",
+    summary: "Intensive training in Python, FastAPI/Django, PostgreSQL, relational modeling, and REST architectural patterns.",
   },
   {
     id: "briskode",
-    title: "Intern at Briskode",
-    subtitle: "Mar 2024 – Oct 2024",
+    title: "Web Dev Intern",
+    subtitle: "Briskode (Mar 2024 – Oct 2024)",
     badge: "React & Next.js",
-    badgeColor: "bg-orange-100 text-orange-800 dark:bg-orange-950/60 dark:text-orange-300",
-    summary: "Built and shipped 10+ responsive client UI components and web pages using React.js and Next.js, integrating backend REST APIs.",
+    summary: "Built and shipped responsive client UI components and web pages using React.js and Next.js, integrating backend REST APIs.",
   },
   {
     id: "asspl",
     title: "Developer at ASSPL",
     subtitle: "Nov 2024 – Present",
     badge: "Salesforce & AI",
-    badgeColor: "bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300",
-    summary: "Leading technical delivery across 3 concurrent projects: Pantero B2B Commerce, Health Cloud, 4 production Agentforce agents, and 10+ integrations.",
+    summary: "Leading technical delivery across 3 concurrent production projects: B2B Commerce, Health Cloud, 4 production Agentforce agents, and 10+ integrations.",
     isCurrent: true,
   },
   {
-    id: "biznusoft-alt",
-    title: "Building Biznusoft Alt",
-    subtitle: "Cloud ERP & Equipment Rental",
-    badge: "Building Now",
-    badgeColor: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300",
-    summary: "Architecting a modern cloud alternative to Biznusoft for equipment rental lifecycle, inventory tracking, and automated CPQ quoting.",
+    id: "next",
+    title: "Next Role",
+    subtitle: "Open to opportunities",
+    badge: "Forward",
+    summary: "Targeting high-impact Salesforce Developer & Administrator roles with Apex, LWC, enterprise integrations, and Agentforce automation scope.",
   },
 ];
 
@@ -67,73 +63,74 @@ export function OverviewSection() {
   };
 
   return (
-    <section id="overview" className="space-y-4 pt-2">
+    <section id="overview" className="space-y-4 pt-1">
       
-      {/* Highlights Panel (Salesforce Record Header Style - Colorful & Compact) */}
-      <div className="rounded-lg bg-[var(--surface)] border border-hairline overflow-hidden shadow-xs transition-colors">
-        {/* Top Pattachitra Border Strip */}
+      {/* Highlights Panel (Raised Glass, with Pattachitra strip inside top edge) */}
+      <GlassPanel tier="raised" radius="panel" className="p-0">
+        {/* Pattachitra Creeper Strip directly inside the panel's top edge */}
         <PattachitraBorder />
 
-        <div className="p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-center">
+        <div className="p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
           
           {/* Record Identity & Compact Fields */}
           <div className="lg:col-span-8 space-y-4">
             
             {/* Record Identity Header */}
             <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-full border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/40 p-1 shrink-0 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] p-1 shrink-0 flex items-center justify-center shadow-xs">
                 <KonarkWheelSvg size={38} />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--muted)]">
-                    Salesforce Record // Candidate
+                  <span className="text-xs text-[var(--muted)]">
+                    Salesforce developer record
                   </span>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-semibold uppercase">
-                    Available for hire
+                  <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
+                    Available for roles
                   </span>
                 </div>
                 <div className="flex flex-wrap items-baseline gap-2.5">
                   <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--ink)]">
                     Rakesh Majhi
                   </h1>
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[var(--indigo)] text-[#FFFBF2] shadow-2xs">
                     Salesforce Developer &amp; Administrator
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Compact 4-Field Row with Clean Highlights */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-hairline text-xs">
-              <div className="p-2 rounded-md bg-[var(--surface-alt)] border border-hairline space-y-0.5">
-                <span className="font-mono text-[10px] text-[var(--muted)] block uppercase">Company</span>
+            {/* Compact 4-Field Row on Solid Readable Chips */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-[var(--hairline)] text-xs">
+              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
+                <span className="text-[11px] text-[var(--muted)] block">Company</span>
                 <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block">ASSPL &bull; 2 Yrs</span>
               </div>
-              <div className="p-2 rounded-md bg-[var(--surface-alt)] border border-hairline space-y-0.5">
-                <span className="font-mono text-[10px] text-[var(--muted)] block uppercase">Location</span>
-                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block">Bhubaneswar, IN</span>
+              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
+                <span className="text-[11px] text-[var(--muted)] block">Location</span>
+                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block">Bhubaneswar, India</span>
               </div>
-              <div className="p-2 rounded-md bg-[var(--surface-alt)] border border-hairline space-y-0.5">
-                <span className="font-mono text-[10px] text-[var(--muted)] block uppercase">Core Focus</span>
+              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
+                <span className="text-[11px] text-[var(--muted)] block">Focus</span>
                 <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block truncate">Apex &bull; LWC &bull; AI</span>
               </div>
-              <div className="p-2 rounded-md bg-[var(--surface-alt)] border border-hairline space-y-0.5">
-                <span className="font-mono text-[10px] text-[var(--muted)] block uppercase">Active Project</span>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm block truncate">
-                  Biznusoft Alt
+              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
+                <span className="text-[11px] text-[var(--muted)] block">Status</span>
+                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[var(--turmeric)]" />
+                  <span>Open to roles</span>
                 </span>
               </div>
             </div>
 
-            {/* Quick Action Buttons */}
+            {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-2.5 pt-1">
               <a
                 href="/assets/Rakesh_Majhi_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-[#0176D3] text-white text-xs font-semibold hover:bg-[#015ba4] transition-colors shadow-xs"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--indigo)] text-white text-xs font-semibold hover:opacity-95 transition-opacity shadow-xs"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download resume</span>
@@ -141,9 +138,9 @@ export function OverviewSection() {
 
               <a
                 href="mailto:rakeshmajhi.connect@gmail.com?subject=Salesforce%20Opportunity"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-slate-300 dark:border-slate-700 bg-[var(--surface)] text-[var(--ink)] text-xs font-medium hover:border-[#0176D3] hover:text-[#0176D3] transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] text-[var(--ink)] text-xs font-medium hover:border-[var(--indigo)] hover:text-[var(--indigo)] transition-colors shadow-2xs"
               >
-                <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                <Mail className="w-3.5 h-3.5 text-[var(--indigo)]" />
                 <span>Email me</span>
               </a>
 
@@ -151,7 +148,7 @@ export function OverviewSection() {
                 href="https://linkedin.com/in/rakeshmajhi57"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md border border-slate-300 dark:border-slate-700 bg-[var(--surface)] text-[var(--muted)] text-xs font-mono hover:text-[#0176D3] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] text-[var(--muted)] text-xs font-mono hover:text-[var(--indigo)] transition-colors shadow-2xs"
               >
                 <span>linkedin.com/in/rakeshmajhi57</span>
                 <ExternalLink className="w-3 h-3" />
@@ -160,18 +157,20 @@ export function OverviewSection() {
 
           </div>
 
-          {/* Right Column: Hero 3D Konark Wheel Stage (Compact, dedicated) */}
-          <div className="lg:col-span-4 h-[190px] sm:h-[210px] flex items-center justify-center relative">
-            <KonarkWheelCanvas onSelectGroup={handleSpokeClick} />
+          {/* Right Column: Hero 3D Konark Sun Wheel Stage (Properly sized, centered, not cropped) */}
+          <div className="lg:col-span-4 flex items-center justify-center">
+            <div className="w-[230px] h-[230px] sm:w-[250px] sm:h-[250px] aspect-square flex items-center justify-center relative">
+              <KonarkWheelCanvas onSelectGroup={handleSpokeClick} />
+            </div>
           </div>
 
         </div>
-      </div>
+      </GlassPanel>
 
-      {/* Path Component (Chevron Stages of Career Journey - Compact & Colorful) */}
-      <div className="rounded-lg bg-[var(--surface)] border border-hairline p-3.5 sm:p-4 space-y-2.5 transition-colors shadow-xs">
-        <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
-          <span className="uppercase tracking-wider">Career Path &bull; Production Stages</span>
+      {/* Career Path Component (Base Glass, Chevron Stages) */}
+      <GlassPanel tier="base" tintColor="#E8A317" radius="panel" className="p-3.5 sm:p-4 space-y-2.5">
+        <div className="flex items-center justify-between text-xs text-[var(--muted)]">
+          <span className="font-semibold text-[var(--ink)]">Career journey</span>
           <span>Click stage to review milestones</span>
         </div>
 
@@ -184,21 +183,27 @@ export function OverviewSection() {
               <button
                 key={stage.id}
                 onClick={() => setSelectedStage(stage.id)}
-                className={`text-left p-2.5 rounded-md border transition-all cursor-pointer relative ${
+                className={`text-left p-3 rounded-[14px] border transition-all cursor-pointer relative ${
                   isCurrent
-                    ? "bg-blue-50/70 dark:bg-blue-950/40 border-blue-500 text-blue-950 dark:text-blue-100 font-medium shadow-2xs"
+                    ? "bg-[var(--surface-tint-solid)] border-[var(--turmeric)] shadow-[0_0_16px_-2px_rgba(232,163,23,0.45)] text-[var(--ink)]"
                     : isSelected
-                    ? "bg-[var(--surface-alt)] border-slate-700 text-[var(--ink)] font-medium"
-                    : "bg-[var(--surface)] border-hairline text-[var(--muted)] hover:border-slate-400 hover:text-[var(--ink)]"
+                    ? "bg-[var(--surface-tint-solid)] border-[var(--indigo)] text-[var(--ink)]"
+                    : "bg-[var(--surface-tint-solid)]/70 border-[var(--hairline)] text-[var(--muted)] hover:border-slate-400 hover:text-[var(--ink)]"
                 }`}
               >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-xs">{stage.title}</span>
-                  <span className={`text-[9px] font-mono px-1.5 py-0.2 rounded-xs font-semibold ${stage.badgeColor}`}>
+                  <span className="font-semibold text-xs text-[var(--ink)]">{stage.title}</span>
+                  <span
+                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+                      isCurrent
+                        ? "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/60 dark:text-amber-200 dark:border-amber-700"
+                        : "bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700"
+                    }`}
+                  >
                     {stage.badge}
                   </span>
                 </div>
-                <span className="text-[11px] opacity-75 block mt-0.5 truncate font-normal">
+                <span className="text-[11px] opacity-80 block mt-1 truncate font-normal">
                   {stage.subtitle}
                 </span>
               </button>
@@ -214,139 +219,113 @@ export function OverviewSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -3 }}
             transition={{ duration: 0.18 }}
-            className="p-2.5 sm:p-3 rounded-md bg-[var(--surface-alt)] border border-hairline text-xs font-sans text-[var(--ink)] leading-relaxed flex items-center gap-2"
+            className="p-3 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] text-xs text-[var(--ink)] leading-relaxed flex items-center gap-2 shadow-2xs"
           >
-            <span className="font-semibold shrink-0 text-blue-600 dark:text-blue-400">
+            <span className="font-semibold shrink-0 text-[var(--indigo)]">
               {activeStageData.title}:
             </span>
             <span>{activeStageData.summary}</span>
           </motion.div>
         </AnimatePresence>
-      </div>
+      </GlassPanel>
 
-      {/* Two-Column Record Body: About & Photo Frame (Left) + Certifications & Quick Facts (Right) */}
+      {/* Two-Column Record Body: About (Left) + Certifications & Quick Facts (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
         
         {/* Main Column: About in human voice + Real photo frame */}
-        <div className="lg:col-span-8 rounded-lg bg-[var(--surface)] border border-hairline p-5 sm:p-6 space-y-4 transition-colors shadow-xs">
-          <div className="flex items-center justify-between border-b border-hairline pb-3">
-            <div>
+        <div className="lg:col-span-8">
+          <GlassPanel tier="base" radius="panel" className="p-5 sm:p-6 space-y-4">
+            <div className="border-b border-[var(--hairline)] pb-3">
               <h2 className="text-lg font-bold text-[var(--ink)] tracking-tight">
-                About &amp; Current Focus
+                About &amp; background
               </h2>
               <p className="text-xs text-[var(--muted)]">
-                Salesforce Developer &bull; Abacus System &amp; Solution (ASSPL)
+                Salesforce Developer &bull; Abacus System &amp; Solution (ASSPL), Bhubaneswar
               </p>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
-              <Rocket className="w-3.5 h-3.5" />
-              <span>Building Biznusoft Alt</span>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
-            
-            {/* Real photo frame with Pattachitra border */}
-            <div className="md:col-span-4 flex justify-center">
-              <div className="relative p-1.5 rounded-lg border-2 border-[var(--turmeric)] bg-[var(--surface-alt)] shadow-xs">
-                <div className="w-34 h-40 rounded-md bg-[var(--surface)] border border-hairline flex flex-col items-center justify-center text-center p-3 relative">
-                  <div className="flex flex-col items-center justify-center space-y-2">
-                    <div className="w-16 h-16 rounded-full border-2 border-blue-500/30 bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 flex items-center justify-center text-xl font-mono font-bold shadow-2xs">
-                      RM
-                    </div>
-                    <div>
-                      <div className="text-[12px] font-bold text-[var(--ink)]">
-                        Rakesh Majhi
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+              
+              {/* Photo frame with Pattachitra vermilion border */}
+              <div className="md:col-span-4 flex justify-center">
+                <div className="relative p-1.5 rounded-[18px] border-2 border-[var(--turmeric)] bg-[var(--surface-tint-solid)] shadow-xs">
+                  <div className="w-34 h-40 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] flex flex-col items-center justify-center text-center p-3 relative">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <div className="w-16 h-16 rounded-full border-2 border-[var(--indigo)]/30 bg-[var(--indigo)]/10 text-[var(--indigo)] dark:text-blue-300 flex items-center justify-center text-xl font-mono font-bold shadow-2xs">
+                        RM
                       </div>
-                      <div className="text-[10px] font-mono text-[var(--muted)]">
-                        ASSPL · Bhubaneswar
+                      <div>
+                        <div className="text-[12px] font-bold text-[var(--ink)]">
+                          Rakesh Majhi
+                        </div>
+                        <div className="text-[10px] font-mono text-[var(--muted)]">
+                          ASSPL · Bhubaneswar
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Plain Human Copy (4-5 sentences, exact resume truth) */}
-            <div className="md:col-span-8 space-y-2.5 text-sm sm:text-[14.5px] leading-relaxed text-[var(--ink)] font-normal prose-measure">
-              <p>
-                I am a Salesforce Developer with 2 years of experience at Abacus System &amp; Solution (ASSPL) in Bhubaneswar, building custom Apex, Visualforce, Lightning Web Components (LWC), and Flow solutions across Sales Cloud, Service Cloud, Experience Cloud, and B2B Commerce.
-              </p>
-              <p>
-                I have shipped 10+ integrations over REST/SOAP and OAuth (Stripe, PayPal, QuickBooks, CyberSource, GoHighLevel, Power BI), deployed 4 production Agentforce agents on Experience Cloud, and manage releases through GitHub CI/CD for 3 concurrent projects.
-              </p>
-              <p>
-                Currently, alongside my work at ASSPL, I am actively building a modern cloud alternative to Biznusoft &mdash; targeting equipment rental workflows, real-time availability, and automated CPQ quoting.
-              </p>
-              <p>
-                Prior to ASSPL, I interned at Briskode building responsive React and Next.js client products. I hold a B.Tech in Computer Science from Raajdhani Engineering College and am certified as a Salesforce Agentforce Specialist and AI Associate.
-              </p>
-            </div>
+              {/* Plain Human Copy sitting on near-solid readable surface */}
+              <div className="md:col-span-8 surface-solid-reading p-4 border border-[var(--hairline)] space-y-2 text-sm leading-relaxed text-[var(--ink)] shadow-2xs">
+                <p>
+                  I am a Salesforce Developer with 2 years of experience at Abacus System &amp; Solution (ASSPL) in Bhubaneswar, building custom Apex, Visualforce, Lightning Web Components (LWC), and Flow solutions across Sales Cloud, Service Cloud, Experience Cloud, and B2B Commerce.
+                </p>
+                <p>
+                  I have delivered 10+ integrations over REST/SOAP and OAuth (Stripe, PayPal, QuickBooks, CyberSource, GoHighLevel, Power BI), deployed 4 production Agentforce agents on Experience Cloud, and lead technical releases through GitHub CI/CD for 3 concurrent projects.
+                </p>
+                <p>
+                  Prior to ASSPL, I interned at Briskode building responsive React and Next.js client products. I hold a B.Tech in Computer Science from Raajdhani Engineering College and am certified as a Salesforce Agentforce Specialist and AI Associate.
+                </p>
+              </div>
 
-          </div>
+            </div>
+          </GlassPanel>
         </div>
 
         {/* Right Sidebar: Certifications Card & Real Education */}
         <div className="lg:col-span-4 space-y-4">
           
           {/* Certifications Card */}
-          <div className="rounded-lg bg-[var(--surface)] border border-hairline p-4 space-y-3 transition-colors shadow-xs">
-            <div className="flex items-center justify-between pb-2.5 border-b border-hairline">
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-[#0176D3]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--ink)]">
-                  Salesforce Certifications
-                </h3>
-              </div>
-              <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">Official</span>
+          <GlassPanel tier="base" radius="panel" className="p-4 space-y-3">
+            <div className="flex items-center gap-2 pb-2.5 border-b border-[var(--hairline)]">
+              <Award className="w-4 h-4 text-[var(--indigo)]" />
+              <h3 className="text-xs font-bold text-[var(--ink)]">
+                Salesforce certifications
+              </h3>
             </div>
 
-            <div className="space-y-3 text-xs">
-              <div className="p-2.5 rounded-md bg-purple-50/60 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-900/60 space-y-1">
+            <div className="space-y-2.5 text-xs">
+              <div className="p-3 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-1 shadow-2xs">
                 <div className="font-semibold text-purple-900 dark:text-purple-200 text-xs">
                   Salesforce Certified Agentforce Specialist
                 </div>
                 <p className="text-[11px] text-[var(--muted)]">
-                  Agent Builder Topics &amp; Actions, Invocable Apex, Einstein Trust Layer.
+                  Autonomous Agent Builder topics &amp; actions, Invocable Apex, and Einstein Trust Layer guardrails.
                 </p>
-                <a
-                  href="https://trailhead.salesforce.com/credentials/verification"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-[10px] text-purple-700 dark:text-purple-400 hover:underline font-mono"
-                >
-                  [CREDENTIAL_URL]
-                </a>
               </div>
 
-              <div className="p-2.5 rounded-md bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/60 space-y-1">
+              <div className="p-3 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-1 shadow-2xs">
                 <div className="font-semibold text-blue-900 dark:text-blue-200 text-xs">
                   Salesforce Certified AI Associate
                 </div>
                 <p className="text-[11px] text-[var(--muted)]">
-                  Generative AI ethics, CRM prompt grounding, and model governance.
+                  Generative AI fundamentals, CRM prompt grounding, model governance, and ethical AI deployment.
                 </p>
-                <a
-                  href="https://trailhead.salesforce.com/credentials/verification"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-[10px] text-blue-700 dark:text-blue-400 hover:underline font-mono"
-                >
-                  [CREDENTIAL_URL]
-                </a>
               </div>
             </div>
-          </div>
+          </GlassPanel>
 
           {/* Quick Facts Card with Real Education from Resume */}
-          <div className="rounded-lg bg-[var(--surface)] border border-hairline p-4 space-y-2.5 transition-colors text-xs shadow-xs">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--ink)] pb-2 border-b border-hairline">
-              Verified Background
+          <GlassPanel tier="base" radius="panel" className="p-4 space-y-2.5 text-xs">
+            <h3 className="text-xs font-bold text-[var(--ink)] pb-2 border-b border-[var(--hairline)]">
+              Education &amp; background
             </h3>
 
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               <div className="flex items-start gap-2.5">
-                <GraduationCap className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+                <GraduationCap className="w-4 h-4 text-[var(--indigo)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Raajdhani Engineering College</span>
                   <span className="text-[11px] text-[var(--muted)]">B.Tech in Computer Science &bull; 2019–2023</span>
@@ -354,7 +333,7 @@ export function OverviewSection() {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                <Sparkles className="w-4 h-4 text-[var(--turmeric)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Abacus Systems Training</span>
                   <span className="text-[11px] text-[var(--muted)]">Python Full Stack &amp; Data Science &bull; 2023–2024</span>
@@ -362,7 +341,7 @@ export function OverviewSection() {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <Briefcase className="w-4 h-4 text-[var(--leaf)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Leadership &amp; Mentoring</span>
                   <span className="text-[11px] text-[var(--muted)]">3 Concurrent Projects &bull; Mentoring 4 Junior Devs</span>
@@ -370,14 +349,14 @@ export function OverviewSection() {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[var(--vermilion)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Location &amp; Direct</span>
                   <span className="text-[11px] text-[var(--muted)]">Bhubaneswar, India &bull; +91 8342849764</span>
                 </div>
               </div>
             </div>
-          </div>
+          </GlassPanel>
 
         </div>
 

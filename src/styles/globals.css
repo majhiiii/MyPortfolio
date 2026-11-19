@@ -6,43 +6,84 @@
 }
 
 :root {
-  /* Crisp, vibrant, high-contrast light mode */
-  --bg: #F4F6F9;
-  --surface: #FFFFFF;
-  --surface-alt: #F8FAFC;
-  --ink: #0F172A;
-  --muted: #475569;
-  --hairline: #E2E8F0;
-  --hairline-subtle: #EDF2F7;
-  
-  /* Vibrant tech signature colors */
-  --turmeric: #F59E0B;
-  --vermilion: #EF4444;
-  --indigo: #0284C7;
-  --blue: #0176D3;
-  --purple: #7C3AED;
-  --leaf: #10B981;
-  --clay: #D97706;
-  --accent: #0176D3;
+  /* Warm Chalk Base & Surface (Odia Pattachitra foundation) */
+  --bg: #F6EFE0;
+  --surface: #FFFBF2;
+  --surface-tint-solid: rgba(255, 251, 242, 0.92);
+  --ink: #1A1410;
+  --muted: #5F5245;
+  --hairline: rgba(26, 20, 16, 0.12);
+  --hairline-subtle: rgba(26, 20, 16, 0.06);
+
+  /* Pattachitra Palette */
+  --turmeric: #E8A317;
+  --vermilion: #C8372D;
+  --indigo: #1F2A5C;
+  --leaf: #3C6E47;
+  --clay: #8A4B2A;
+  --accent: #1F2A5C;
+
+  /* Glass Tier 1: Base Glass (Cards, Rows, Sticky Tab Bar) */
+  --glass-base-bg: rgba(255, 251, 242, 0.58);
+  --glass-base-blur: 18px;
+  --glass-base-border: rgba(255, 255, 255, 0.65);
+  --glass-base-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 12px 32px -16px rgba(26, 20, 16, 0.22);
+
+  /* Glass Tier 2: Raised Glass (Highlights Panel, Open Project Detail, Playground Frame) */
+  --glass-raised-bg: rgba(255, 251, 242, 0.70);
+  --glass-raised-blur: 26px;
+  --glass-raised-border: rgba(255, 255, 255, 0.75);
+  --glass-raised-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 28px 60px -28px rgba(26, 20, 16, 0.35);
+
+  /* Glass Tier 3: Overlay Glass (Command Palette, Tooltips, Modals) */
+  --glass-overlay-bg: rgba(255, 251, 242, 0.78);
+  --glass-overlay-blur: 32px;
+  --glass-overlay-border: rgba(255, 255, 255, 0.85);
+  --glass-overlay-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 32px 64px -24px rgba(26, 20, 16, 0.40);
+
+  /* Near-Solid Work Rows */
+  --glass-row-bg: rgba(255, 251, 242, 0.78);
+  --glass-row-blur: 10px;
 }
 
 [data-theme="dark"] {
-  --bg: #0B0E14;
-  --surface: #151922;
-  --surface-alt: #1A202C;
-  --ink: #F8FAFC;
-  --muted: #94A3B8;
-  --hairline: rgba(226, 232, 240, 0.12);
-  --hairline-subtle: rgba(226, 232, 240, 0.06);
-  
-  --turmeric: #FBBF24;
-  --vermilion: #F87171;
-  --indigo: #38BDF8;
-  --blue: #38BDF8;
-  --purple: #A78BFA;
-  --leaf: #34D399;
-  --clay: #F59E0B;
-  --accent: #38BDF8;
+  /* Deep Ink Base & Surface */
+  --bg: #100C09;
+  --surface: #18130E;
+  --surface-tint-solid: rgba(24, 19, 14, 0.92);
+  --ink: #F3E9D6;
+  --muted: #A89B8C;
+  --hairline: rgba(255, 255, 255, 0.10);
+  --hairline-subtle: rgba(255, 255, 255, 0.05);
+
+  --turmeric: #F5A623;
+  --vermilion: #E04D3F;
+  --indigo: #4A5EA8;
+  --leaf: #4E8A5A;
+  --clay: #B0683E;
+  --accent: #4A5EA8;
+
+  /* Glass Tier 1: Base Glass Dark */
+  --glass-base-bg: rgba(24, 19, 14, 0.50);
+  --glass-base-blur: 18px;
+  --glass-base-border: rgba(255, 255, 255, 0.10);
+  --glass-base-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 12px 32px -16px rgba(0, 0, 0, 0.5);
+
+  /* Glass Tier 2: Raised Glass Dark */
+  --glass-raised-bg: rgba(24, 19, 14, 0.62);
+  --glass-raised-blur: 26px;
+  --glass-raised-border: rgba(255, 255, 255, 0.14);
+  --glass-raised-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 28px 60px -28px rgba(0, 0, 0, 0.7);
+
+  /* Glass Tier 3: Overlay Glass Dark */
+  --glass-overlay-bg: rgba(24, 19, 14, 0.72);
+  --glass-overlay-blur: 32px;
+  --glass-overlay-border: rgba(255, 255, 255, 0.18);
+  --glass-overlay-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 32px 64px -24px rgba(0, 0, 0, 0.8);
+
+  /* Near-Solid Work Rows Dark */
+  --glass-row-bg: rgba(24, 19, 14, 0.78);
+  --glass-row-blur: 10px;
 }
 
 html {
@@ -53,17 +94,109 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background-color: transparent;
   color: var(--ink);
   overflow-x: hidden;
   font-size: 15px;
   line-height: 1.55;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Scannable reading max width */
-.prose-measure {
-  max-width: 65ch;
+/* Glass Tiers Classes */
+.glass-base {
+  background: var(--glass-base-bg);
+  backdrop-filter: blur(var(--glass-base-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--glass-base-blur)) saturate(150%);
+  border: 1px solid var(--glass-base-border);
+  box-shadow: var(--glass-base-shadow);
+  border-radius: 20px;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.glass-raised {
+  background: var(--glass-raised-bg);
+  backdrop-filter: blur(var(--glass-raised-blur)) saturate(165%);
+  -webkit-backdrop-filter: blur(var(--glass-raised-blur)) saturate(165%);
+  border: 1px solid var(--glass-raised-border);
+  box-shadow: var(--glass-raised-shadow);
+  border-radius: 20px;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.glass-overlay {
+  background: var(--glass-overlay-bg);
+  backdrop-filter: blur(var(--glass-overlay-blur));
+  -webkit-backdrop-filter: blur(var(--glass-overlay-blur));
+  border: 1px solid var(--glass-overlay-border);
+  box-shadow: var(--glass-overlay-shadow);
+  border-radius: 20px;
+}
+
+.glass-row {
+  background: var(--glass-row-bg);
+  backdrop-filter: blur(var(--glass-row-blur));
+  -webkit-backdrop-filter: blur(var(--glass-row-blur));
+  border: 1px solid var(--glass-base-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 4px 16px -8px rgba(26, 20, 16, 0.12);
+  border-radius: 14px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+/* Hover lift and specular highlight */
+@media (hover: hover) and (pointer: fine) {
+  .glass-base:hover,
+  .glass-row:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+/* Near-solid readable surface for long body text */
+.surface-solid-reading {
+  background: var(--surface-tint-solid);
+  border-radius: 14px;
+}
+
+/* Accessibility Fallbacks */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-base,
+  .glass-raised,
+  .glass-overlay,
+  .glass-row {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-base,
+  .glass-raised,
+  .glass-overlay,
+  .glass-row {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass-base,
+  .glass-raised,
+  .glass-overlay,
+  .glass-row {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border-color: var(--ink) !important;
+  }
+}
+
+/* Focus visible styles: 2px indigo + 2px white offset */
+:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
 }
 
 /* Hairline border */
@@ -75,26 +208,86 @@ body {
   border-color: var(--hairline);
 }
 
+/* Drifting Keyframe Animations for Backdrop (60s+ loops, transform only) */
+@keyframes drift1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(40px, 60px, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-30px, 30px, 0) scale(0.95);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes drift2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(-40px, -50px, 0) scale(1.06);
+  }
+  66% {
+    transform: translate3d(30px, -20px, 0) scale(0.96);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes drift3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(30px, -40px, 0) scale(1.05);
+  }
+  66% {
+    transform: translate3d(-40px, 50px, 0) scale(0.94);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.animate-drift-slow-1 {
+  animation: drift1 68s ease-in-out infinite alternate;
+}
+
+.animate-drift-slow-2 {
+  animation: drift2 74s ease-in-out infinite alternate;
+}
+
+.animate-drift-slow-3 {
+  animation: drift3 82s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift-slow-1,
+  .animate-drift-slow-2,
+  .animate-drift-slow-3 {
+    animation: none !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--hairline);
-  border-radius: 2px;
+  background: rgba(95, 82, 69, 0.25);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
-}
-
-/* Focus visible styles */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  background: rgba(95, 82, 69, 0.45);
 }
 
 /* Skip link */
@@ -102,11 +295,11 @@ body {
   position: absolute;
   top: -100px;
   left: 1rem;
-  background: var(--accent);
-  color: #FFFFFF;
+  background: var(--indigo);
+  color: #FFFBF2;
   padding: 0.4rem 0.8rem;
   z-index: 9999;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 12px;
   transition: top 0.2s ease;
 }

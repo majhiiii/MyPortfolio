@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { RecordTabBar } from "@/components/layout/RecordTabBar";
+import { BackdropScene } from "@/components/layout/BackdropScene";
 import CommandPalette from "@/components/layout/CommandPalette";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 
@@ -45,6 +46,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col font-sans antialiased text-[var(--ink)] bg-[var(--bg)] selection:bg-[var(--turmeric)] selection:text-[var(--ink)]">
+        <BackdropScene />
         <a href="#overview" className="skip-link">
           Skip to content
         </a>

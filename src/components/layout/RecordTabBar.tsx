@@ -86,18 +86,18 @@ export function RecordTabBar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[var(--surface)]/95 backdrop-blur-xs border-b border-hairline transition-colors">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full bg-[var(--glass-base-bg)] backdrop-blur-[20px] border-b border-[var(--glass-base-border)] shadow-[0_4px_24px_-10px_rgba(26,20,16,0.12)] dark:shadow-[0_4px_24px_-10px_rgba(0,0,0,0.5)] transition-colors">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         
         {/* Left: Tab Bar with Gliding Indicator */}
-        <nav className="flex items-center space-x-1 sm:space-x-2 overflow-x-auto scrollbar-none" aria-label="Record Navigation Tabs">
+        <nav className="flex items-center space-x-1 sm:space-x-1.5 overflow-x-auto scrollbar-none py-1" aria-label="Record Navigation Tabs">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => scrollTo(tab.targetId)}
-                className={`relative px-3 sm:px-4 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer whitespace-nowrap ${
+                className={`relative px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium rounded-full transition-colors cursor-pointer whitespace-nowrap ${
                   isActive
                     ? "text-[var(--ink)] font-semibold"
                     : "text-[var(--muted)] hover:text-[var(--ink)]"
@@ -107,7 +107,7 @@ export function RecordTabBar() {
                   <motion.div
                     layoutId="record-tab-active"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    className="absolute inset-0 bg-[var(--bg)] border border-hairline rounded-md -z-10 shadow-2xs"
+                    className="absolute inset-0 bg-[var(--surface-tint-solid)] border border-[var(--glass-base-border)] rounded-full -z-10 shadow-xs"
                   />
                 )}
                 <span>{tab.label}</span>
@@ -117,12 +117,12 @@ export function RecordTabBar() {
         </nav>
 
         {/* Right: Plain Resume Link + Theme Toggle */}
-        <div className="flex items-center space-x-3 text-xs sm:text-sm shrink-0">
+        <div className="flex items-center space-x-2.5 text-xs sm:text-sm shrink-0">
           <a
             href="/assets/Rakesh_Majhi_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-hairline text-[var(--ink)] hover:border-[var(--indigo)] hover:text-[var(--indigo)] transition-colors font-medium"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] text-[var(--ink)] hover:border-[var(--indigo)] hover:text-[var(--indigo)] transition-all font-medium text-xs shadow-2xs"
             title="Download resume PDF"
           >
             <FileText className="w-3.5 h-3.5" />
@@ -131,11 +131,11 @@ export function RecordTabBar() {
 
           <button
             onClick={handleThemeToggle}
-            className="p-1.5 rounded-md border border-hairline text-[var(--muted)] hover:text-[var(--ink)] transition-colors cursor-pointer"
+            className="p-1.5 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] text-[var(--muted)] hover:text-[var(--ink)] transition-colors cursor-pointer shadow-2xs"
             aria-label="Toggle colour theme"
             title="Toggle theme"
           >
-            {theme === "dark" ? <Sun className="w-4 h-4 text-[var(--turmeric)]" /> : <Moon className="w-4 h-4" />}
+            {theme === "dark" ? <Sun className="w-4 h-4 text-[var(--turmeric)]" /> : <Moon className="w-4 h-4 text-[var(--indigo)]" />}
           </button>
         </div>
 
