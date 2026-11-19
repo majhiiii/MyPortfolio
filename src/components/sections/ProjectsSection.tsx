@@ -61,7 +61,9 @@ export default function ProjectsSection() {
               </div>
 
               <div className="hidden sm:block sm:col-span-4 text-xs font-mono text-[var(--muted)]">
-                {project.privacyBadge}
+                <span className="px-2 py-0.5 border border-hairline rounded-xs bg-[var(--bg)] text-[var(--ink)]">
+                  {project.companyBadge}
+                </span>
               </div>
 
               <div className="hidden lg:flex lg:col-span-2 items-center justify-end text-xs font-mono text-[var(--muted)] group-hover:text-[var(--ink)] gap-1">
@@ -86,8 +88,10 @@ export default function ProjectsSection() {
             >
               <div className="flex items-start justify-between pb-4 border-b border-hairline">
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase text-[var(--muted)] font-bold">{selectedProject.privacyBadge}</span>
-                  <h3 className="text-xl font-bold font-sans text-[var(--ink)]">{selectedProject.title}</h3>
+                  <span className="text-[10px] uppercase text-[var(--ink)] font-bold px-2 py-0.5 border border-hairline rounded-xs bg-[var(--bg)]">
+                    {selectedProject.companyBadge}
+                  </span>
+                  <h3 className="text-xl font-bold font-sans text-[var(--ink)] pt-1">{selectedProject.title}</h3>
                   <p className="text-[var(--muted)]">{selectedProject.subtitle}</p>
                 </div>
                 <button
