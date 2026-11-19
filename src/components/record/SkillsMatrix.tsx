@@ -19,48 +19,48 @@ const SIX_COLUMNS: {
     id: "salesforce",
     name: "Salesforce Platform",
     color: "#0176D3",
-    headerBg: "bg-blue-50/80 dark:bg-blue-950/40 border-blue-200 dark:border-blue-900",
-    badgeColor: "text-blue-700 dark:text-blue-300",
+    headerBg: "bg-blue-100/90 dark:bg-blue-950/60 border-blue-300 dark:border-blue-800",
+    badgeColor: "text-blue-950 dark:text-blue-200",
     coreIds: ["apex", "lwc", "b2b-commerce", "soql"],
   },
   {
     id: "agentforce",
     name: "Agentforce & AI",
     color: "#7C3AED",
-    headerBg: "bg-purple-50/80 dark:bg-purple-950/40 border-purple-200 dark:border-purple-900",
-    badgeColor: "text-purple-700 dark:text-purple-300",
+    headerBg: "bg-purple-100/90 dark:bg-purple-950/60 border-purple-300 dark:border-purple-800",
+    badgeColor: "text-purple-950 dark:text-purple-200",
     coreIds: ["agentforce", "agent-builder", "invocable-apex", "einstein-bots"],
   },
   {
     id: "integrations",
     name: "Integrations & APIs",
-    color: "#00A38C",
-    headerBg: "bg-teal-50/80 dark:bg-teal-950/40 border-teal-200 dark:border-teal-900",
-    badgeColor: "text-teal-700 dark:text-teal-300",
+    color: "#008774",
+    headerBg: "bg-teal-100/90 dark:bg-teal-950/60 border-teal-300 dark:border-teal-800",
+    badgeColor: "text-teal-950 dark:text-teal-200",
     coreIds: ["rest-api", "oauth-pkce", "stripe", "quickbooks"],
   },
   {
     id: "fullstack",
     name: "Full-Stack Web",
-    color: "#F59E0B",
-    headerBg: "bg-amber-50/80 dark:bg-amber-950/40 border-amber-200 dark:border-amber-900",
-    badgeColor: "text-amber-700 dark:text-amber-300",
+    color: "#D97706",
+    headerBg: "bg-amber-100/90 dark:bg-amber-950/60 border-amber-300 dark:border-amber-800",
+    badgeColor: "text-amber-950 dark:text-amber-200",
     coreIds: ["react", "nextjs", "javascript", "python"],
   },
   {
     id: "aws",
     name: "AWS & Data",
-    color: "#EA580C",
-    headerBg: "bg-orange-50/80 dark:bg-orange-950/40 border-orange-200 dark:border-orange-900",
-    badgeColor: "text-orange-700 dark:text-orange-300",
+    color: "#C2410C",
+    headerBg: "bg-orange-100/90 dark:bg-orange-950/60 border-orange-300 dark:border-orange-800",
+    badgeColor: "text-orange-950 dark:text-orange-200",
     coreIds: ["aws-amplify", "aws-cloudfront", "aws-acm", "aws-rds"],
   },
   {
     id: "delivery",
     name: "Delivery & DevOps",
-    color: "#EF4444",
-    headerBg: "bg-rose-50/80 dark:bg-rose-950/40 border-rose-200 dark:border-rose-900",
-    badgeColor: "text-rose-700 dark:text-rose-300",
+    color: "#DC2626",
+    headerBg: "bg-rose-100/90 dark:bg-rose-950/60 border-rose-300 dark:border-rose-800",
+    badgeColor: "text-rose-950 dark:text-rose-200",
     coreIds: ["git", "github-actions", "postman", "agile-scrum"],
   },
 ];
@@ -166,14 +166,14 @@ export function SkillsMatrix() {
                           </div>
                         </motion.div>
 
-                        {/* Overlay Glass Tooltip */}
+                        {/* High-Contrast Floating Tooltip */}
                         {isHovered && (
-                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-2.5 rounded-[14px] glass-overlay bg-[#0F172A]/95 text-white shadow-xl z-50 pointer-events-none text-left space-y-1 border border-white/20">
-                            <div className="flex items-center justify-between text-[10px] font-mono border-b border-white/10 pb-1">
-                              <span className="font-semibold text-white">{tech.name}</span>
-                              <span style={{ color: col.color }}>{col.name}</span>
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 rounded-[12px] bg-[#141210] dark:bg-[#1C1814] text-[#FDFBF7] shadow-2xl z-50 pointer-events-none text-left space-y-1.5 border border-white/20">
+                            <div className="flex items-center justify-between text-[11px] font-mono border-b border-white/15 pb-1">
+                              <span className="font-bold text-white">{tech.name}</span>
+                              <span className="font-semibold text-amber-400">{col.name}</span>
                             </div>
-                            <p className="text-[11px] font-sans leading-relaxed text-slate-200">
+                            <p className="text-[12px] font-sans leading-relaxed text-[#DCD4CA]">
                               {tech.note}
                             </p>
                           </div>

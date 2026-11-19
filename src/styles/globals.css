@@ -9,11 +9,11 @@
   /* Warm Chalk Base & Surface (Odia Pattachitra foundation) */
   --bg: #F6EFE0;
   --surface: #FFFBF2;
-  --surface-tint-solid: rgba(255, 251, 242, 0.92);
-  --ink: #1A1410;
-  --muted: #5F5245;
-  --hairline: rgba(26, 20, 16, 0.12);
-  --hairline-subtle: rgba(26, 20, 16, 0.06);
+  --surface-tint-solid: rgba(255, 251, 242, 0.94);
+  --ink: #14100C;
+  --muted: #3D3228;
+  --hairline: rgba(26, 20, 16, 0.15);
+  --hairline-subtle: rgba(26, 20, 16, 0.08);
 
   /* Pattachitra Palette */
   --turmeric: #E8A317;
@@ -50,11 +50,11 @@
   /* Deep Ink Base & Surface */
   --bg: #100C09;
   --surface: #18130E;
-  --surface-tint-solid: rgba(24, 19, 14, 0.92);
-  --ink: #F3E9D6;
-  --muted: #A89B8C;
-  --hairline: rgba(255, 255, 255, 0.10);
-  --hairline-subtle: rgba(255, 255, 255, 0.05);
+  --surface-tint-solid: rgba(24, 19, 14, 0.94);
+  --ink: #F8F1E5;
+  --muted: #C4B6A6;
+  --hairline: rgba(255, 255, 255, 0.12);
+  --hairline-subtle: rgba(255, 255, 255, 0.06);
 
   --turmeric: #F5A623;
   --vermilion: #E04D3F;

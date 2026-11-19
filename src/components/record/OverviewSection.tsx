@@ -82,11 +82,11 @@ export function OverviewSection() {
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-[var(--muted)]">
+                  <span className="text-xs text-[var(--muted)] font-medium">
                     Salesforce developer record
                   </span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                  <span className="text-xs text-emerald-900 dark:text-emerald-200 font-semibold">
                     Available for roles
                   </span>
                 </div>

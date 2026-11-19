@@ -13,9 +13,10 @@ import { GovernorGame } from "@/components/demos/GovernorGame";
 import { PipelineVisualizer } from "@/components/demos/PipelineVisualizer";
 import { VibeLabDiff } from "@/components/demos/VibeLabDiff";
 import { AwsDeployWalkthrough } from "@/components/demos/AwsDeployWalkthrough";
+import { GanttChartDemo } from "@/components/demos/GanttChartDemo";
 
 type PrimaryTool = "cpq" | "soql" | "pkce";
-type MoreTool = "flow" | "integrations" | "agentforce" | "governor" | "pipeline" | "diff" | "aws";
+type MoreTool = "gantt" | "flow" | "integrations" | "agentforce" | "governor" | "pipeline" | "diff" | "aws";
 
 interface MoreToolItem {
   id: MoreTool;
@@ -23,6 +24,7 @@ interface MoreToolItem {
 }
 
 const MORE_TOOLS: MoreToolItem[] = [
+  { id: "gantt", label: "Gantt Dispatch Console" },
   { id: "flow", label: "Flow Builder Canvas" },
   { id: "integrations", label: "Integration Topology Map" },
   { id: "agentforce", label: "Agentforce Execution Trace" },
@@ -187,6 +189,7 @@ export function PlaygroundConsole() {
           {activeTab === "cpq" && <CpqConfigurator />}
           {activeTab === "soql" && <SoqlStudio />}
           {activeTab === "pkce" && <PkceLab />}
+          {activeTab === "gantt" && <GanttChartDemo />}
           {activeTab === "flow" && <FlowCanvas />}
           {activeTab === "integrations" && <IntegrationMap />}
           {activeTab === "agentforce" && <AgentforceSim />}
