@@ -11,6 +11,7 @@ import { AgentforceSim } from "@/components/demos/AgentforceSim";
 import { GovernorGame } from "@/components/demos/GovernorGame";
 import { PipelineVisualizer } from "@/components/demos/PipelineVisualizer";
 import { VibeLabDiff } from "@/components/demos/VibeLabDiff";
+import { motion, AnimatePresence } from "framer-motion";
 
 const UTILITY_TABS = [
   { id: "cpq", label: "CPQ Configurator", icon: Sliders, badge: "Dimensional Engine" },
@@ -52,24 +53,39 @@ export default function PlaygroundSection() {
     }
   };
 
+  const activeTabData = UTILITY_TABS.find((t) => t.id === activeTab) || UTILITY_TABS[0];
+
   return (
-    <section id="playground" className="py-20 lg:py-28 border-b border-hairline">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-10">
+    <section
+      id="playground"
+      className="py-24 lg:py-36 border-b border-hairline bg-[#0B0B0D] text-[#F3F1EC] transition-colors"
+    >
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-12">
         
         {/* Header */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">06 / DEVELOPER UTILITIES</span>
-            <span className="text-xs font-mono text-[var(--muted)]">Reference implementations & client-side execution</span>
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[#8E8E93]">
+              <span>06 / DEVELOPER LAB</span>
+              <span>&bull;</span>
+              <span>Full-Bleed Engine Suite</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#8E8E93]">
+              <span className="w-2 h-2 rounded-full bg-[#FFB020] animate-pulse" />
+              <span>9 Production Utilities Ready</span>
+            </div>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-[var(--ink)]">Interactive Tools & Engine</h2>
-          <p className="text-sm font-mono text-[var(--muted)] max-w-2xl">
-            Interactive client-side utilities built with CodeMirror, @xyflow/react, and Web Crypto. Test dimensional CPQ quoting, run SOQL queries, and inspect architecture states.
+
+          <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[#F3F1EC] leading-[0.95]">
+            Developer <span className="italic">Playground</span>
+          </h2>
+          <p className="text-base font-sans text-[#8E8E93] max-w-2xl leading-relaxed">
+            Authentic client-side testing environments executing real browser APIs: dimensional SVG drafting, Web Crypto SHA-256 digests, graph topologies, and governor limit simulations.
           </p>
         </div>
 
-        {/* Tab Navigation Rail */}
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-hairline text-xs font-mono">
+        {/* Tab Navigation Rail with Gliding Indicator */}
+        <div className="relative flex gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-white/10 text-xs font-mono">
           {UTILITY_TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -77,15 +93,24 @@ export default function PlaygroundSection() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3.5 py-2.5 rounded-t-sm transition-colors shrink-0 ${
-                  isActive
-                    ? "bg-[var(--surface)] text-[var(--ink)] font-bold border border-b-transparent border-hairline"
-                    : "text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/50"
+                className={`relative flex items-center gap-2.5 px-4 py-3 rounded-full transition-colors shrink-0 z-10 ${
+                  isActive ? "text-[#0D0D0F]" : "text-[#8E8E93] hover:text-[#F3F1EC]"
                 }`}
               >
-                <Icon className="w-3.5 h-3.5 text-[var(--ink)]" />
-                <span>{tab.label}</span>
-                <span className="text-[10px] px-1 py-0.2 rounded-xs bg-[var(--bg)] border border-hairline text-[var(--muted)]">
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTabGlider"
+                    className="absolute inset-0 bg-[#F3F1EC] rounded-full z-[-1]"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+                <Icon className="w-3.5 h-3.5" />
+                <span className="font-medium">{tab.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                    isActive ? "bg-black/10 text-[#0D0D0F]" : "bg-white/5 text-[#8E8E93]"
+                  }`}
+                >
                   {tab.badge}
                 </span>
               </button>
@@ -93,31 +118,45 @@ export default function PlaygroundSection() {
           })}
         </div>
 
-        {/* Active Tool Container */}
-        <div className="border border-hairline rounded-sm p-6 sm:p-8 bg-[var(--surface)] min-h-[460px] flex flex-col justify-between font-mono text-xs">
-          
-          <div className="flex items-center justify-between pb-4 border-b border-hairline text-[11px] text-[var(--muted)] mb-6">
-            <div className="flex items-center gap-2">
-              <span>ACTIVE UTILITY // {activeTab.toUpperCase()}</span>
-              <span className="text-hairline">|</span>
-              <span className="text-[var(--ink)] font-semibold">{UTILITY_TABS.find((t) => t.id === activeTab)?.label}</span>
+        {/* Active Tool Stage */}
+        <div
+          data-cursor="play"
+          className="border border-white/10 rounded-sm p-6 sm:p-10 bg-[#141417] min-h-[520px] flex flex-col justify-between shadow-2xl relative overflow-hidden"
+        >
+          {/* Top Stage Bar */}
+          <div className="flex items-center justify-between pb-4 border-b border-white/10 text-xs font-mono text-[#8E8E93] mb-6">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#0F6BFF]" />
+              <span className="text-[#F3F1EC] font-medium">{activeTabData.label}</span>
+              <span className="hidden sm:inline text-white/30">&bull;</span>
+              <span className="hidden sm:inline text-[11px] text-[#8E8E93]">Client-Side Runtime</span>
             </div>
-            <span className="text-[var(--ink)] font-semibold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--ink)]"></span>
-              Client Execution Active
-            </span>
+            <div className="text-[11px]">
+              Module ID: <span className="text-[#4C8DFF]">{activeTab.toUpperCase()}_v2.4</span>
+            </div>
           </div>
 
-          {/* Render Active Component */}
+          {/* Animated Panel Crossfade */}
           <div className="flex-1 w-full">
-            {renderActiveUtility()}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full"
+              >
+                {renderActiveUtility()}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          <div className="pt-6 mt-6 border-t border-hairline flex flex-wrap items-center justify-between gap-2 text-[10px] text-[var(--muted)]">
-            <span>Execution: Local In-Browser Client Engine · RFC 7636 Web Crypto</span>
-            <span>Reference Schemas & Real Architectural Workflows</span>
+          {/* Bottom Stage Footer */}
+          <div className="pt-6 mt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-[#8E8E93]">
+            <span>Zero Server Latency &bull; In-Memory Execution</span>
+            <span className="text-[11px]">Built for Salesforce Engineering Evaluations</span>
           </div>
-
         </div>
 
       </div>

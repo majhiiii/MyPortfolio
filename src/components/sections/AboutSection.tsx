@@ -1,63 +1,160 @@
+"use client";
+
+import React, { useRef } from "react";
 import { FACTS, CERTIFICATIONS } from "@/lib/data";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
+
+function Word({ children, progress, range }: { children: string; progress: any; range: [number, number] }) {
+  const opacity = useTransform(progress, range, [0.18, 1]);
+  return (
+    <span className="relative inline-block mr-1.5 lg:mr-2">
+      <motion.span style={{ opacity }}>{children}</motion.span>
+    </span>
+  );
+}
 
 export default function AboutSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.85", "end 0.5"],
+  });
+
+  const narrativeText =
+    "I am a Salesforce Developer specializing in custom Apex engineering, Lightning Web Components, B2B Commerce, and enterprise integrations. Over 2 years at Abacus System & Solution Pvt. Ltd. (ASSPL), I have engineered high-throughput quoting configurators, logistics APIs, and automated billing reconciliations. I treat governor limits, unit test isolation (>85% coverage), and field-level security as non-negotiable fundamentals.";
+
+  const words = narrativeText.split(" ");
+
   return (
-    <section id="about" className="py-20 lg:py-28 border-b border-hairline">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-12">
+    <section id="about" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)]">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-16">
         
-        {/* Sticky Left Label */}
-        <div className="col-span-12 lg:col-span-3">
-          <div className="lg:sticky lg:top-24 space-y-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">02 / ABOUT</span>
-            <h2 className="text-2xl font-bold tracking-tight text-[var(--ink)]">Background & Discipline</h2>
+        {/* Left Column: Sticky Editorial Portrait / Identity Card */}
+        <div className="col-span-12 lg:col-span-5">
+          <div className="lg:sticky lg:top-28 space-y-8">
+            
+            <div className="space-y-2">
+              <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">02 / ABOUT</span>
+              <h2 className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
+                Discipline &amp; <span className="italic">Tenure</span>
+              </h2>
+            </div>
+
+            {/* Editorial Portrait Frame with Mask Reveal */}
+            <motion.div
+              initial={{ clipPath: "inset(100% 0% 0% 0%)", opacity: 0 }}
+              whileInView={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="relative aspect-[4/5] max-w-sm rounded-sm bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] border border-hairline p-6 flex flex-col justify-between overflow-hidden shadow-xs"
+            >
+              <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
+                <span>PORTRAIT // ARCHIVE</span>
+                <span className="text-[var(--ink)] font-medium">ASSPL &bull; 2024&ndash;PRESENT</span>
+              </div>
+
+              {/* Architectural Monogram Visual */}
+              <div className="my-auto flex flex-col items-center justify-center text-center py-8">
+                <div className="w-24 h-24 rounded-full border border-hairline flex items-center justify-center font-serif text-5xl font-light text-[var(--ink)] mb-4">
+                  RM
+                </div>
+                <span className="font-serif text-2xl text-[var(--ink)] font-normal tracking-tight">
+                  Rakesh Majhi
+                </span>
+                <span className="text-xs font-mono text-[var(--muted)] mt-1 tracking-wider uppercase">
+                  Salesforce Developer &bull; Bhubaneswar
+                </span>
+              </div>
+
+              <div className="border-t border-hairline pt-3 flex items-center justify-between text-[10px] font-mono text-[var(--muted)]">
+                <span>3 CLIENT TRACKS</span>
+                <span className="text-[var(--accent)] font-medium">VERIFIED PRODUCTION</span>
+              </div>
+            </motion.div>
+
           </div>
         </div>
 
-        {/* Right Content */}
-        <div className="col-span-12 lg:col-span-9 space-y-12">
+        {/* Right Column: Progressive Word-by-Word Scroll Reveal & Clean Rows */}
+        <div ref={containerRef} className="col-span-12 lg:col-span-7 space-y-16">
           
-          {/* Paragraphs */}
-          <div className="space-y-6 max-w-3xl text-base lg:text-lg text-[var(--muted)] leading-relaxed">
-            <p>
-              I am a Salesforce Developer specializing in custom Apex engineering, Lightning Web Components, B2B Commerce (CloudCraze), and enterprise API integrations. Over the past 2 years at Abacus System & Solution Pvt. Ltd. (ASSPL), I have worked on production client platforms spanning custom quoting configurators, logistics APIs, and automated billing reconciliations.
-            </p>
-            <p>
-              I focus on clean code and reliable architecture: treating governor limits, unit test isolation (&gt;85% coverage gate), and field-level security (USER_MODE) as fundamental requirements. In addition to daily feature development, I review pull requests for junior developers and collaborate directly with US and international stakeholders in Agile sprints.
+          {/* Progressive Scroll-driven Narrative */}
+          <div className="space-y-6">
+            <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
+              Core Philosophy
+            </h3>
+            <p className="font-serif text-2xl sm:text-3xl lg:text-[2.2rem] leading-relaxed text-[var(--ink)] font-normal">
+              {words.map((word, i) => {
+                const start = i / words.length;
+                const end = start + 1 / words.length;
+                return (
+                  <Word key={i} progress={scrollYProgress} range={[start, end]}>
+                    {word}
+                  </Word>
+                );
+              })}
             </p>
           </div>
 
-          {/* Hairline Facts Table */}
-          <div className="border-t border-hairline pt-6">
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--muted)] mb-4">Quick Facts</h3>
-            <div className="divide-y divide-hairline border-y border-hairline">
+          {/* Quick Facts: Clean Hairline Rows, No Box Outlines */}
+          <div className="border-t border-hairline pt-8 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
+                Engineering Tenets &amp; Facts
+              </h3>
+              <span className="text-[11px] font-mono text-[var(--muted)]">Verified @ ASSPL</span>
+            </div>
+
+            <div className="divide-y divide-hairline">
               {FACTS.map((fact, idx) => (
-                <div key={idx} className="py-3.5 grid grid-cols-12 gap-4 text-xs font-mono">
-                  <span className="col-span-12 sm:col-span-4 text-[var(--muted)]">{fact.label}</span>
-                  <span className="col-span-12 sm:col-span-8 text-[var(--ink)] font-medium">{fact.value}</span>
+                <div
+                  key={idx}
+                  className="py-4 grid grid-cols-12 gap-4 text-sm font-sans items-baseline hover:bg-[var(--surface)]/40 px-2 transition-colors rounded-sm"
+                >
+                  <span className="col-span-12 sm:col-span-4 font-mono text-xs text-[var(--muted)]">
+                    {fact.label}
+                  </span>
+                  <span className="col-span-12 sm:col-span-8 text-[var(--ink)] font-medium">
+                    {fact.value}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Certifications: Clean Plain Text Rows, Original Minimal Marks */}
-          <div className="border-t border-hairline pt-6">
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--muted)] mb-4">Verified Credentials</h3>
-            <div className="space-y-4">
+          {/* Verified Credentials: Clean Rows with Large Numbers */}
+          <div className="border-t border-hairline pt-8 space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
+                Verified Credentials &amp; Standards
+              </h3>
+              <span className="text-[11px] font-mono text-[var(--accent)] font-medium">Official Badges</span>
+            </div>
+
+            <div className="divide-y divide-hairline">
               {CERTIFICATIONS.map((cert, idx) => (
                 <div
                   key={idx}
-                  className="p-5 border border-hairline rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono"
+                  className="py-5 grid grid-cols-12 gap-4 items-start hover:bg-[var(--surface)]/40 px-2 transition-colors rounded-sm"
                 >
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-xs bg-[var(--ink)]"></span>
-                      <span className="font-bold text-sm text-[var(--ink)]">{cert.title}</span>
-                    </div>
-                    <p className="text-[var(--muted)] text-xs font-sans max-w-xl">{cert.summary}</p>
+                  <div className="col-span-12 sm:col-span-1 font-serif text-3xl text-[var(--muted)]/50 leading-none">
+                    0{idx + 1}
                   </div>
-                  <div className="text-right shrink-0">
-                    <span className="text-[11px] text-[var(--ink)] font-semibold block">{cert.status}</span>
-                    <span className="text-[10px] text-[var(--muted)] block">{cert.issuer}</span>
+                  <div className="col-span-12 sm:col-span-7 space-y-1">
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                      <h4 className="font-serif text-lg font-medium text-[var(--ink)] leading-snug">
+                        {cert.title}
+                      </h4>
+                    </div>
+                    <p className="text-xs text-[var(--muted)] font-sans leading-relaxed">
+                      {cert.summary}
+                    </p>
+                  </div>
+                  <div className="col-span-12 sm:col-span-4 text-left sm:text-right font-mono text-xs">
+                    <span className="font-semibold text-[var(--ink)] block">{cert.status}</span>
+                    <span className="text-[11px] text-[var(--muted)] block">{cert.issuer}</span>
                   </div>
                 </div>
               ))}

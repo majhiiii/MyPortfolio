@@ -171,7 +171,11 @@ export function CloudModel() {
       mesh.position.z = THREE.MathUtils.damp(mesh.position.z, targetCoords[2], 3.0, delta);
 
       const isHighlighted = highlightedCategory === data.categoryIndex;
-      mesh.material = isHighlighted ? materials.highlight : materials.base;
+      if (activeSection === "playground") {
+        mesh.material = materials.wire;
+      } else {
+        mesh.material = isHighlighted ? materials.highlight : materials.base;
+      }
     });
   });
 

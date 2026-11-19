@@ -1,105 +1,180 @@
+"use client";
+
+import React from "react";
 import { PERSONAL_DATA } from "@/lib/data";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { Magnetic } from "@/components/ui/Magnetic";
+
+const MARQUEE_ITEMS = [
+  "APEX ARCHITECTURE",
+  "AGENTFORCE SPECIALIST",
+  "B2B COMMERCE",
+  "CUSTOM CPQ ENGINE",
+  "OAUTH 2.0 PKCE",
+  "LIGHTNING WEB COMPONENTS",
+  "ENTERPRISE INTEGRATIONS",
+  "ASSPL CLIENT TRACKS",
+];
 
 export default function HeroSection() {
+  const name = "Rakesh Majhi";
+
   return (
-    <section id="hero" className="relative min-h-[90vh] flex flex-col justify-between border-b border-hairline py-16 lg:py-24">
-      
+    <section
+      id="hero"
+      className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-between border-b border-hairline pt-8 md:pt-16 overflow-hidden bg-[var(--bg)]"
+    >
       {/* 12-Column Grid Container */}
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full grid grid-cols-12 gap-6 lg:gap-8 items-center">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full grid grid-cols-12 gap-8 items-center flex-1 my-auto">
         
-        {/* Left Column (Editorial Typography) */}
-        <div className="col-span-12 lg:col-span-7 space-y-8 z-10">
+        {/* Left Column: Expressive Editorial Typography */}
+        <div className="col-span-12 lg:col-span-7 space-y-6 z-10">
           
-          <div className="space-y-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">01 / HERO</span>
-            <h1 className="text-[clamp(2.75rem,7vw,6.5rem)] font-bold tracking-tight leading-[1.02] text-[var(--ink)]">
-              Rakesh Majhi
-            </h1>
+          {/* Metadata pill */}
+          <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[var(--muted)]">
+            <span className="flex items-center gap-2 px-2.5 py-1 rounded-full border border-hairline bg-[var(--surface)] text-[var(--ink)]">
+              <span className="w-2 h-2 rounded-full bg-[var(--signal-amber)] animate-pulse" />
+              <span>Available for Enterprise Roles</span>
+            </span>
+            <span className="hidden sm:inline text-[var(--hairline)]">&bull;</span>
+            <span className="hidden sm:inline">ASSPL Bhubaneswar &bull; 2024 &mdash; Present</span>
           </div>
 
-          <div className="space-y-4 max-w-2xl">
-            <p className="text-lg lg:text-xl font-normal text-[var(--muted)] leading-relaxed">
-              Salesforce Developer focused on custom Apex, Lightning Web Components, and enterprise integrations. Experienced in B2B Commerce, custom CPQ configurators, and <span className="text-[var(--ink)] font-semibold underline underline-offset-4">Agentforce</span> automation at ASSPL.
-            </p>
-            <p className="text-sm font-mono text-[var(--muted)] leading-relaxed">
-              2 years production experience · B2B Commerce & CloudCraze · REST/SOAP APIs · GitHub CI/CD releases.
-            </p>
-          </div>
-
-          <div className="pt-2 flex flex-wrap items-center gap-6 text-xs font-mono">
-            <a
-              href="#experience"
-              className="px-4 py-2 bg-[var(--ink)] text-[var(--surface)] font-medium rounded-sm hover:opacity-90 transition-opacity"
-            >
-              Experience Console (04)
-            </a>
-            <a
-              href="#projects"
-              className="px-4 py-2 border border-hairline text-[var(--ink)] hover:border-[var(--ink)] transition-colors rounded-sm"
-            >
-              Production Index (05)
-            </a>
-            <a
-              href="#playground"
-              className="px-4 py-2 border border-hairline text-[var(--ink)] hover:border-[var(--ink)] transition-colors rounded-sm"
-            >
-              Developer Tools (06)
-            </a>
-            <a
-              href="mailto:rakeshmajhi.connect@gmail.com"
-              className="text-[var(--muted)] hover:text-[var(--ink)] transition-colors underline underline-offset-4"
-            >
-              Contact Direct
-            </a>
-          </div>
-
-        </div>
-
-        {/* Right Column: 3D Object Staging Area */}
-        <div className="col-span-12 lg:col-span-5 min-h-[300px] lg:min-h-[460px] relative pointer-events-none flex items-center justify-center">
-          <div className="w-full h-full border border-hairline/40 rounded-sm p-4 relative flex flex-col justify-between text-[11px] font-mono text-[var(--muted)]/70">
-            {/* Architectural corner crosshairs */}
-            <span className="absolute -top-1.5 -left-1.5 text-hairline leading-none">+</span>
-            <span className="absolute -top-1.5 -right-1.5 text-hairline leading-none">+</span>
-            <span className="absolute -bottom-1.5 -left-1.5 text-hairline leading-none">+</span>
-            <span className="absolute -bottom-1.5 -right-1.5 text-hairline leading-none">+</span>
-
-            <div className="flex items-center justify-between text-[10px] tracking-wider uppercase">
-              <span>SYSTEM // 3D MODEL</span>
-              <span className="flex items-center gap-1.5 text-[var(--ink)] font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--ink)]"></span>
-                ACTIVE · DRAGGABLE
+          {/* Giant Display Name */}
+          <h1 className="font-serif text-[clamp(4rem,10.5vw,11.5rem)] font-normal tracking-[-0.03em] leading-[0.88] text-[var(--ink)] select-none">
+            {name.split(" ").map((word, wordIdx) => (
+              <span key={wordIdx} className="inline-block mr-4 sm:mr-8">
+                {word.split("").map((char, charIdx) => (
+                  <motion.span
+                    key={charIdx}
+                    initial={{ y: 80, opacity: 0, rotateZ: 3 }}
+                    animate={{ y: 0, opacity: 1, rotateZ: 0 }}
+                    transition={{
+                      duration: 0.9,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: 0.1 + (wordIdx * 6 + charIdx) * 0.035,
+                    }}
+                    className="inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
               </span>
-            </div>
+            ))}
+          </h1>
 
-            <div className="flex items-end justify-between text-[10px] tracking-wider">
-              <span>SCROLL-LINKED MORPH</span>
-              <span>12 PROCEDURAL NODES</span>
-            </div>
+          {/* Subtitle with SVG pathLength underline on emphasis */}
+          <div className="space-y-4 max-w-[62ch]">
+            <p className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[var(--ink)] leading-snug font-normal">
+              Salesforce Developer &amp;{" "}
+              <span className="italic relative inline-block text-[var(--ink)]">
+                Agentforce Specialist
+                <svg
+                  className="absolute -bottom-1.5 left-0 w-full h-2 text-[var(--accent)] overflow-visible"
+                  viewBox="0 0 100 8"
+                  preserveAspectRatio="none"
+                >
+                  <motion.path
+                    d="M 0,5 Q 50,0 100,5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+                  />
+                </svg>
+              </span>{" "}
+              architecting resilient enterprise engines at ASSPL.
+            </p>
+
+            <p className="font-sans text-base sm:text-lg text-[var(--muted)] leading-relaxed">
+              Leading 3 concurrent client tracks across B2B Commerce, CloudCraze, custom CPQ configurators, and 10+ hardened enterprise integrations (FastAPI, Avalara, NACHA, UPS).
+            </p>
+          </div>
+
+          {/* Action CTAs */}
+          <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono">
+            <Magnetic strength={0.3} radius={70}>
+              <a
+                href="#projects"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium hover:opacity-90 transition-all shadow-sm"
+              >
+                <span>Explore Projects</span>
+                <span className="font-mono text-xs">&rarr;</span>
+              </a>
+            </Magnetic>
+
+            <Magnetic strength={0.3} radius={70}>
+              <a
+                href="#playground"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-hairline text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--surface)] transition-all"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span>Launch Lab Tools (06)</span>
+              </a>
+            </Magnetic>
+
+            <Magnetic strength={0.2} radius={50}>
+              <a
+                href="#contact"
+                className="px-4 py-3 text-[var(--muted)] hover:text-[var(--ink)] transition-colors underline underline-offset-4"
+              >
+                Let&apos;s talk
+              </a>
+            </Magnetic>
+          </div>
+
+        </div>
+
+        {/* Right Column: Open 3D Stage (No boxes, pure negative space for 3D cloud) */}
+        <div
+          data-cursor="drag"
+          className="col-span-12 lg:col-span-5 h-[340px] sm:h-[420px] lg:h-[540px] relative pointer-events-auto flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+          title="Click and drag to rotate the 3D model"
+        >
+          {/* Subtle indicator only when hovering */}
+          <div className="absolute bottom-4 right-4 text-[10px] font-mono text-[var(--muted)] opacity-60 hidden lg:block">
+            Drag to rotate &bull; Scroll to morph
           </div>
         </div>
 
+      </div>
+
+      {/* Infinite Marquee Strip */}
+      <div className="w-full border-t border-hairline bg-[var(--surface)] py-3 overflow-hidden select-none">
+        <div className="flex whitespace-nowrap animate-[marquee_28s_linear_infinite]">
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
+            <span
+              key={idx}
+              className="mx-6 text-xs sm:text-sm font-mono tracking-widest text-[var(--muted)] flex items-center gap-4"
+            >
+              <span>{item}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]/50" />
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Hero Bottom Bar */}
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full pt-12">
-        <div className="border-t border-hairline pt-4 grid grid-cols-12 gap-4 text-xs font-mono text-[var(--muted)]">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full py-4 border-t border-hairline">
+        <div className="grid grid-cols-12 gap-4 text-xs font-mono text-[var(--muted)] items-center">
           <div className="col-span-12 sm:col-span-4 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--ink)]" aria-hidden="true"></span>
-            <span className="text-[var(--ink)] font-medium">Available</span>
-            <span>— {PERSONAL_DATA.status}</span>
+            <span className="w-2 h-2 rounded-full bg-[var(--signal-amber)]" />
+            <span className="text-[var(--ink)] font-medium">Bhubaneswar, India</span>
+            <span>&bull; {PERSONAL_DATA.status}</span>
           </div>
-          <div className="col-span-12 sm:col-span-4 text-left sm:text-center">
-            {PERSONAL_DATA.location}
+          <div className="col-span-12 sm:col-span-4 text-left sm:text-center text-[11px]">
+            Apex &bull; LWC &bull; Agentforce &bull; OAuth 2.0 PKCE &bull; CPQ
           </div>
-          <div className="col-span-12 sm:col-span-4 text-left sm:text-right flex items-center justify-start sm:justify-end gap-1.5">
-            <span>Scroll down</span>
-            <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
+          <div className="col-span-12 sm:col-span-4 text-left sm:text-right flex items-center justify-start sm:justify-end gap-2">
+            <span>Explore down</span>
+            <ArrowDown className="w-3.5 h-3.5 text-[var(--accent)] animate-bounce" />
           </div>
         </div>
       </div>
-
     </section>
   );
 }

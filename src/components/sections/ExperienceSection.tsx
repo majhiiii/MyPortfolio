@@ -1,155 +1,196 @@
 "use client";
 
-import { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ASSPL_TRACKS } from "@/lib/data";
-import { Code2, Cpu, CheckCircle2 } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { ShieldCheck, Cpu, ArrowRight } from "lucide-react";
 
-export function ExperienceSection() {
-  const [activeTrackId, setActiveTrackId] = useState(ASSPL_TRACKS[0].id);
-  const activeTrack = ASSPL_TRACKS.find((t) => t.id === activeTrackId) || ASSPL_TRACKS[0];
+export default function ExperienceSection() {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
+  // Smooth horizontal translation
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-68%"]);
+  const smoothX = useSpring(x, { stiffness: 120, damping: 25, restDelta: 0.001 });
+
+  // Year tween from 2024 to Present
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
-    <section id="experience" className="py-20 lg:py-28 border-b border-hairline">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-12">
-        
-        {/* Section Header */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">04 / EXPERIENCE CONSOLE</span>
-            <span className="text-xs font-mono text-[var(--muted)]">Software Developer @ Abacus System & Solution Pvt. Ltd. (Nov 2024 – Present)</span>
-          </div>
-          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-[var(--ink)]">
-            Production Engineering at ASSPL
-          </h2>
-          <p className="text-sm font-mono text-[var(--muted)] max-w-3xl leading-relaxed">
-            All enterprise projects, internal tooling, and client architectures below were delivered during my tenure at ASSPL across 3 concurrent production client tracks. Select a track to inspect the deliverables, architectural patterns, and governor limit defenses.
-          </p>
-        </div>
-
-        {/* Track Filter Rail */}
-        <div className="flex gap-2 overflow-x-auto pb-2 border-b border-hairline scrollbar-none text-xs font-mono">
-          {ASSPL_TRACKS.map((track) => {
-            const isActive = activeTrackId === track.id;
-            return (
-              <button
-                key={track.id}
-                onClick={() => setActiveTrackId(track.id)}
-                className={`flex items-center gap-2 px-3.5 py-2.5 rounded-t-sm transition-colors shrink-0 ${
-                  isActive
-                    ? "bg-[var(--surface)] text-[var(--ink)] font-bold border border-b-transparent border-hairline"
-                    : "text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/50"
-                }`}
-              >
-                <span className="text-[10px] text-[var(--muted)] font-mono">{track.trackNumber}</span>
-                <span>{track.tabLabel}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Active Track Deep-Dive Card */}
-        <div className="border border-hairline rounded-sm p-6 sm:p-8 bg-[var(--surface)] space-y-8">
-          
-          {/* Track Header */}
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b border-hairline">
-            <div className="space-y-1">
-              <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase text-[var(--muted)] font-bold">
-                <span>{trackNumberBadge(activeTrack.trackNumber)}</span>
-                <span>·</span>
-                <span>{activeTrack.period}</span>
-                <span>·</span>
-                <span>{activeTrack.clientContext}</span>
-              </div>
-              <h3 className="text-2xl font-bold text-[var(--ink)] font-sans pt-1">
-                {activeTrack.title}
-              </h3>
-              <p className="text-sm text-[var(--muted)] font-sans max-w-3xl pt-1 leading-relaxed">
-                {activeTrack.summary}
-              </p>
+    <section
+      id="experience"
+      ref={targetRef}
+      className={`relative border-b border-hairline bg-[var(--bg)] ${
+        isMobile ? "py-20" : "h-[320vh]"
+      }`}
+    >
+      <div
+        className={`${
+          isMobile
+            ? "space-y-8 px-6"
+            : "sticky top-0 h-screen flex flex-col justify-between overflow-hidden py-12 px-6 lg:px-12 max-w-[1400px] mx-auto w-full"
+        }`}
+      >
+        {/* Rail Top Header & Big Year Indicator */}
+        <div className="w-full flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-hairline pb-6">
+          <div className="space-y-1">
+            <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
+              <span>04 / EXPERIENCE RAIL</span>
+              <span>&bull;</span>
+              <span>ASSPL Engineering Tenure</span>
             </div>
+            <h2 className="font-serif text-[clamp(2.5rem,5.5vw,4.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
+              Production Systems &bull; <span className="italic">ASSPL</span>
+            </h2>
           </div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-1.5 font-mono text-xs">
-            {activeTrack.tech.map((tag, i) => (
-              <span key={i} className="px-2 py-0.5 border border-hairline rounded-xs text-[var(--ink)] bg-[var(--bg)]">
-                {tag}
-              </span>
+          <div className="flex items-baseline gap-4 sm:text-right font-serif">
+            <span className="text-4xl sm:text-6xl text-[var(--muted)]/50 font-normal">2024</span>
+            <span className="text-3xl sm:text-5xl text-[var(--accent)]">&rarr;</span>
+            <span className="text-4xl sm:text-6xl text-[var(--ink)] font-normal italic">Present</span>
+          </div>
+        </div>
+
+        {/* Desktop Pinned Horizontal Rail / Mobile Snap-Scroll */}
+        {isMobile ? (
+          <div className="flex flex-col space-y-6">
+            {ASSPL_TRACKS.map((track) => (
+              <div
+                key={track.id}
+                className="p-6 rounded-sm bg-[var(--surface)] border border-hairline space-y-6"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
+                    <span className="text-[var(--accent)] font-semibold">{track.trackNumber}</span>
+                    <span>{track.period}</span>
+                  </div>
+                  <h3 className="font-serif text-2xl font-normal text-[var(--ink)]">
+                    {track.title}
+                  </h3>
+                  <p className="text-xs text-[var(--muted)] font-sans leading-relaxed">
+                    {track.summary}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                  {track.tech.map((t, i) => (
+                    <span key={i} className="px-2 py-0.5 rounded-full border border-hairline bg-[var(--bg)] text-[var(--ink)]">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-hairline">
+                  {track.bullets.slice(0, 3).map((bullet, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs font-sans text-[var(--ink)]/80">
+                      <span className="text-[var(--accent)] mt-0.5">&bull;</span>
+                      <span>{bullet}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
+        ) : (
+          <div className="relative my-auto w-full overflow-visible" data-cursor="drag">
+            <motion.div
+              style={{ x: smoothX }}
+              className="flex gap-8 w-max items-stretch cursor-grab active:cursor-grabbing py-4"
+            >
+              {ASSPL_TRACKS.map((track, idx) => (
+                <div
+                  key={track.id}
+                  className="w-[520px] shrink-0 p-8 rounded-sm bg-[var(--surface)] border border-hairline flex flex-col justify-between space-y-6 shadow-sm hover:border-[var(--ink)] transition-colors select-none"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs font-mono text-[var(--muted)]">
+                      <span className="font-semibold text-[var(--accent)]">
+                        {track.trackNumber}
+                      </span>
+                      <span>{track.period} &bull; {track.clientContext}</span>
+                    </div>
 
-          {/* Core Deliverables */}
-          <div className="space-y-3">
-            <h4 className="font-mono text-xs uppercase font-bold text-[var(--ink)] tracking-wider">
-              Specific Deliverables Engineered at ASSPL
-            </h4>
-            <div className="space-y-2.5">
-              {activeTrack.bullets.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-2.5 text-xs text-[var(--muted)] leading-relaxed font-sans">
-                  <span className="font-mono font-bold text-[var(--ink)] mt-0.5 shrink-0">—</span>
-                  <span className="text-[var(--ink)]/90">{item}</span>
+                    <h3 className="font-serif text-3xl font-normal text-[var(--ink)] leading-snug">
+                      {track.title}
+                    </h3>
+
+                    <p className="text-sm font-sans text-[var(--muted)] leading-relaxed">
+                      {track.summary}
+                    </p>
+
+                    <div className="flex flex-wrap gap-1.5 font-mono text-[11px] pt-1">
+                      {track.tech.map((t, i) => (
+                        <span
+                          key={i}
+                          className="px-2.5 py-0.5 rounded-full border border-hairline bg-[var(--bg)] text-[var(--ink)]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Core Deliverables */}
+                  <div className="space-y-3 pt-4 border-t border-hairline">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--muted)]">
+                      Production Deliverables
+                    </span>
+                    <div className="space-y-2">
+                      {track.bullets.map((bullet, bIdx) => (
+                        <div
+                          key={bIdx}
+                          className="flex items-start gap-2.5 text-xs font-sans text-[var(--ink)] leading-relaxed"
+                        >
+                          <span className="font-mono text-[var(--accent)] font-bold">&mdash;</span>
+                          <span>{bullet}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Governor Defenses footer */}
+                  <div className="pt-4 border-t border-hairline flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
+                    <div className="flex items-center gap-1.5 text-[var(--ink)]">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent)] shrink-0" />
+                      <span className="line-clamp-1">{track.governorLimits}</span>
+                    </div>
+                    <span className="text-[10px] uppercase tracking-wider shrink-0 ml-2">ASSPL Verified</span>
+                  </div>
                 </div>
               ))}
+            </motion.div>
+          </div>
+        )}
+
+        {/* Progress Scrubber (Desktop) */}
+        {!isMobile && (
+          <div className="w-full pt-6 border-t border-hairline flex items-center justify-between text-xs font-mono text-[var(--muted)]">
+            <div className="flex items-center gap-3">
+              <span>Scroll horizontally</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[var(--accent)] animate-pulse" />
             </div>
-          </div>
-
-          {/* Two-Column Deep Dive: Patterns & Limits */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-hairline text-xs font-mono">
-            {/* Patterns */}
-            <div className="p-4 bg-[var(--bg)] border border-hairline rounded-sm space-y-2">
-              <div className="text-[10px] uppercase font-bold text-[var(--ink)] flex items-center gap-1.5">
-                <Code2 className="w-3.5 h-3.5" />
-                <span>Architectural Patterns Used</span>
-              </div>
-              <ul className="space-y-1.5 text-[11px] text-[var(--muted)]">
-                {activeTrack.patterns.map((p, i) => (
-                  <li key={i} className="flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-[var(--ink)]"></span>
-                    <span className="text-[var(--ink)] font-medium">{p}</span>
-                  </li>
-                ))}
-              </ul>
+            {/* Scrubber track */}
+            <div className="w-64 h-1 bg-[var(--hairline)] rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-[var(--accent)] origin-left"
+                style={{ scaleX: scrollYProgress }}
+              />
             </div>
-
-            {/* Governor Limits & Safety */}
-            <div className="p-4 bg-[var(--bg)] border border-hairline rounded-sm space-y-2">
-              <div className="text-[10px] uppercase font-bold text-[var(--ink)] flex items-center gap-1.5">
-                <Cpu className="w-3.5 h-3.5" />
-                <span>Governor Limits & Security Strategy</span>
-              </div>
-              <p className="text-[11px] text-[var(--muted)] leading-relaxed font-sans">
-                {activeTrack.governorLimits}
-              </p>
-            </div>
+            <span>6 ASSPL Tracks</span>
           </div>
-
-        </div>
-
-        {/* Previous Web Intern Experience Row (Briskode) */}
-        <div className="border border-hairline rounded-sm p-6 bg-[var(--bg)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
-          <div className="space-y-1">
-            <span className="text-[10px] uppercase text-[var(--muted)]">PRIOR EXPERIENCE // MAR 2024 – OCT 2024</span>
-            <h4 className="text-base font-bold text-[var(--ink)] font-sans">Web Development Intern @ Briskode Technology Pvt. Ltd.</h4>
-            <p className="text-xs text-[var(--muted)] font-sans">
-              Built and shipped 10+ responsive React.js and Next.js UI components and pages for client-facing SaaS products, designed REST API data flow, and participated in agile sprints.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-1.5 text-[10px]">
-            {["React.js", "Next.js", "REST APIs", "Tailwind CSS", "JavaScript (ES6+)"].map((t) => (
-              <span key={t} className="px-2 py-0.5 border border-hairline rounded-xs bg-[var(--surface)] text-[var(--ink)]">
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-
+        )}
       </div>
     </section>
   );
 }
-
-function trackNumberBadge(num: string) {
-  return num;
-}
-
-export default ExperienceSection;

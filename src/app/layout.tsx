@@ -6,6 +6,9 @@ import UtilityBar from "@/components/layout/UtilityBar";
 import CommandPalette from "@/components/layout/CommandPalette";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { CanvasContainer } from "@/components/3d/CanvasContainer";
+import { Preloader } from "@/components/ui/Preloader";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +23,7 @@ const geistMono = Geist_Mono({
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   weight: "400",
-  style: "italic",
+  style: ["normal", "italic"],
   subsets: ["latin"],
 });
 
@@ -54,8 +57,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased min-h-screen font-sans selection:bg-[#0176D3] selection:text-white">
+      <body className="antialiased min-h-screen font-sans selection:bg-[#0F6BFF] selection:text-white">
         <SmoothScroll>
+          <div className="film-grain" aria-hidden="true" />
+          <Preloader />
+          <CustomCursor />
+          <ScrollProgress />
           <a href="#main-content" className="skip-link">Skip to main content</a>
           <CanvasContainer />
           <Navigation />

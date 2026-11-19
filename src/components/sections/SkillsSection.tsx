@@ -2,108 +2,160 @@
 
 import { useState } from "react";
 import { SKILLS_TREE } from "@/lib/data";
-import { Search, ChevronRight, Check } from "lucide-react";
+import { Search, ArrowUpRight } from "lucide-react";
 import { usePortfolioStore } from "@/lib/store";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function SkillsSection() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState(SKILLS_TREE[0].id);
-  const { selectedSkill, setSelectedSkill } = usePortfolioStore();
+  const { setSelectedSkill } = usePortfolioStore();
 
   const currentCategory = SKILLS_TREE.find((c) => c.id === activeCategory) || SKILLS_TREE[0];
 
-  const filteredItems = currentCategory.items.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.context.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredItems = currentCategory.items.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.context.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <section id="skills" className="py-20 lg:py-28 border-b border-hairline">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-12">
+    <section id="skills" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)]">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-16">
         
-        {/* Header */}
-        <div className="col-span-12 space-y-2">
-          <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">03 / SKILLS MATRIX</span>
-          <h2 className="text-3xl font-bold tracking-tight text-[var(--ink)]">Technical Competencies</h2>
-          <p className="text-sm font-mono text-[var(--muted)] max-w-xl">
-            Categorized by daily production engineering, platform frameworks, and API integrations.
+        {/* Section Header */}
+        <div className="col-span-12 space-y-3">
+          <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
+            <span>03 / SKILLS MATRIX</span>
+            <span>&bull;</span>
+            <span>ASSPL Technical Arsenal</span>
+          </div>
+          <h2 className="font-serif text-[clamp(2.5rem,5.5vw,5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
+            Architectural <span className="italic">Competencies</span>
+          </h2>
+          <p className="text-base font-sans text-[var(--muted)] max-w-2xl">
+            Engineered across 3 enterprise client tracks: daily production Apex patterns, Lightning Web Components, and asynchronous integration pipelines.
           </p>
         </div>
 
-        {/* Left Column: Salesforce Setup-style Category Tree & Search */}
-        <div className="col-span-12 lg:col-span-4 space-y-4">
+        {/* Left Column: Large Group Names as Vertical Editorial List */}
+        <div className="col-span-12 lg:col-span-5 space-y-6">
           
+          {/* Quick Find Search */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-[var(--muted)] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[var(--muted)] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Quick Find skills..."
+              placeholder="Search competencies or patterns..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[var(--surface)] text-[var(--ink)] border border-hairline rounded-sm pl-8 pr-3 py-2 text-xs font-mono placeholder-[var(--muted)] focus:outline-none focus:border-[var(--ink)]"
+              className="w-full bg-[var(--surface)] text-[var(--ink)] border border-hairline rounded-full pl-10 pr-4 py-2.5 text-xs font-mono placeholder-[var(--muted)] focus:outline-none focus:border-[var(--accent)] transition-colors"
             />
           </div>
 
-          <div className="border border-hairline divide-y divide-hairline rounded-sm overflow-hidden font-mono text-xs">
-            {SKILLS_TREE.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => {
-                  setActiveCategory(category.id);
-                  setSelectedSkill(category.items[0]?.name || null);
-                }}
-                className={`w-full p-3 text-left flex items-center justify-between transition-colors ${
-                  activeCategory === category.id
-                    ? "bg-[var(--surface)] font-bold text-[var(--ink)] border-l-2 border-l-[var(--ink)]"
-                    : "hover:bg-[var(--surface)]/50 text-[var(--muted)]"
-                }`}
-              >
-                <span>{category.category}</span>
-                <ChevronRight className="w-3.5 h-3.5 opacity-60" />
-              </button>
-            ))}
+          {/* Group Names in Big Expressive Serif Type */}
+          <div className="space-y-2 pt-2" data-cursor="explore">
+            {SKILLS_TREE.map((category, idx) => {
+              const isActive = activeCategory === category.id;
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => {
+                    setActiveCategory(category.id);
+                    setSelectedSkill(category.items[0]?.name || null);
+                  }}
+                  onMouseEnter={() => setSelectedSkill(category.items[0]?.name || null)}
+                  className={`w-full text-left py-3.5 px-4 rounded-sm transition-all duration-200 flex items-baseline justify-between group ${
+                    isActive
+                      ? "bg-[var(--surface)] text-[var(--ink)] border-l-2 border-[var(--accent)]"
+                      : "text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/50"
+                  }`}
+                >
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-xs text-[var(--muted)] opacity-60">
+                      0{idx + 1}
+                    </span>
+                    <span
+                      className={`font-serif text-2xl sm:text-3xl transition-transform ${
+                        isActive ? "font-normal italic translate-x-1" : "font-normal"
+                      }`}
+                    >
+                      {category.category}
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono text-[var(--muted)]">
+                    {category.items.length}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="p-4 border border-hairline rounded-sm bg-[var(--surface)]/50 text-xs font-mono text-[var(--muted)] space-y-1 hidden sm:block">
+            <div className="text-[var(--ink)] font-medium">3D Orbit Sync</div>
+            <p className="text-[11px] leading-relaxed">
+              Hovering skill clusters dynamically focuses the 3D particle cloud nodes.
+            </p>
           </div>
 
         </div>
 
-        {/* Right Column: Skill Detail Inspector Panel */}
-        <div className="col-span-12 lg:col-span-8">
-          <div className="border border-hairline rounded-sm p-6 bg-[var(--surface)] space-y-6">
+        {/* Right Column: Active Group Skills Staggered List with "Where I used it" */}
+        <div className="col-span-12 lg:col-span-7">
+          <div className="space-y-6">
             
-            <div className="flex items-center justify-between pb-4 border-b border-hairline">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--muted)]">Active Module</span>
-                <h3 className="text-lg font-bold text-[var(--ink)]">{currentCategory.category}</h3>
+            <div className="flex items-baseline justify-between pb-3 border-b border-hairline">
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[var(--muted)]">
+                  Active Domain
+                </span>
+                <h3 className="font-serif text-2xl font-normal text-[var(--ink)]">
+                  {currentCategory.category}
+                </h3>
               </div>
-              <span className="text-xs font-mono text-[var(--muted)]">{filteredItems.length} Entities</span>
+              <span className="text-xs font-mono text-[var(--muted)]">
+                {filteredItems.length} Verified Entries
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {filteredItems.map((item, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setSelectedSkill(item.name)}
-                  className={`p-3.5 border rounded-sm transition-all cursor-pointer ${
-                    selectedSkill === item.name
-                      ? "border-[var(--ink)] bg-[var(--bg)] shadow-xs"
-                      : "border-hairline hover:border-[var(--muted)]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between text-xs font-mono mb-1">
-                    <span className="font-bold text-[var(--ink)]">{item.name}</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-xs border border-hairline text-[var(--muted)] font-mono">
-                      {item.tier}
-                    </span>
-                  </div>
-                  <p className="text-xs text-[var(--muted)] leading-relaxed">{item.context}</p>
-                </div>
-              ))}
-            </div>
+            {/* Staggered Skills List with Animated Reflow */}
+            <motion.div layout className="divide-y divide-hairline">
+              <AnimatePresence mode="popLayout">
+                {filteredItems.map((item, idx) => (
+                  <motion.div
+                    key={item.name}
+                    layout
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.25, delay: idx * 0.03 }}
+                    className="py-4 px-2 hover:bg-[var(--surface)]/60 transition-colors rounded-sm group"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <span className="font-serif text-xl font-medium text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">
+                          {item.name}
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono tracking-wider px-2 py-0.5 rounded-full border border-hairline text-[var(--muted)] self-start sm:self-auto bg-[var(--surface)]">
+                        {item.tier}
+                      </span>
+                    </div>
 
-            <div className="pt-2 text-[11px] font-mono text-[var(--muted)] flex items-center gap-2">
-              <Check className="w-3.5 h-3.5 text-[var(--ink)]" />
-              <span>Grounded in verified production engineering at ASSPL. Zero arbitrary proficiency bars.</span>
-            </div>
+                    {/* Where I used it at ASSPL */}
+                    <div className="mt-1.5 pl-3.5 border-l border-hairline sm:border-0 sm:pl-0">
+                      <span className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider block sm:inline mr-2">
+                        Where I used it:
+                      </span>
+                      <span className="text-xs font-sans text-[var(--muted)] leading-relaxed">
+                        {item.context}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
 
           </div>
         </div>

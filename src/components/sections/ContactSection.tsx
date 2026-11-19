@@ -2,7 +2,17 @@
 
 import { useState } from "react";
 import { PERSONAL_DATA } from "@/lib/data";
-import { Check, Copy, ArrowUpRight } from "lucide-react";
+import { Check, Copy, ArrowUpRight, Mail } from "lucide-react";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { motion, AnimatePresence } from "framer-motion";
+
+const AVAILABILITY_STRIP = [
+  "AVAILABLE FOR ENTERPRISE APEX & LWC ROLES",
+  "BHUBANESWAR & HYBRID / REMOTE",
+  "ASSPL TENURE &bull; VERIFIED DELIVERABLES",
+  "AGENTFORCE & B2B COMMERCE",
+  "OPEN TO TECHNICAL DISCUSSIONS",
+];
 
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -14,74 +24,126 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 lg:py-36">
+    <section id="contact" className="py-24 lg:py-36 bg-[var(--bg)]">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         
-        {/* Contact Header with Editorial Typography */}
+        {/* Contact Header */}
         <div className="space-y-6">
-          <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">08 / CONTACT</span>
-          <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-bold tracking-tight text-[var(--ink)] leading-[1.05] max-w-4xl">
-            Let's build something <span className="font-serif italic font-normal text-[var(--ink)] underline underline-offset-8">precise</span>.
+          <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
+            <span>08 / GET IN TOUCH</span>
+            <span>&bull;</span>
+            <span>Direct Channel</span>
+          </div>
+
+          <h2 className="font-serif text-[clamp(4rem,10.5vw,11rem)] font-normal text-[var(--ink)] leading-[0.88] tracking-[-0.03em] select-none">
+            Let&apos;s <span className="italic">talk.</span>
           </h2>
-          <p className="text-base sm:text-lg text-[var(--muted)] max-w-xl leading-relaxed">
-            Available for Salesforce Developer roles, B2B Commerce platforms, Agentforce automations, and enterprise API integrations.
+
+          <p className="font-sans text-lg sm:text-xl text-[var(--muted)] max-w-2xl leading-relaxed">
+            Interested in discussing enterprise Salesforce engineering, Agentforce deployments, B2B Commerce platforms, or technical leadership at ASSPL? Reach out directly.
           </p>
         </div>
 
-        {/* Action Controls */}
-        <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
-          <a
-            href={`mailto:${PERSONAL_DATA.email}?subject=Salesforce%20Opportunity%20-%20Discussion`}
-            className="px-6 py-3.5 bg-[var(--ink)] text-[var(--surface)] font-medium rounded-sm hover:opacity-90 transition-opacity"
-          >
-            Send Email
-          </a>
+        {/* Magnetic Action Controls */}
+        <div className="flex flex-wrap items-center gap-4 text-xs font-mono pt-4">
+          <Magnetic strength={0.3} radius={70}>
+            <a
+              href={`mailto:${PERSONAL_DATA.email}?subject=Salesforce%20Opportunity%20-%20Discussion`}
+              className="inline-flex items-center gap-2.5 px-8 py-4 bg-[var(--ink)] text-[var(--bg)] font-medium rounded-full hover:opacity-90 transition-opacity shadow-sm"
+            >
+              <Mail className="w-4 h-4 text-[var(--accent)]" />
+              <span className="text-sm font-sans font-medium">Send Email</span>
+              <span className="font-mono text-xs">&rarr;</span>
+            </a>
+          </Magnetic>
 
-          <button
-            onClick={copyEmail}
-            className="flex items-center gap-2 px-5 py-3.5 border border-hairline rounded-sm text-[var(--ink)] hover:border-[var(--ink)] transition-colors bg-[var(--surface)]"
-          >
-            {copied ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-[var(--ink)]" />
-                <span className="font-semibold text-[var(--ink)]">Copied to clipboard</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-3.5 h-3.5 text-[var(--muted)]" />
-                <span>Copy Email ({PERSONAL_DATA.email})</span>
-              </>
+          <Magnetic strength={0.3} radius={70}>
+            <button
+              onClick={copyEmail}
+              className="inline-flex items-center gap-2.5 px-6 py-4 border border-hairline rounded-full text-[var(--ink)] hover:border-[var(--ink)] transition-colors bg-[var(--surface)] text-sm font-sans font-medium"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {copied ? (
+                  <motion.div
+                    key="check"
+                    initial={{ scale: 0.6, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.6, opacity: 0 }}
+                    className="flex items-center gap-2 text-[var(--accent)]"
+                  >
+                    <Check className="w-4 h-4" />
+                    <span className="font-mono text-xs">Copied to clipboard</span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="copy"
+                    initial={{ scale: 0.6, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.6, opacity: 0 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Copy className="w-4 h-4 text-[var(--muted)]" />
+                    <span>Copy: {PERSONAL_DATA.email}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
+          </Magnetic>
+
+          <Magnetic strength={0.2} radius={50}>
+            <a
+              href={PERSONAL_DATA.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-5 py-4 border border-hairline rounded-full text-[var(--muted)] hover:text-[var(--ink)] hover:border-[var(--ink)] transition-colors text-xs font-mono"
+            >
+              <span>LinkedIn</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </Magnetic>
+
+          <Magnetic strength={0.2} radius={50}>
+            <a
+              href={PERSONAL_DATA.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-5 py-4 border border-hairline rounded-full text-[var(--muted)] hover:text-[var(--ink)] hover:border-[var(--ink)] transition-colors text-xs font-mono"
+            >
+              <span>GitHub</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </Magnetic>
+        </div>
+
+        {/* Looping Marquee of Availability Text */}
+        <div className="w-full border-y border-hairline py-4 overflow-hidden select-none my-8">
+          <div className="flex whitespace-nowrap animate-[marquee_30s_linear_infinite]">
+            {[...AVAILABILITY_STRIP, ...AVAILABILITY_STRIP, ...AVAILABILITY_STRIP].map(
+              (item, idx) => (
+                <span
+                  key={idx}
+                  className="mx-6 text-xs font-mono tracking-widest text-[var(--muted)] flex items-center gap-4"
+                >
+                  <span dangerouslySetInnerHTML={{ __html: item }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                </span>
+              )
             )}
-          </button>
-
-          <a
-            href={PERSONAL_DATA.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-5 py-3.5 border border-hairline rounded-sm text-[var(--muted)] hover:text-[var(--ink)] hover:border-[var(--ink)] transition-colors"
-          >
-            <span>LinkedIn</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
-
-          <a
-            href={PERSONAL_DATA.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-5 py-3.5 border border-hairline rounded-sm text-[var(--muted)] hover:text-[var(--ink)] hover:border-[var(--ink)] transition-colors"
-          >
-            <span>GitHub</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
+          </div>
         </div>
 
         {/* Minimal Footer */}
-        <footer className="border-t border-hairline pt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-[var(--muted)]">
-          <div>
-            © {new Date().getFullYear()} Rakesh Majhi · {PERSONAL_DATA.disclaimer}
+        <footer className="border-t border-hairline pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-[var(--muted)]">
+          <div className="space-y-1">
+            <div>
+              &copy; {new Date().getFullYear()} Rakesh Majhi &bull; Bhubaneswar, India
+            </div>
+            <div className="text-[11px] text-[var(--muted)]/80">
+              {PERSONAL_DATA.disclaimer}
+            </div>
           </div>
-          <div>
-            Built with modern Next.js static export · Hosted on GitHub Pages
+          <div className="text-[11px]">
+            Editorial Studio &bull; Next.js Static Export &bull; Hosted on GitHub Pages
           </div>
         </footer>
 
