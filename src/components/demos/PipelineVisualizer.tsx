@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { GitBranch, Play, CheckCircle2, Loader2, ShieldCheck, Terminal } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { GitBranch, Play, CheckCircle2, Loader2, Terminal } from "lucide-react";
 
 interface PipelineStep {
   name: string;
@@ -48,21 +48,29 @@ export function PipelineVisualizer() {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [consoleLogs, setConsoleLogs] = useState<string[]>([
     "GitHub Actions Runner (ubuntu-latest) initialized.",
-    "Pipeline configured for ASSPL production release management.",
-    "Ready to run release verification.",
+    "Pipeline configured for ASSPL production release management across 3 client tracks.",
+    "Ready to execute release validation suite.",
   ]);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
 
   const runPipeline = () => {
+    if (isRunning) return;
     setIsRunning(true);
     setActiveStep(0);
     setConsoleLogs(["[00:00] Triggered workflow: salesforce-ci-cd.yml on branch: main"]);
 
     let current = 0;
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       const stage = STAGES[current];
       setConsoleLogs((prev) => [
         ...prev,
-        `[Step ${current + 1}/5] Running: $ ${stage.command}`,
+        `[Stage 0${current + 1}/05] $ ${stage.command}`,
         ` -> ${stage.details} (${stage.duration})`,
       ]);
 
@@ -70,14 +78,14 @@ export function PipelineVisualizer() {
       setActiveStep(current);
 
       if (current >= STAGES.length) {
-        clearInterval(interval);
+        if (intervalRef.current) clearInterval(intervalRef.current);
         setIsRunning(false);
         setConsoleLogs((prev) => [
           ...prev,
-          "==> PIPELINE RUN COMPLETED SUCCESSFULLY: 100% PASS · 99%+ PRODUCTION UPTIME",
+          "==> PIPELINE RUN COMPLETED: 100% PASS · 99%+ PRODUCTION UPTIME MAINTAINED",
         ]);
       }
-    }, 900);
+    }, 850);
   };
 
   return (
@@ -85,16 +93,16 @@ export function PipelineVisualizer() {
       {/* Header bar */}
       <div className="flex items-center justify-between text-[11px] text-[var(--muted)]">
         <div className="flex items-center gap-2">
-          <GitBranch className="w-4 h-4 text-[var(--accent)]" />
-          <span>Automated GitHub CI/CD Pipeline · 3 Concurrent Production Projects</span>
+          <GitBranch className="w-4 h-4 text-[var(--ink)]" />
+          <span>Automated GitHub CI/CD Pipeline · Release Management at ASSPL</span>
         </div>
         <button
           onClick={runPipeline}
           disabled={isRunning}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--ink)] text-[var(--surface)] rounded-xs hover:opacity-90 font-medium transition-opacity disabled:opacity-50"
         >
-          {isRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin text-[var(--accent)]" /> : <Play className="w-3.5 h-3.5 text-[var(--accent)] fill-current" />}
-          <span>{isRunning ? "Running Pipeline..." : "Trigger Release Run"}</span>
+          {isRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+          <span>{isRunning ? "Executing Stages..." : "Execute CI/CD Run"}</span>
         </button>
       </div>
 
@@ -108,16 +116,16 @@ export function PipelineVisualizer() {
               key={idx}
               className={`p-3 border rounded-sm transition-all ${
                 isCurrent
-                  ? "border-[var(--accent)] bg-[var(--surface)] shadow-xs"
+                  ? "border-[var(--ink)] bg-[var(--surface)] font-bold shadow-xs"
                   : isPassed
-                  ? "border-emerald-500/40 bg-emerald-500/5"
+                  ? "border-[var(--ink)] bg-[var(--surface)]"
                   : "border-hairline bg-[var(--bg)] opacity-60"
               }`}
             >
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[10px] uppercase font-bold text-[var(--ink)]">STAGE 0{idx + 1}</span>
-                {isPassed && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />}
-                {isCurrent && <Loader2 className="w-3.5 h-3.5 text-[var(--accent)] animate-spin" />}
+                {isPassed && <CheckCircle2 className="w-3.5 h-3.5 text-[var(--ink)]" />}
+                {isCurrent && <Loader2 className="w-3.5 h-3.5 text-[var(--ink)] animate-spin" />}
               </div>
               <div className="text-[11px] font-semibold text-[var(--ink)] truncate">{s.name.split(". ")[1]}</div>
               <div className="text-[10px] text-[var(--muted)] mt-1">{s.duration}</div>
@@ -130,20 +138,20 @@ export function PipelineVisualizer() {
       <div className="border border-hairline rounded-sm bg-[var(--bg)] p-4 space-y-2">
         <div className="flex items-center justify-between text-[10px] text-[var(--muted)] border-b border-hairline/60 pb-2">
           <span className="flex items-center gap-1.5">
-            <Terminal className="w-3 h-3 text-[var(--accent)]" />
+            <Terminal className="w-3 h-3 text-[var(--ink)]" />
             RUNNER CONSOLE OUTPUT // bash
           </span>
-          <span>{isRunning ? "STATUS: STREAMING" : "STATUS: IDLE"}</span>
+          <span className="text-[var(--ink)] font-semibold">{isRunning ? "STATUS: EXECUTING" : "STATUS: READY"}</span>
         </div>
-        <div className="font-mono text-[11px] space-y-1 max-h-[160px] overflow-y-auto leading-relaxed text-[var(--ink)]">
+        <div className="font-mono text-[11px] space-y-1 max-h-[170px] overflow-y-auto leading-relaxed text-[var(--ink)]">
           {consoleLogs.map((line, i) => (
             <div
               key={i}
               className={
-                line.includes("PASS") || line.includes("SUCCESS")
-                  ? "text-emerald-600 dark:text-emerald-400 font-medium"
-                  : line.includes("Running:")
-                  ? "text-[var(--accent)]"
+                line.includes("PASS") || line.includes("SUCCESS") || line.includes("COMPLETED")
+                  ? "text-[var(--ink)] font-semibold"
+                  : line.includes("$ ")
+                  ? "text-[var(--ink)] font-mono"
                   : "text-[var(--muted)]"
               }
             >
