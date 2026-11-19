@@ -101,23 +101,19 @@ export function OverviewSection() {
               </div>
             </div>
 
-            {/* Compact 4-Field Row on Solid Readable Chips */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-[var(--hairline)] text-xs">
-              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
-                <span className="text-[11px] text-[var(--muted)] block">Company</span>
-                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block">ASSPL · 2 Yrs</span>
-              </div>
-              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
+            {/* Compact 3-Field Row on Solid Readable Chips */}
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 pt-3 border-t border-[var(--hairline)] text-xs">
+              <div className="sm:col-span-3 p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
                 <span className="text-[11px] text-[var(--muted)] block">Location</span>
-                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block">Bhubaneswar, India</span>
+                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block truncate">Bhubaneswar, India</span>
               </div>
-              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
+              <div className="sm:col-span-6 p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
                 <span className="text-[11px] text-[var(--muted)] block">Focus</span>
                 <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block truncate" title="Salesforce CRM · AI Integrations · AWS">
                   Salesforce CRM · AI Integrations · AWS
                 </span>
               </div>
-              <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
+              <div className="sm:col-span-3 p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
                 <span className="text-[11px] text-[var(--muted)] block">Status</span>
                 <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[var(--turmeric)]" />
