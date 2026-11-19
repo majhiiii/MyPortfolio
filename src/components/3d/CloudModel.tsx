@@ -57,8 +57,8 @@ export function CloudModel() {
     };
     const onPointerMove = (e: PointerEvent) => {
       if (!isDragging.current) return;
-      const dx = (e.clientX - prevPointer.current.x) * 0.005;
-      const dy = (e.clientY - prevPointer.current.y) * 0.005;
+      const dx = (e.clientX - prevPointer.current.x) * 0.009;
+      const dy = (e.clientY - prevPointer.current.y) * 0.009;
       dragRotation.current.targetY += dx;
       dragRotation.current.targetX += dy;
       prevPointer.current = { x: e.clientX, y: e.clientY };
@@ -121,14 +121,14 @@ export function CloudModel() {
 
     const time = state.clock.getElapsedTime();
 
-    // Smooth drag rotation + subtle mouse parallax
-    dragRotation.current.x = THREE.MathUtils.damp(dragRotation.current.x, dragRotation.current.targetX, 4.0, delta);
-    dragRotation.current.y = THREE.MathUtils.damp(dragRotation.current.y, dragRotation.current.targetY, 4.0, delta);
+    // Smooth drag rotation + mouse parallax
+    dragRotation.current.x = THREE.MathUtils.damp(dragRotation.current.x, dragRotation.current.targetX, 7.0, delta);
+    dragRotation.current.y = THREE.MathUtils.damp(dragRotation.current.y, dragRotation.current.targetY, 7.0, delta);
 
-    const targetRotX = mouse.y * 0.1 + dragRotation.current.x;
-    const targetRotY = mouse.x * 0.15 + dragRotation.current.y;
-    groupRef.current.rotation.x = THREE.MathUtils.damp(groupRef.current.rotation.x, targetRotX, 3.5, delta);
-    groupRef.current.rotation.y = THREE.MathUtils.damp(groupRef.current.rotation.y, targetRotY, 3.5, delta);
+    const targetRotX = mouse.y * 0.12 + dragRotation.current.x;
+    const targetRotY = mouse.x * 0.18 + dragRotation.current.y;
+    groupRef.current.rotation.x = THREE.MathUtils.damp(groupRef.current.rotation.x, targetRotX, 6.0, delta);
+    groupRef.current.rotation.y = THREE.MathUtils.damp(groupRef.current.rotation.y, targetRotY, 6.0, delta);
 
     let targetGroupX = 0;
     let targetGroupY = 0;

@@ -10,10 +10,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      lerp: 0.09,
-      duration: 1.2,
+      lerp: 0.14,
+      duration: 0.7,
       smoothWheel: true,
-      wheelMultiplier: 0.9,
+      wheelMultiplier: 1.15,
     });
 
     // Synchronize Lenis with GSAP's single ticker for steady 60fps
