@@ -33,7 +33,7 @@ export default function Navigation() {
                 Rakesh Majhi
               </span>
               <span className="text-[11px] font-mono text-[var(--muted)] tracking-wider mt-0.5">
-                ASSPL &bull; Salesforce Engineering
+                Software Engineer &bull; Multi-Stack Builder
               </span>
             </div>
           </a>

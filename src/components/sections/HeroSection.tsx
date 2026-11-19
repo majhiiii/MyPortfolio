@@ -62,9 +62,9 @@ export default function HeroSection() {
           {/* Subtitle with SVG pathLength underline on emphasis */}
           <div className="space-y-4 max-w-[62ch]">
             <p className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[var(--ink)] leading-snug font-normal">
-              Salesforce Developer &amp;{" "}
+              Software Engineer &amp;{" "}
               <span className="italic relative inline-block text-[var(--ink)]">
-                Agentforce Specialist
+                Multi-Stack Builder
                 <svg
                   className="absolute -bottom-1.5 left-0 w-full h-2 overflow-visible"
                   style={{ color: "var(--accent)" }}
@@ -83,11 +83,11 @@ export default function HeroSection() {
                   />
                 </svg>
               </span>{" "}
-              architecting enterprise engines at ASSPL.
+              shipping full-stack products, cloud infrastructure &amp; enterprise platforms.
             </p>
 
             <p className="font-sans text-base sm:text-lg text-[var(--muted)] leading-relaxed">
-              Leading 3 concurrent client tracks across B2B Commerce, CloudCraze, custom CPQ configurators, AWS cloud deployments, and 10+ hardened enterprise integrations.
+              Moving fast from zero to production across modern web (React, Next.js), Python &amp; AWS cloud backends, autonomous AI agents, and enterprise platforms at ASSPL and Briskode.
             </p>
           </div>
 

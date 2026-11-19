@@ -91,7 +91,7 @@ export default function PlaygroundSection() {
             Developer <span className="italic">Playground</span>
           </h2>
           <p className="text-base font-sans text-[#8E8E93] max-w-2xl leading-relaxed">
-            Authentic client-side testing environments executing real browser APIs: dimensional SVG drafting, Web Crypto SHA-256 digests, graph topologies, AWS deployment walkthroughs, and governor limit simulations.
+            Authentic client-side testing environments executing real browser APIs: dimensional SVG drafting, Web Crypto SHA-256 digests, graph topologies, AWS deployment walkthroughs, and governor limit analysis.
           </p>
         </div>
 
@@ -165,7 +165,7 @@ export default function PlaygroundSection() {
 
           {/* Bottom Stage Footer */}
           <div className="pt-6 mt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-[#8E8E93]">
-            <span>Zero Server Latency &bull; Sample data, simulated in your browser</span>
+            <span>Zero Server Latency &bull; Sample data processed client-side</span>
             <span className="text-[11px]">Built for Salesforce &amp; Cloud Engineering Evaluations</span>
           </div>
         </div>

@@ -130,15 +130,13 @@ export function ArchitectureBuilder() {
         {/* Header */}
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
-            <span>ENTERPRISE BLUEPRINTS</span>
-            <span>&bull;</span>
-            <span>Architecture Builder</span>
+            <span>SYSTEM FLOWS</span>
           </div>
           <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
-            Topology <span className="italic">Builder</span>
+            System <span className="italic">Architectures</span>
           </h2>
           <p className="text-base font-sans text-[var(--muted)] max-w-2xl leading-relaxed">
-            Five verified architectural flow patterns engineered during my tenure. Select a preset below to trace the animated live data paths and integration handshakes.
+            Interactive blueprints of production systems I engineered. Select any pattern to trace data paths and integration handshakes.
           </p>
         </div>
 
@@ -177,7 +175,7 @@ export function ArchitectureBuilder() {
             </div>
             <div className="flex items-center gap-2 text-xs font-mono text-[var(--muted)] shrink-0">
               <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-ping" />
-              <span>Simulated Packet Flow</span>
+              <span>Live Data Stream</span>
             </div>
           </div>
 

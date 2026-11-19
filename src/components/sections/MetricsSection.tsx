@@ -24,15 +24,13 @@ export default function MetricsSection() {
         {/* Section Header */}
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
-            <span>07 / QUANTITATIVE OUTCOMES</span>
-            <span>&bull;</span>
-            <span>Measured Across ASSPL Engagements</span>
+            <span>07 / IMPACT &amp; METRICS</span>
           </div>
           <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
             Engineered <span className="italic">Impact</span>
           </h2>
           <p className="text-base font-sans text-[var(--muted)] max-w-2xl">
-            Empirically verified metrics from production systems. Click any metric to reveal the architectural narrative and implementation specifics.
+            Real performance outcomes and metrics from production systems. Click any metric to read implementation details.
           </p>
         </div>
 

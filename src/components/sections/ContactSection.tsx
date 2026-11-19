@@ -69,7 +69,7 @@ export default function ContactSection() {
           </h2>
 
           <p className="font-sans text-lg sm:text-xl text-[var(--muted)] max-w-2xl leading-relaxed">
-            Interested in discussing enterprise Salesforce engineering, Agentforce deployments, B2B Commerce platforms, or technical leadership at ASSPL? Reach out directly.
+            Interested in discussing software engineering, full-stack systems, AI agents, or building high-impact products together? Reach out directly.
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default function ContactSection() {
         <div className="flex flex-wrap items-center gap-4 text-xs font-mono pt-4">
           <Magnetic strength={0.3} radius={70}>
             <a
-              href={`mailto:${PERSONAL_DATA.email}?subject=Salesforce%20Opportunity%20-%20Discussion`}
+              href={`mailto:${PERSONAL_DATA.email}?subject=Engineering%20Opportunity%20-%20Discussion`}
               className="inline-flex items-center gap-2.5 px-8 py-4 bg-[var(--ink)] text-[var(--bg)] font-medium rounded-full hover:opacity-90 transition-opacity shadow-sm"
             >
               <Mail className="w-4 h-4 text-[var(--accent)]" />

@@ -29,10 +29,10 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Rakesh Majhi — Salesforce Developer & Agentforce Specialist",
-  description: "Architectural, minimal portfolio of Rakesh Majhi: Apex, LWC, Agentforce AI, and 10+ Enterprise Integrations built at ASSPL.",
+  title: "Rakesh Majhi — Software Engineer & Multi-Stack Builder",
+  description: "Portfolio of Rakesh Majhi: Full-Stack Web, Cloud Infrastructure, AI Agents, and Enterprise Systems built at ASSPL and Briskode.",
   authors: [{ name: "Rakesh Majhi" }],
-  keywords: ["Salesforce Developer", "Agentforce Specialist", "Apex", "LWC", "CloudCraze", "OAuth PKCE", "FastAPI"],
+  keywords: ["Software Engineer", "Full-Stack Developer", "Next.js", "React", "Python", "AWS", "Agentforce", "Salesforce", "FastAPI"],
 };
 
 export default function RootLayout({

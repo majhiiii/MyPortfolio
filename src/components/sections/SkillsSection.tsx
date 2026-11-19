@@ -53,15 +53,13 @@ export default function SkillsSection() {
         {/* Section Header */}
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
-            <span>03 / STACK EXPLORER</span>
-            <span>&bull;</span>
-            <span>Architectural Cartridge Matrix</span>
+            <span>03 / TECH &amp; TOOLS</span>
           </div>
           <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
-            Architectural <span className="italic">Stack</span>
+            Skills &amp; <span className="italic">Stack</span>
           </h2>
           <p className="text-base font-sans text-[var(--muted)] max-w-2xl leading-relaxed">
-            Every platform, framework, and integration engineered during my tenure at ASSPL and Briskode. Color-coded by real technology domain with dedicated architectural glyphs.
+            A versatile toolkit across full-stack web development, cloud backends, autonomous AI agents, and enterprise platforms. Filter by domain or search to inspect real-world deliverables.
           </p>
         </div>
 
@@ -187,7 +185,7 @@ export default function SkillsSection() {
             
             <div className="flex items-center justify-between text-xs font-mono text-[var(--muted)] pb-2 border-b border-hairline">
               <span>{filteredItems.length} Technologies Active</span>
-              <span>Click cartridge to highlight connected project</span>
+              <span>Click any card to inspect linked projects</span>
             </div>
 
             {/* Cartridges or Compact Layout */}

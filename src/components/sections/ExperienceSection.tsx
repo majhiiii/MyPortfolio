@@ -98,11 +98,9 @@ export default function ExperienceSection() {
           <div className="space-y-1">
             <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
               <span>04 / EXPERIENCE RAIL</span>
-              <span>&bull;</span>
-              <span>Briskode &rarr; ASSPL Career Journey</span>
             </div>
             <h2 className="font-serif text-[clamp(2.5rem,5.5vw,4.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
-              Production Systems &bull; <span className="italic">Tenure</span>
+              Experience &amp; <span className="italic">Tenure</span>
             </h2>
           </div>
 

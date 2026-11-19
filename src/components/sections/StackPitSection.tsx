@@ -32,15 +32,13 @@ export function StackPitSection() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/10 pb-6">
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[#8E8E93]">
-              <span>TACTILE STACK SURFACE</span>
-              <span>&bull;</span>
-              <span>Hardware-Accelerated Interaction</span>
+              <span>INTERACTIVE PLAYGROUND</span>
             </div>
             <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[#F3F1EC] leading-[0.95]">
               The Stack <span className="italic">Pit</span>
             </h2>
             <p className="text-sm font-sans text-[#8E8E93] max-w-2xl leading-relaxed">
-              Every production platform in my verified arsenal as draggable tactile tiles. Drag, arrange, or filter by domain. Click any card to inspect implementation deliverables.
+              An interactive playground of technologies I build with. Drag tiles around, shuffle the board, or filter by domain. Click any card to inspect deliverables.
             </p>
           </div>
 
@@ -118,7 +116,7 @@ export function StackPitSection() {
             <div className="flex items-center justify-between text-[11px] font-mono text-white/40 pb-4 mb-2 border-b border-white/5">
               <span className="flex items-center gap-1.5">
                 <Move className="w-3.5 h-3.5 text-[#4C8DFF]" />
-                Grab, toss, or drag any tile anywhere on the surface &bull; Click to inspect
+                Drag tiles around or click to inspect deliverables
               </span>
               <span>{displayedTech.length} Tiles Active</span>
             </div>

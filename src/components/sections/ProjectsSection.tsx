@@ -60,7 +60,7 @@ export default function ProjectsSection() {
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
-              05 / PRODUCTION SYSTEMS INDEX
+              05 / SELECTED PROJECTS
             </span>
             <div className="flex items-center gap-2 text-xs font-mono text-[var(--muted)]">
               <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent)]" />
