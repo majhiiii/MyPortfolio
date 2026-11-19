@@ -20,10 +20,10 @@ export default function HeroSection() {
 
           <div className="space-y-4 max-w-2xl">
             <p className="text-lg lg:text-xl font-normal text-[var(--muted)] leading-relaxed">
-              Salesforce Developer & Administrator architecting high-scale Apex, LWC, and production <span className="text-[var(--accent)] font-medium">Agentforce</span> autonomous systems at ASSPL.
+              Salesforce Developer focused on custom Apex, Lightning Web Components, and enterprise integrations. Experienced in B2B Commerce, custom CPQ configurators, and <span className="text-[var(--accent)] font-medium">Agentforce</span> automation at ASSPL.
             </p>
             <p className="text-sm font-mono text-[var(--muted)] leading-relaxed">
-              2 years of experience · 4 production AI agents · 10+ integrations over REST/SOAP · GitHub CI/CD release engineering.
+              2 years production experience · B2B Commerce & CloudCraze · REST/SOAP APIs · GitHub CI/CD releases.
             </p>
           </div>
 

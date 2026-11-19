@@ -19,10 +19,10 @@ export default function AboutSection() {
           {/* Paragraphs */}
           <div className="space-y-6 max-w-3xl text-base lg:text-lg text-[var(--muted)] leading-relaxed">
             <p>
-              I am a Salesforce Developer and Administrator specializing in custom Apex engineering, Lightning Web Components, and autonomous Agentforce workflows. Over the past 2 years at Abacus System & Solution Pvt. Ltd. (ASSPL), I have focused on solving high-concurrency billing, multi-cloud synchronization, and enterprise release lifecycles.
+              I am a Salesforce Developer specializing in custom Apex engineering, Lightning Web Components, B2B Commerce (CloudCraze), and enterprise API integrations. Over the past 2 years at Abacus System & Solution Pvt. Ltd. (ASSPL), I have worked on production client platforms spanning custom quoting configurators, logistics APIs, and automated billing reconciliations.
             </p>
             <p>
-              My approach blends rigorous engineering discipline with emerging AI automation: treating governor limits, unit test isolation (&gt;85% coverage), and field-level security as mandatory baseline standards. I mentor 4 junior engineers on daily pull requests, unblocking sprint deliverables across concurrent Health Cloud and B2B Commerce tracks.
+              I focus on clean code and reliable architecture: treating governor limits, unit test isolation (&gt;85% coverage gate), and field-level security (USER_MODE) as fundamental requirements. In addition to daily feature development, I review pull requests for junior developers and collaborate directly with US and international stakeholders in Agile sprints.
             </p>
           </div>
 
