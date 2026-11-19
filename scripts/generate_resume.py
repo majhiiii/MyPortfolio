@@ -1,163 +1,199 @@
 import subprocess
 import os
+import base64
 
-resume_html = """<!DOCTYPE html>
+def get_photo_b64():
+    photo_path = os.path.abspath("public/assets/rakesh_photo.jpg")
+    if os.path.exists(photo_path):
+        with open(photo_path, "rb") as f:
+            return base64.b64encode(f.read()).decode("utf-8")
+    return ""
+
+def build_html(photo_b64):
+    photo_tag = f'<img src="data:image/jpeg;base64,{photo_b64}" alt="Rakesh Majhi" class="photo" />' if photo_b64 else ''
+    
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Rakesh Majhi - Salesforce Developer Resume</title>
 <style>
-  @page {
+  @page {{
     size: A4;
-    margin: 12mm 15mm 12mm 15mm;
-  }
-  * {
+    margin: 11mm 14mm 11mm 14mm;
+  }}
+  * {{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
-  body {
+  }}
+  body {{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: #1a1a1a;
     background: #ffffff;
-    font-size: 9.2pt;
-    line-height: 1.34;
-  }
-  .header {
+    font-size: 9.1pt;
+    line-height: 1.33;
+  }}
+  .header {{
     border-bottom: 2.5px solid #1F2A5C;
-    padding-bottom: 8px;
-    margin-bottom: 10px;
-  }
-  .name {
-    font-size: 22pt;
+    padding-bottom: 7px;
+    margin-bottom: 9px;
+  }}
+  .header-content {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+  }}
+  .header-text {{
+    flex: 1;
+  }}
+  .photo {{
+    width: 23mm;
+    height: 28mm;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 5px;
+    border: 1.5px solid #1F2A5C;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }}
+  .name {{
+    font-size: 21pt;
     font-weight: 800;
     color: #1F2A5C;
     letter-spacing: -0.5px;
     line-height: 1.1;
-  }
-  .headline {
-    font-size: 10.5pt;
+  }}
+  .headline {{
+    font-size: 10pt;
     font-weight: 600;
     color: #8A4B2A;
-    margin-top: 3px;
-    margin-bottom: 5px;
-  }
-  .contact-bar {
-    font-size: 8.5pt;
+    margin-top: 2px;
+    margin-bottom: 4px;
+  }}
+  .contact-bar {{
+    font-size: 8.4pt;
     color: #4a4a4a;
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-  }
-  .contact-bar a {
+    gap: 10px;
+  }}
+  .contact-bar a {{
     color: #1F2A5C;
     text-decoration: none;
     font-weight: 500;
-  }
-  .section {
-    margin-bottom: 10px;
-  }
-  .section-title {
-    font-size: 10.5pt;
+  }}
+  .section {{
+    margin-bottom: 9px;
+  }}
+  .section-title {{
+    font-size: 10pt;
     font-weight: 700;
     color: #1F2A5C;
     text-transform: uppercase;
     letter-spacing: 0.6px;
     border-bottom: 1.2px solid #e0e0e0;
     padding-bottom: 2px;
-    margin-bottom: 6px;
-  }
-  .summary-text {
-    font-size: 9pt;
+    margin-bottom: 5px;
+  }}
+  .summary-text {{
+    font-size: 8.9pt;
     color: #2a2a2a;
     text-align: justify;
-    line-height: 1.35;
-  }
-  .skills-grid {
+    line-height: 1.34;
+  }}
+  .skills-grid {{
     display: grid;
     grid-template-columns: 1fr;
-    gap: 3.5px;
-    font-size: 8.8pt;
-  }
-  .skill-row strong {
+    gap: 3px;
+    font-size: 8.7pt;
+  }}
+  .skill-row strong {{
     color: #1F2A5C;
     font-weight: 600;
-  }
-  .job {
-    margin-bottom: 8px;
-  }
-  .job-header {
+  }}
+  .job {{
+    margin-bottom: 7px;
+  }}
+  .job-header {{
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 9.6pt;
-  }
-  .job-title {
+    font-size: 9.4pt;
+  }}
+  .job-title {{
     font-weight: 700;
     color: #111;
-  }
-  .job-company {
+  }}
+  .job-company {{
     color: #8A4B2A;
     font-weight: 600;
-    font-size: 9pt;
-  }
-  .job-dates {
-    font-size: 8.5pt;
+    font-size: 8.9pt;
+  }}
+  .job-dates {{
+    font-size: 8.4pt;
     color: #555;
     font-weight: 600;
-  }
-  .bullets {
+  }}
+  .bullets {{
     list-style-type: none;
-    margin-top: 3px;
+    margin-top: 2.5px;
     padding-left: 0;
-  }
-  .bullets li {
+  }}
+  .bullets li {{
     position: relative;
-    padding-left: 14px;
-    font-size: 8.7pt;
+    padding-left: 13px;
+    font-size: 8.6pt;
     color: #2b2b2b;
-    margin-bottom: 2.5px;
-    line-height: 1.32;
-  }
-  .bullets li::before {
+    margin-bottom: 2px;
+    line-height: 1.31;
+  }}
+  .bullets li::before {{
     content: '•';
     position: absolute;
     left: 2px;
     color: #1F2A5C;
     font-weight: bold;
-    font-size: 10pt;
-  }
-  .cert-grid {
+    font-size: 9.5pt;
+  }}
+  .cert-grid {{
     display: flex;
     gap: 12px;
-    font-size: 8.8pt;
+    font-size: 8.7pt;
     font-weight: 600;
     color: #2a2a2a;
-  }
-  .cert-badge {
+  }}
+  .cert-badge {{
     display: inline-flex;
     align-items: center;
     gap: 5px;
     background: #f4f6fb;
-    padding: 4px 10px;
+    padding: 3.5px 9px;
     border-radius: 4px;
     border: 1px solid #d8deeb;
     color: #1F2A5C;
-  }
+  }}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="name">RAKESH MAJHI</div>
-  <div class="headline">Salesforce Developer &amp; Administrator · Apex, LWC &amp; Flow · Integrations · Agentforce &amp; AI Automation</div>
-  <div class="contact-bar">
-    <span>📍 Bhubaneswar, India</span>
-    <span>📞 +91 8342849764</span>
-    <span>✉️ <a href="mailto:rakeshmajhi.connect@gmail.com">rakeshmajhi.connect@gmail.com</a></span>
-    <span>🔗 <a href="https://linkedin.com/in/rakeshmajhi57">linkedin.com/in/rakeshmajhi57</a></span>
-    <span>💻 <a href="https://github.com/majhiiii">github.com/majhiiii</a></span>
-    <span>🌐 <a href="https://majhiiii.github.io/MyPortfolio/">Live Portfolio</a></span>
+  <div class="header-content">
+    <div class="header-text">
+      <div class="name">RAKESH MAJHI</div>
+      <div class="headline">Salesforce Developer &amp; Administrator · Apex, LWC &amp; Flow · Integrations · Agentforce &amp; AI Automation</div>
+      <div class="contact-bar">
+        <span>📍 Bhubaneswar, India</span>
+        <span>📞 +91 8342849764</span>
+        <span>✉️ <a href="mailto:rakeshmajhi.connect@gmail.com">rakeshmajhi.connect@gmail.com</a></span>
+        <span>🔗 <a href="https://linkedin.com/in/rakeshmajhi57">linkedin.com/in/rakeshmajhi57</a></span>
+        <span>💻 <a href="https://github.com/majhiiii">github.com/majhiiii</a></span>
+        <span>🌐 <a href="https://majhiiii.github.io/MyPortfolio/">Live Portfolio</a></span>
+      </div>
+    </div>
+    <div class="header-photo">
+      {photo_tag}
+    </div>
   </div>
 </div>
 
@@ -233,14 +269,14 @@ resume_html = """<!DOCTYPE html>
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
     <div>
       <strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</strong><br>
-      <span style="color: #666; font-size: 8.8pt;">Raajdhani Engineering College (BPUT), Bhubaneswar</span>
+      <span style="color: #666; font-size: 8.7pt;">Raajdhani Engineering College (BPUT), Bhubaneswar</span>
     </div>
-    <span style="font-size: 8.5pt; color: #555; font-weight: 600;">2019 – 2023</span>
+    <span style="font-size: 8.4pt; color: #555; font-weight: 600;">2019 – 2023</span>
   </div>
 
-  <div style="margin-top: 6px;">
-    <strong style="color: #1F2A5C; font-size: 9pt;">Salesforce Certifications:</strong>
-    <div class="cert-grid" style="margin-top: 4px;">
+  <div style="margin-top: 5px;">
+    <strong style="color: #1F2A5C; font-size: 8.9pt;">Salesforce Certifications:</strong>
+    <div class="cert-grid" style="margin-top: 3px;">
       <span class="cert-badge">🏅 Salesforce Certified Agentforce Specialist</span>
       <span class="cert-badge">🏅 Salesforce Certified AI Associate</span>
     </div>
@@ -252,6 +288,9 @@ resume_html = """<!DOCTYPE html>
 """
 
 def main():
+    photo_b64 = get_photo_b64()
+    resume_html = build_html(photo_b64)
+
     temp_html = os.path.abspath("resume_temp.html")
     output_pdf = os.path.abspath("public/assets/Rakesh_Majhi_Resume.pdf")
 

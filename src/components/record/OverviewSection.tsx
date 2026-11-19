@@ -258,22 +258,18 @@ export function OverviewSection() {
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
               
-              {/* Photo frame with Pattachitra vermilion border */}
+              {/* Photo frame with Pattachitra turmeric border */}
               <div className="md:col-span-4 flex justify-center">
                 <div className="relative p-1.5 rounded-[18px] border-2 border-[var(--turmeric)] bg-[var(--surface-tint-solid)] shadow-xs">
-                  <div className="w-34 h-40 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] flex flex-col items-center justify-center text-center p-3 relative">
-                    <div className="flex flex-col items-center justify-center space-y-2">
-                      <div className="w-16 h-16 rounded-full border-2 border-[var(--indigo)]/30 bg-[var(--indigo)]/10 text-[var(--indigo)] dark:text-blue-300 flex items-center justify-center text-xl font-mono font-bold shadow-2xs">
-                        RM
-                      </div>
-                      <div>
-                        <div className="text-[12px] font-bold text-[var(--ink)]">
-                          Rakesh Majhi
-                        </div>
-                        <div className="text-[10px] font-mono text-[var(--muted)]">
-                          ASSPL · Bhubaneswar
-                        </div>
-                      </div>
+                  <div className="w-36 h-48 rounded-[14px] overflow-hidden border border-[var(--hairline)] relative bg-[var(--surface)] shadow-2xs">
+                    <img
+                      src={`${basePath}/assets/rakesh_photo.jpg`}
+                      alt="Rakesh Majhi"
+                      className="w-full h-full object-cover object-top"
+                    />
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2 text-center text-white">
+                      <div className="text-[11px] font-bold leading-tight">Rakesh Majhi</div>
+                      <div className="text-[9px] font-mono text-amber-300">Salesforce Developer</div>
                     </div>
                   </div>
                 </div>

@@ -52,7 +52,6 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
           <div className="bg-[#1F2A5C] text-white px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 shrink-0">
             <div className="flex items-center gap-2">
               <span className="font-bold text-sm sm:text-base tracking-tight">Rakesh Majhi · Executive Resume</span>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white/15 text-amber-300">ATS-Optimized</span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -87,33 +86,43 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
           {/* Printable Resume Document Body */}
           <div id="printable-resume" className="p-6 sm:p-10 overflow-y-auto space-y-6 text-xs sm:text-[13px] leading-relaxed font-sans bg-white selection:bg-amber-100 selection:text-amber-900">
             
-            {/* Header */}
-            <div className="border-b-2 border-[#1F2A5C] pb-4">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1F2A5C] tracking-tight">
-                RAKESH MAJHI
-              </h1>
-              <p className="text-sm font-semibold text-[#8A4B2A] mt-1">
-                Salesforce Developer &amp; Administrator · Apex, LWC &amp; Flow · Integrations · Agentforce &amp; AI Automation
-              </p>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600 mt-2 font-mono">
-                <span className="flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-[#1F2A5C]" /> Bhubaneswar, India
-                </span>
-                <span className="flex items-center gap-1">
-                  <Phone className="w-3 h-3 text-[#1F2A5C]" /> +91 8342849764
-                </span>
-                <span className="flex items-center gap-1">
-                  <Mail className="w-3 h-3 text-[#1F2A5C]" />
-                  <a href="mailto:rakeshmajhi.connect@gmail.com" className="text-[#1F2A5C] hover:underline">
-                    rakeshmajhi.connect@gmail.com
+            {/* Header with Photo */}
+            <div className="border-b-2 border-[#1F2A5C] pb-4 flex flex-col sm:flex-row items-center sm:items-start gap-4">
+              <div className="shrink-0">
+                <img
+                  src={`${basePath}/assets/rakesh_photo.jpg`}
+                  alt="Rakesh Majhi"
+                  className="w-20 h-24 sm:w-24 sm:h-28 object-cover object-top rounded-lg border-2 border-[#1F2A5C] shadow-sm"
+                />
+              </div>
+
+              <div className="flex-1 text-center sm:text-left space-y-1">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1F2A5C] tracking-tight">
+                  RAKESH MAJHI
+                </h1>
+                <p className="text-sm font-semibold text-[#8A4B2A]">
+                  Salesforce Developer &amp; Administrator · Apex, LWC &amp; Flow · Integrations · Agentforce &amp; AI Automation
+                </p>
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-xs text-slate-600 pt-1 font-mono">
+                  <span className="flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-[#1F2A5C]" /> Bhubaneswar, India
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Phone className="w-3 h-3 text-[#1F2A5C]" /> +91 8342849764
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Mail className="w-3 h-3 text-[#1F2A5C]" />
+                    <a href="mailto:rakeshmajhi.connect@gmail.com" className="text-[#1F2A5C] hover:underline">
+                      rakeshmajhi.connect@gmail.com
+                    </a>
+                  </span>
+                  <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" className="text-[#1F2A5C] hover:underline">
+                    linkedin.com/in/rakeshmajhi57
                   </a>
-                </span>
-                <a href="https://linkedin.com/in/rakeshmajhi57" target="_blank" rel="noopener noreferrer" className="text-[#1F2A5C] hover:underline">
-                  linkedin.com/in/rakeshmajhi57
-                </a>
-                <a href="https://github.com/majhiiii" target="_blank" rel="noopener noreferrer" className="text-[#1F2A5C] hover:underline">
-                  github.com/majhiiii
-                </a>
+                  <a href="https://github.com/majhiiii" target="_blank" rel="noopener noreferrer" className="text-[#1F2A5C] hover:underline">
+                    github.com/majhiiii
+                  </a>
+                </div>
               </div>
             </div>
 
