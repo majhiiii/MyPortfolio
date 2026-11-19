@@ -15,7 +15,7 @@ const PRIMARY_LINKS = [
 ];
 
 export default function Navigation() {
-  const { setCommandPaletteOpen } = usePortfolioStore();
+  const setCommandPaletteOpen = usePortfolioStore((s) => s.setCommandPaletteOpen);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

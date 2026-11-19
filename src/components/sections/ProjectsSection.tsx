@@ -13,7 +13,7 @@ export default function ProjectsSection() {
   const [activeModalId, setActiveModalId] = useState<string | null>(null);
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
 
-  const { setActiveAccentColor } = usePortfolioStore();
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
 
   const selectedProject = PROJECTS_DATA.find((p) => p.id === activeModalId);
   const hoveredProject = PROJECTS_DATA.find((p) => p.id === hoveredProjectId);

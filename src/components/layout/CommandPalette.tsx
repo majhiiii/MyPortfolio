@@ -9,7 +9,11 @@ import { Search, FolderGit2, Sparkles, Terminal, Code2, Sun, Moon, Mail, Cpu, Wo
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function CommandPalette() {
-  const { isCommandPaletteOpen, setCommandPaletteOpen, theme, toggleTheme, setActiveAccentColor } = usePortfolioStore();
+  const isCommandPaletteOpen = usePortfolioStore((s) => s.isCommandPaletteOpen);
+  const setCommandPaletteOpen = usePortfolioStore((s) => s.setCommandPaletteOpen);
+  const theme = usePortfolioStore((s) => s.theme);
+  const toggleTheme = usePortfolioStore((s) => s.toggleTheme);
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
   const [query, setQuery] = useState("");
 
   useEffect(() => {

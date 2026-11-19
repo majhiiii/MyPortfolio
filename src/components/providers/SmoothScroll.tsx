@@ -2,29 +2,29 @@
 
 import React, { useEffect } from "react";
 import Lenis from "lenis";
-import gsap from "gsap";
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      lerp: 0.14,
-      duration: 0.7,
+      lerp: 0.12,
+      duration: 0.6,
       smoothWheel: true,
-      wheelMultiplier: 1.15,
+      wheelMultiplier: 1.1,
     });
 
-    // Synchronize Lenis with GSAP's single ticker for steady 60fps
-    function update(time: number) {
-      lenis.raf(time * 1000);
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
     }
-    gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
-      gsap.ticker.remove(update);
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);

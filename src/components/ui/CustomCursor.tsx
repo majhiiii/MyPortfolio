@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue } from "framer-motion";
 
 export function CustomCursor() {
@@ -9,9 +9,13 @@ export function CustomCursor() {
   const [cursorVariant, setCursorVariant] = useState<"default" | "hover" | "text" | "action">("default");
   const [isVisible, setIsVisible] = useState(false);
 
-  // Direct 1:1 mouse position tracking for zero lag
+  // Direct 1:1 hardware mouse tracking with zero latency
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
+
+  const lastTargetRef = useRef<EventTarget | null>(null);
+  const currentVariantRef = useRef<"default" | "hover" | "text" | "action">("default");
+  const currentTextRef = useRef<string>("");
 
   useEffect(() => {
     // Only enable on desktop pointer devices
@@ -22,35 +26,41 @@ export function CustomCursor() {
     setMounted(true);
 
     const onMouseMove = (e: MouseEvent) => {
+      // 1:1 direct coordinate set without React state updates
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
+
       if (!isVisible) setIsVisible(true);
 
-      // Check hovered element
+      // Only evaluate element classification when target element actually changes
+      if (e.target === lastTargetRef.current) return;
+      lastTargetRef.current = e.target;
+
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
+      let nextVariant: "default" | "hover" | "text" | "action" = "default";
+      let nextText = "";
+
       const cursorAttr = target.closest("[data-cursor]")?.getAttribute("data-cursor");
       if (cursorAttr) {
-        setCursorText(cursorAttr.toUpperCase());
-        setCursorVariant("action");
-        return;
+        nextText = cursorAttr.toUpperCase();
+        nextVariant = "action";
+      } else if (target.closest("input, textarea, [contenteditable]")) {
+        nextVariant = "text";
+      } else if (target.closest("button, a, [role='button'], .cursor-pointer")) {
+        nextVariant = "hover";
       }
 
-      if (target.closest("input, textarea, [contenteditable]")) {
-        setCursorText("");
-        setCursorVariant("text");
-        return;
+      // Only trigger React state updates if variant or text changed
+      if (nextVariant !== currentVariantRef.current) {
+        currentVariantRef.current = nextVariant;
+        setCursorVariant(nextVariant);
       }
-
-      if (target.closest("button, a, [role='button'], .cursor-pointer")) {
-        setCursorText("");
-        setCursorVariant("hover");
-        return;
+      if (nextText !== currentTextRef.current) {
+        currentTextRef.current = nextText;
+        setCursorText(nextText);
       }
-
-      setCursorText("");
-      setCursorVariant("default");
     };
 
     const onMouseLeave = () => setIsVisible(false);
@@ -95,7 +105,7 @@ export function CustomCursor() {
               : "var(--ink)",
           borderWidth: cursorVariant === "action" ? 0 : 1.5,
         }}
-        transition={{ type: "spring", damping: 24, stiffness: 450 }}
+        transition={{ type: "spring", damping: 28, stiffness: 500 }}
         className="rounded-full flex items-center justify-center transition-colors shadow-xs"
       >
         {cursorText && (

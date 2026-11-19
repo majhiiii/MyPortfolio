@@ -10,10 +10,14 @@ export function SceneCanvas() {
   const [mounted, setMounted] = useState(false);
   const [hasWebGL, setHasWebGL] = useState(true);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const theme = usePortfolioStore((s) => s.theme);
 
   useEffect(() => {
     setMounted(true);
+
+    const handleVis = () => setIsVisible(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", handleVis);
 
     // 1. Reduced motion check
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -56,6 +60,7 @@ export function SceneCanvas() {
     >
       <Suspense fallback={<FallbackPoster />}>
         <Canvas
+          frameloop={isVisible ? "always" : "never"}
           gl={{
             antialias: true,
             alpha: true,

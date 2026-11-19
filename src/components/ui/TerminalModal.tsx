@@ -12,7 +12,8 @@ interface CommandLog {
 }
 
 export function TerminalModal() {
-  const { isTerminalOpen, setTerminalOpen } = usePortfolioStore();
+  const isTerminalOpen = usePortfolioStore((s) => s.isTerminalOpen);
+  const setTerminalOpen = usePortfolioStore((s) => s.setTerminalOpen);
   const [inputVal, setInputVal] = useState("");
   const [history, setHistory] = useState<CommandLog[]>([
     { id: "1", type: "output", text: "Rakesh Majhi [Enterprise Core v3.0.0] - Type 'help' for available commands." },

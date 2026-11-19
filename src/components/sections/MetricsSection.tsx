@@ -10,7 +10,7 @@ const METRIC_COLORS = ["#0176D3", "#6B4EFF", "#00A38C", "#FF8A1F", "#FF5A5F", "#
 
 export default function MetricsSection() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
-  const { setActiveAccentColor } = usePortfolioStore();
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
 
   const toggleExpand = (idx: number, color: string) => {
     setExpandedIdx(expandedIdx === idx ? null : idx);

@@ -62,7 +62,7 @@ const ALL_EXPERIENCE: ExperienceItem[] = [
 export default function ExperienceSection() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
-  const { setActiveAccentColor } = usePortfolioStore();
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-72%"]);
   const smoothX = useSpring(x, { stiffness: 120, damping: 25, restDelta: 0.001 });

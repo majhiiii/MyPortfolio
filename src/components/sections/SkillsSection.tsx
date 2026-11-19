@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { STACK_DATA, SKILL_GROUPS, SkillGroupId, TechItem } from "@/data/stack";
 import { PROJECTS_DATA } from "@/data/projects";
-import { Search, Sparkles, Filter, CheckCircle2, ArrowRight } from "lucide-react";
+import { Search, Sparkles, Filter, CheckCircle2, ArrowRight, LayoutGrid, Rows } from "lucide-react";
 import { TechIcon } from "@/components/ui/TechIcon";
 import { usePortfolioStore } from "@/lib/store";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,13 +12,13 @@ export default function SkillsSection() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeGroup, setActiveGroup] = useState<SkillGroupId | "all">("all");
   const [filterMode, setFilterMode] = useState<"all" | "daily" | "projects">("all");
+  const [viewMode, setViewMode] = useState<"cartridges" | "compact">("cartridges");
   const [selectedTechId, setSelectedTechId] = useState<string | null>(null);
 
-  const { setActiveAccentColor } = usePortfolioStore();
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
 
   const selectedTech = STACK_DATA.find((t) => t.id === selectedTechId) || null;
 
-  // Linked projects for selected tech
   const linkedProjects = selectedTech
     ? PROJECTS_DATA.filter((p) => selectedTech.usedIn.includes(p.id))
     : [];
@@ -55,13 +55,13 @@ export default function SkillsSection() {
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[var(--muted)]">
             <span>03 / STACK EXPLORER</span>
             <span>&bull;</span>
-            <span>Single Source of Truth (data/stack.ts)</span>
+            <span>Architectural Cartridge Matrix</span>
           </div>
           <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] font-normal tracking-tight text-[var(--ink)] leading-[0.95]">
             Architectural <span className="italic">Stack</span>
           </h2>
           <p className="text-base font-sans text-[var(--muted)] max-w-2xl leading-relaxed">
-            Every platform, framework, and integration engineered during my tenure at ASSPL and Briskode. Color-coded by real technology domain with direct links to production deliverables.
+            Every platform, framework, and integration engineered during my tenure at ASSPL and Briskode. Color-coded by real technology domain with dedicated architectural glyphs.
           </p>
         </div>
 
@@ -73,39 +73,63 @@ export default function SkillsSection() {
             <Search className="w-4 h-4 text-[var(--muted)] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search technologies, monograms or notes..."
+              placeholder="Search technologies, monograms or deliverables..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-[var(--surface)] text-[var(--ink)] border border-hairline rounded-full pl-10 pr-4 py-2.5 text-xs font-mono placeholder-[var(--muted)] focus:outline-none focus:border-[var(--accent)] transition-colors"
             />
           </div>
 
-          {/* Daily / Project Filters */}
-          <div className="flex items-center gap-1.5 text-xs font-mono bg-[var(--surface)] p-1 rounded-full border border-hairline shrink-0">
-            <button
-              onClick={() => setFilterMode("all")}
-              className={`px-3 py-1.5 rounded-full transition-colors ${
-                filterMode === "all" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
-              }`}
-            >
-              All ({STACK_DATA.length})
-            </button>
-            <button
-              onClick={() => setFilterMode("daily")}
-              className={`px-3 py-1.5 rounded-full transition-colors ${
-                filterMode === "daily" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
-              }`}
-            >
-              Daily Production
-            </button>
-            <button
-              onClick={() => setFilterMode("projects")}
-              className={`px-3 py-1.5 rounded-full transition-colors ${
-                filterMode === "projects" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
-              }`}
-            >
-              Used in Projects
-            </button>
+          {/* Daily / Project Filters & View Mode */}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-1 text-xs font-mono bg-[var(--surface)] p-1 rounded-full border border-hairline shrink-0">
+              <button
+                onClick={() => setFilterMode("all")}
+                className={`px-3 py-1.5 rounded-full transition-colors ${
+                  filterMode === "all" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
+                }`}
+              >
+                All ({STACK_DATA.length})
+              </button>
+              <button
+                onClick={() => setFilterMode("daily")}
+                className={`px-3 py-1.5 rounded-full transition-colors ${
+                  filterMode === "daily" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
+                }`}
+              >
+                Daily Core
+              </button>
+              <button
+                onClick={() => setFilterMode("projects")}
+                className={`px-3 py-1.5 rounded-full transition-colors ${
+                  filterMode === "projects" ? "bg-[var(--ink)] text-[var(--bg)] font-semibold" : "text-[var(--muted)] hover:text-[var(--ink)]"
+                }`}
+              >
+                In Projects
+              </button>
+            </div>
+
+            {/* View Mode Toggle */}
+            <div className="hidden sm:flex items-center gap-1 text-xs font-mono bg-[var(--surface)] p-1 rounded-full border border-hairline shrink-0">
+              <button
+                onClick={() => setViewMode("cartridges")}
+                className={`p-1.5 rounded-full transition-colors ${
+                  viewMode === "cartridges" ? "bg-[var(--ink)] text-[var(--bg)]" : "text-[var(--muted)]"
+                }`}
+                title="Cartridge View"
+              >
+                <Rows className="w-3.5 h-3.5" />
+              </button>
+              <button
+                onClick={() => setViewMode("compact")}
+                className={`p-1.5 rounded-full transition-colors ${
+                  viewMode === "compact" ? "bg-[var(--ink)] text-[var(--bg)]" : "text-[var(--muted)]"
+                }`}
+                title="Compact Grid"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
 
         </div>
@@ -163,33 +187,51 @@ export default function SkillsSection() {
             
             <div className="flex items-center justify-between text-xs font-mono text-[var(--muted)] pb-2 border-b border-hairline">
               <span>{filteredItems.length} Technologies Active</span>
-              <span>Hover for context &bull; Click to connect projects</span>
+              <span>Click cartridge to highlight connected project</span>
             </div>
 
-            {/* Icon Tiles Grid */}
-            <motion.div layout className="flex flex-wrap gap-2.5 sm:gap-3">
-              <AnimatePresence>
+            {/* Cartridges or Compact Layout */}
+            {viewMode === "cartridges" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {filteredItems.map((tech) => (
-                  <motion.div
+                  <TechIcon
                     key={tech.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <TechIcon
-                      item={tech}
-                      size="md"
-                      onClick={() => {
-                        setSelectedTechId(tech.id === selectedTechId ? null : tech.id);
-                        setActiveAccentColor(tech.color);
-                      }}
-                    />
-                  </motion.div>
+                    item={tech}
+                    variant="cartridge"
+                    className="w-full"
+                    onClick={() => {
+                      setSelectedTechId(tech.id === selectedTechId ? null : tech.id);
+                      setActiveAccentColor(tech.color);
+                    }}
+                  />
                 ))}
-              </AnimatePresence>
-            </motion.div>
+              </div>
+            ) : (
+              <motion.div layout className="flex flex-wrap gap-2.5 sm:gap-3">
+                <AnimatePresence>
+                  {filteredItems.map((tech) => (
+                    <motion.div
+                      key={tech.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <TechIcon
+                        item={tech}
+                        size="md"
+                        variant="compact"
+                        onClick={() => {
+                          setSelectedTechId(tech.id === selectedTechId ? null : tech.id);
+                          setActiveAccentColor(tech.color);
+                        }}
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            )}
 
             {/* Connected Project Line / Drawer */}
             <AnimatePresence>
@@ -198,18 +240,21 @@ export default function SkillsSection() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
-                  className="p-5 rounded-sm bg-[var(--surface)] border border-hairline space-y-3 mt-4"
+                  className="p-5 rounded-md bg-[var(--surface)] border border-hairline space-y-3 mt-4 shadow-sm"
+                  style={{
+                    borderLeft: `4px solid ${selectedTech.color}`,
+                  }}
                 >
                   <div className="flex items-center justify-between pb-2 border-b border-hairline">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                       <span
                         className="px-2 py-0.5 rounded-xs text-[10px] font-mono font-bold text-white uppercase"
                         style={{ backgroundColor: selectedTech.color }}
                       >
                         {selectedTech.monogram}
                       </span>
-                      <h4 className="font-serif text-lg font-medium text-[var(--ink)]">
-                        {selectedTech.name} &bull; Project Connections
+                      <h4 className="font-serif text-xl font-medium text-[var(--ink)]">
+                        {selectedTech.name} &bull; Production Connections
                       </h4>
                     </div>
                     <span className="text-xs font-mono text-[var(--muted)]">

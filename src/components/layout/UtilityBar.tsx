@@ -5,7 +5,8 @@ import { Sun, Moon, FileText, Mail, ArrowUp } from "lucide-react";
 import { Magnetic } from "@/components/ui/Magnetic";
 
 export default function UtilityBar() {
-  const { theme, toggleTheme } = usePortfolioStore();
+  const theme = usePortfolioStore((s) => s.theme);
+  const toggleTheme = usePortfolioStore((s) => s.toggleTheme);
 
   const handleThemeToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     // Circular reveal transition with View Transitions API if supported

@@ -11,7 +11,7 @@ import { usePortfolioStore } from "@/lib/store";
 
 export default function HeroSection() {
   const name = "Rakesh Majhi";
-  const { setActiveAccentColor } = usePortfolioStore();
+  const setActiveAccentColor = usePortfolioStore((s) => s.setActiveAccentColor);
 
   const marqueeItems = STACK_DATA.slice(0, 16);
 

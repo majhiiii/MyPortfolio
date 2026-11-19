@@ -1,36 +1,16 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import { FACTS, CERTIFICATIONS } from "@/lib/data";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ShieldCheck } from "lucide-react";
-
-function Word({ children, progress, range }: { children: string; progress: any; range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.35, 1]);
-  return (
-    <span className="relative inline-block mr-1.5 lg:mr-2">
-      <motion.span style={{ opacity }}>{children}</motion.span>
-    </span>
-  );
-}
+import { motion } from "framer-motion";
+import { ShieldCheck, Award, Terminal, CheckCircle2 } from "lucide-react";
 
 export default function AboutSection() {
-  const paragraphRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: paragraphRef,
-    offset: ["start 0.85", "center 0.4"],
-  });
-
-  const narrativeText =
-    "I am a Salesforce Developer specializing in custom Apex engineering, Lightning Web Components, B2B Commerce, and enterprise integrations. Over 2 years at Abacus System & Solution Pvt. Ltd. (ASSPL), I have engineered high-throughput quoting configurators, logistics APIs, and automated billing reconciliations. I treat governor limits, unit test isolation (>85% coverage), and field-level security as non-negotiable fundamentals.";
-
-  const words = narrativeText.split(" ");
-
   return (
     <section id="about" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)] transition-colors">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-16">
         
-        {/* Left Column: Sticky Editorial Portrait / Identity Card */}
+        {/* Left Column: Sticky Editorial Passport / Identity Card */}
         <div className="col-span-12 lg:col-span-5">
           <div className="lg:sticky lg:top-28 space-y-8">
             
@@ -41,70 +21,86 @@ export default function AboutSection() {
               </h2>
             </div>
 
-            {/* Editorial Portrait Frame - Clean, robust and always rendered */}
-            <div className="relative max-w-sm group">
-              {/* Subtle colored accent glow/edge following active tech */}
-              <div
-                className="absolute -inset-1 rounded-lg opacity-25 blur-xs transition-colors duration-500"
-                style={{ backgroundColor: "var(--accent)" }}
-              />
+            {/* Editorial Identity Passport */}
+            <div className="relative max-w-sm rounded-lg bg-[var(--surface)] border border-hairline p-6 flex flex-col justify-between shadow-xs transition-colors">
+              
+              {/* Header Meta */}
+              <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)] pb-4 border-b border-hairline">
+                <span>IDENTITY // ARCHIVE</span>
+                <span className="text-[var(--ink)] font-semibold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#0176D3]" />
+                  ASSPL &bull; 2024&ndash;PRESENT
+                </span>
+              </div>
 
-              <div className="relative aspect-[4/5] rounded-lg bg-[var(--surface)] border border-hairline p-6 flex flex-col justify-between overflow-hidden shadow-sm z-10 transition-colors">
-                <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
-                  <span>PORTRAIT // ARCHIVE</span>
-                  <span className="text-[var(--ink)] font-medium">ASSPL &bull; 2024&ndash;PRESENT</span>
+              {/* Monogram & Title */}
+              <div className="py-8 flex flex-col items-center justify-center text-center">
+                <div
+                  className="w-24 h-24 rounded-full border-2 border-[#0176D3] flex items-center justify-center font-serif text-5xl font-light mb-4 shadow-xs bg-[var(--bg)] text-[var(--ink)]"
+                >
+                  RM
                 </div>
+                <h3 className="font-serif text-2xl text-[var(--ink)] font-normal tracking-tight">
+                  Rakesh Majhi
+                </h3>
+                <span className="text-xs font-mono text-[#0176D3] font-semibold mt-1 tracking-wider uppercase">
+                  Salesforce Developer &bull; ASSPL
+                </span>
+                <span className="text-[11px] font-mono text-[var(--muted)] mt-0.5">
+                  Bhubaneswar, Odisha, India
+                </span>
+              </div>
 
-                {/* Architectural Monogram Visual */}
-                <div className="my-auto flex flex-col items-center justify-center text-center py-6">
-                  <div
-                    className="w-24 h-24 rounded-full border-2 flex items-center justify-center font-serif text-5xl font-light mb-4 shadow-xs bg-[var(--bg)] transition-colors duration-300"
-                    style={{ borderColor: "var(--accent)", color: "var(--ink)" }}
-                  >
-                    RM
-                  </div>
-                  <span className="font-serif text-2xl text-[var(--ink)] font-normal tracking-tight">
-                    Rakesh Majhi
-                  </span>
-                  <span className="text-xs font-mono text-[var(--muted)] mt-1 tracking-wider uppercase">
-                    Salesforce Developer &bull; Bhubaneswar
-                  </span>
+              {/* Key Highlights */}
+              <div className="border-t border-hairline pt-4 space-y-2 text-xs font-mono">
+                <div className="flex items-center justify-between text-[var(--muted)]">
+                  <span>Tenure</span>
+                  <span className="text-[var(--ink)] font-medium">2+ Years Enterprise</span>
                 </div>
-
-                <div className="border-t border-hairline pt-3 flex items-center justify-between text-[10px] font-mono text-[var(--muted)]">
-                  <span>3 CLIENT TRACKS</span>
-                  <span className="font-medium" style={{ color: "var(--accent)" }}>
-                    VERIFIED PRODUCTION
-                  </span>
+                <div className="flex items-center justify-between text-[var(--muted)]">
+                  <span>Code Coverage Standard</span>
+                  <span className="text-[#0176D3] font-bold">&gt;85% Isolated Tests</span>
+                </div>
+                <div className="flex items-center justify-between text-[var(--muted)]">
+                  <span>Core Specialization</span>
+                  <span className="text-[var(--ink)] font-medium">Apex &bull; LWC &bull; B2B Commerce</span>
                 </div>
               </div>
+
+              {/* Bottom Verification Strip */}
+              <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-[10px] font-mono text-[var(--muted)]">
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0176D3]" />
+                  VERIFIED PRODUCTION
+                </span>
+                <span className="uppercase">ASSPL TRACKS</span>
+              </div>
+
             </div>
 
           </div>
         </div>
 
-        {/* Right Column: Narrative with Fast Responsive Scroll Reveal & Clean Rows */}
+        {/* Right Column: Narrative with 100% High-Contrast Legibility & Facts */}
         <div className="col-span-12 lg:col-span-7 space-y-16">
           
-          {/* Scroll-driven Narrative Targeted Directly to Paragraph */}
-          <div ref={paragraphRef} className="space-y-6">
+          {/* Core Philosophy Narrative: Always 100% Legible with Smooth Fade-Up */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6"
+          >
             <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
-              Core Philosophy
+              Core Philosophy &amp; Engineering Standards
             </h3>
             <p className="font-serif text-2xl sm:text-3xl lg:text-[2.2rem] leading-relaxed text-[var(--ink)] font-normal">
-              {words.map((word, i) => {
-                const start = i / words.length;
-                const end = start + 1 / words.length;
-                return (
-                  <Word key={i} progress={scrollYProgress} range={[start, end]}>
-                    {word}
-                  </Word>
-                );
-              })}
+              I am a Salesforce Developer specializing in custom <span className="italic text-[#0176D3]">Apex engineering</span>, <span className="italic">Lightning Web Components</span>, B2B Commerce, and enterprise integrations. Over 2 years at <span className="italic font-medium text-[var(--ink)]">Abacus System &amp; Solution Pvt. Ltd. (ASSPL)</span>, I have engineered high-throughput quoting configurators, logistics APIs, and automated billing reconciliations. I treat <span className="italic font-medium">governor limits</span>, unit test isolation (<span className="text-[#0176D3] font-mono text-xl">&gt;85% coverage</span>), and <span className="italic">field-level security</span> as non-negotiable fundamentals.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Quick Facts */}
+          {/* Engineering Tenets & Facts */}
           <div className="border-t border-hairline pt-8 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
@@ -136,7 +132,7 @@ export default function AboutSection() {
               <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
                 Verified Credentials &amp; Standards
               </h3>
-              <span className="text-[11px] font-mono font-medium" style={{ color: "var(--accent)" }}>
+              <span className="text-[11px] font-mono font-medium text-[#0176D3]">
                 Official Badges
               </span>
             </div>
