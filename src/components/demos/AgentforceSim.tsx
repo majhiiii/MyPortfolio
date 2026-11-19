@@ -67,14 +67,16 @@ export function AgentforceSim() {
   };
 
   return (
-    <div className="space-y-4 font-mono text-xs">
+    <div className="space-y-4 font-mono text-xs text-white">
       {/* Header bar */}
-      <div className="flex items-center justify-between text-[11px] text-[var(--muted)]">
+      <div className="flex items-center justify-between text-[11px] text-white/70 border-b border-white/10 pb-2.5">
         <div className="flex items-center gap-2">
-          <Bot className="w-4 h-4 text-[var(--ink)]" />
-          <span>Agentforce Execution Trace · 4 Production Agents Deployed at ASSPL</span>
+          <Bot className="w-4 h-4 text-[#E8A317]" />
+          <span className="font-medium text-white/90">Agentforce Execution Trace · 4 Production Agents Deployed at ASSPL</span>
         </div>
-        <span className="font-semibold text-[var(--ink)]">CERTIFIED AGENTFORCE SPECIALIST</span>
+        <span className="font-semibold text-emerald-400 font-mono tracking-wider text-[10px] px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-600/40">
+          CERTIFIED AGENTFORCE SPECIALIST
+        </span>
       </div>
 
       {/* Preset Pickers */}
@@ -86,10 +88,10 @@ export function AgentforceSim() {
               setSelectedAgentIndex(idx);
               setCurrentStep(0);
             }}
-            className={`px-3 py-1.5 text-[11px] rounded-xs border transition-colors ${
+            className={`px-3 py-1.5 text-[11px] rounded-[6px] border transition-colors cursor-pointer ${
               selectedAgentIndex === idx
-                ? "border-[var(--ink)] bg-[var(--surface)] text-[var(--ink)] font-bold"
-                : "border-hairline text-[var(--muted)] hover:text-[var(--ink)]"
+                ? "border-amber-400 bg-amber-400/20 text-white font-bold shadow-xs"
+                : "border-white/20 text-white/70 hover:text-white hover:border-white/40 bg-white/5"
             }`}
           >
             {p.agentName}
@@ -98,20 +100,20 @@ export function AgentforceSim() {
       </div>
 
       {/* User Prompt Box */}
-      <div className="border border-hairline rounded-sm p-4 bg-[var(--bg)] space-y-3">
-        <div className="flex items-center justify-between text-[10px] text-[var(--muted)]">
-          <span>INCOMING EXPERIENCE CLOUD USER QUERY</span>
+      <div className="border border-white/15 rounded-[12px] p-4 bg-[#0D111F] space-y-3 shadow-inner">
+        <div className="flex items-center justify-between text-[10px] text-white/60">
+          <span className="font-semibold tracking-wider text-amber-400">INCOMING EXPERIENCE CLOUD USER QUERY</span>
           <span>CHANNEL: CHAT / EMBEDDED SERVICE</span>
         </div>
-        <div className="p-3 bg-[var(--surface)] border border-hairline rounded-xs text-[var(--ink)] font-mono text-xs leading-relaxed">
+        <div className="p-3 bg-[#14182E] border border-white/10 rounded-[8px] text-white font-mono text-xs leading-relaxed">
           &ldquo;{activePreset.query}&rdquo;
         </div>
-        <div className="flex items-center justify-between pt-1">
-          <span className="text-[10px] text-[var(--muted)]">Inspect trust evaluation, topic routing, and Invocable Apex execution</span>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+          <span className="text-[11px] text-white/60">Inspect trust evaluation, topic routing, and Invocable Apex execution</span>
           <button
             onClick={runPipeline}
             disabled={isExecuting}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--ink)] text-[var(--surface)] rounded-xs hover:opacity-90 font-medium transition-opacity disabled:opacity-50"
+            className="flex items-center justify-center gap-1.5 px-4 py-2 bg-[#E8A317] text-[#100C09] rounded-[8px] hover:bg-amber-300 font-bold transition-colors disabled:opacity-50 cursor-pointer shadow-xs"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>{isExecuting ? "Executing Pipeline..." : "Execute Action Flow"}</span>
@@ -121,60 +123,63 @@ export function AgentforceSim() {
 
       {/* 4-Step Orchestration Pipeline */}
       {currentStep > 0 && (
-        <div className="border border-hairline rounded-sm p-4 bg-[var(--surface)] space-y-3">
-          <div className="text-[10px] uppercase text-[var(--muted)] tracking-wider">
+        <div className="border border-white/15 rounded-[12px] p-4 bg-[#0D111F] space-y-3 shadow-inner">
+          <div className="text-[10px] uppercase text-white/50 tracking-wider font-semibold">
             Execution Trace Log
           </div>
 
           <div className="space-y-2 text-[11px]">
             {/* Step 1 */}
-            <div className={`p-2.5 rounded-xs border ${currentStep >= 1 ? "border-hairline bg-[var(--bg)] text-[var(--ink)]" : "opacity-30"}`}>
+            <div className={`p-3 rounded-[8px] border ${currentStep >= 1 ? "border-white/15 bg-[#14182E] text-white" : "opacity-30"}`}>
               <div className="flex items-center justify-between font-bold mb-1">
-                <span className="flex items-center gap-1.5 text-[var(--ink)]">
-                  <Shield className="w-3 h-3" /> Step 1: Einstein Trust Layer Guardrail
+                <span className="flex items-center gap-1.5 text-emerald-400">
+                  <Shield className="w-3.5 h-3.5 text-emerald-400" /> Step 1: Einstein Trust Layer Guardrail
                 </span>
-                <span className="text-[10px] text-[var(--muted)]">MASKED PII AUDIT</span>
+                <span className="text-[10px] font-mono text-white/50 px-2 py-0.5 rounded bg-black/40">MASKED PII AUDIT</span>
               </div>
-              <p className="text-[10px] text-[var(--muted)] font-mono break-all">
+              <p className="text-[11px] text-white/80 font-mono break-all pt-1">
                 {activePreset.piiMaskedQuery}
               </p>
             </div>
 
             {/* Step 2 */}
             {currentStep >= 2 && (
-              <div className="p-2.5 rounded-xs border border-hairline bg-[var(--bg)] text-[var(--ink)]">
+              <div className="p-3 rounded-[8px] border border-white/15 bg-[#14182E] text-white">
                 <div className="flex items-center justify-between font-bold mb-1">
-                  <span>Step 2: Topic Routing Matrix</span>
-                  <span className="text-[10px] text-[var(--muted)]">CONFIDENCE: 98.4%</span>
+                  <span className="text-purple-400">Step 2: Topic Routing Matrix</span>
+                  <span className="text-[10px] font-mono text-emerald-400 px-2 py-0.5 rounded bg-black/40">CONFIDENCE: 98.4%</span>
                 </div>
-                <div className="text-[10px] text-[var(--muted)]">
-                  Dispatched to topic: <code className="text-[var(--ink)] font-bold">{activePreset.topic}</code>
+                <div className="text-[11px] text-white/80 pt-1">
+                  Dispatched to topic: <code className="text-[#E8A317] font-bold px-1.5 py-0.5 rounded bg-black/40">{activePreset.topic}</code>
                 </div>
               </div>
             )}
 
             {/* Step 3 */}
             {currentStep >= 3 && (
-              <div className="p-2.5 rounded-xs border border-hairline bg-[var(--bg)] text-[var(--ink)]">
+              <div className="p-3 rounded-[8px] border border-white/15 bg-[#14182E] text-white">
                 <div className="flex items-center justify-between font-bold mb-1">
-                  <span>Step 3: Invocable Apex Action Dispatched</span>
-                  <span className="text-[10px] text-[var(--muted)]">LATENCY: 42ms</span>
+                  <span className="text-sky-400">Step 3: Invocable Apex Action Dispatched</span>
+                  <span className="text-[10px] font-mono text-sky-400 px-2 py-0.5 rounded bg-black/40">LATENCY: 42ms</span>
                 </div>
-                <div className="text-[10px] text-[var(--muted)] space-y-0.5">
-                  <div>Invoking: <code className="text-[var(--ink)] font-bold">{activePreset.invocableAction}</code></div>
-                  <div>Result: <code className="text-[var(--muted)]">{activePreset.actionOutput}</code></div>
+                <div className="text-[11px] text-white/80 space-y-1 pt-1 font-mono">
+                  <div>Invoking: <code className="text-white font-bold">{activePreset.invocableAction}</code></div>
+                  <div>Result: <code className="text-emerald-300">{activePreset.actionOutput}</code></div>
                 </div>
               </div>
             )}
 
             {/* Step 4 */}
             {currentStep >= 4 && (
-              <div className="p-3 rounded-xs border border-hairline bg-[var(--bg)] text-[var(--ink)] space-y-1">
-                <div className="flex items-center justify-between text-[var(--ink)] font-bold">
-                  <span>Step 4: Grounded Response Returned</span>
-                  <CheckCircle className="w-3.5 h-3.5" />
+              <div className="p-3.5 rounded-[8px] border border-emerald-500/40 bg-emerald-950/30 text-white space-y-1.5">
+                <div className="flex items-center justify-between text-emerald-400 font-bold">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle className="w-4 h-4 text-emerald-400" />
+                    Step 4: Grounded Response Returned
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-300">200 OK</span>
                 </div>
-                <div className="font-sans text-xs text-[var(--ink)] leading-relaxed pt-1">
+                <div className="font-sans text-xs sm:text-[13px] text-white/95 leading-relaxed pt-1 border-t border-white/10">
                   &ldquo;{activePreset.agentResponse}&rdquo;
                 </div>
               </div>

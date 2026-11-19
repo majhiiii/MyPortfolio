@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { Sliders, Copy, Check, Box, Eye, Layers, AlertTriangle, ShieldCheck, RefreshCw, ZoomIn, ZoomOut } from "lucide-react";
+import { Sliders, Copy, Check, Box, Eye, Layers, AlertTriangle, ShieldCheck, RefreshCw, ZoomIn, ZoomOut, Package } from "lucide-react";
 
-// Rated arm capacities (lbs) per arm length
+/* ================= CANTILEVER ENGINEERING CAPACITY TABLES ================= */
 const ARM_CAPACITY_TABLE: Record<string, Record<string, number>> = {
   "24": { C3X35: 1575, C4X45: 2500, C5X67: 3500, S3X57: 4000, S4X77: 5000 },
   "36": { C3X35: 1000, C4X45: 1800, C5X67: 2800, S3X57: 3200, S4X77: 4000 },
@@ -14,7 +14,6 @@ const ARM_CAPACITY_TABLE: Record<string, Record<string, number>> = {
   "72": { C3X35: 350,  C4X45: 800,  C5X67: 1200, S3X57: 1600, S4X77: 2000 },
 };
 
-// Base column capacities (lbs) for 36" arm length (Single Sided)
 const COLUMN_CAPACITY_TABLE: Record<string, Record<string, number>> = {
   "W6-9": {
     "96": 8625, "120": 7500, "144": 6500, "168": 5500, "192": 4500,
@@ -37,7 +36,11 @@ const ARM_SCALING_FACTORS: Record<string, number> = {
 export function CpqConfigurator() {
   const mountRef = useRef<HTMLDivElement>(null);
 
-  // Configuration Parameters
+  // System Selector: Cantilever Rack vs Selective Pallet Rack
+  const [rackSystem, setRackSystem] = useState<"cantilever" | "pallet">("cantilever");
+  const [showPalletLoad, setShowPalletLoad] = useState<boolean>(true);
+
+  // Cantilever Parameters
   const [height, setHeight] = useState<string>("144"); // 12 ft
   const [armLength, setArmLength] = useState<string>("36"); // 3 ft
   const [levels, setLevels] = useState<number>(3);
@@ -46,6 +49,15 @@ export function CpqConfigurator() {
   const [bayWidth, setBayWidth] = useState<string>("48"); // 4 ft
   const [bundleLength, setBundleLength] = useState<number>(96); // 8 ft
   const [bundleWeight, setBundleWeight] = useState<number>(4000); // 4,000 lbs
+
+  // Pallet Rack Parameters
+  const [palletHeight, setPalletHeight] = useState<string>("144"); // 12 ft
+  const [palletDepth, setPalletDepth] = useState<string>("42"); // 42 in
+  const [palletBeamLength, setPalletBeamLength] = useState<string>("96"); // 96 in (standard 2 pallets)
+  const [palletLevels, setPalletLevels] = useState<number>(3);
+  const [palletBays, setPalletBays] = useState<number>(2);
+  const [palletWeight, setPalletWeight] = useState<number>(2200); // 2,200 lbs per pallet
+
   const [cameraMode, setCameraMode] = useState<"3d" | "2d">("3d");
   const [activeTab, setActiveTab] = useState<"bom" | "apex">("bom");
   const [copied, setCopied] = useState<boolean>(false);
@@ -60,18 +72,16 @@ export function CpqConfigurator() {
     targetControlsTarget: THREE.Vector3;
   } | null>(null);
 
-  /* ================= DYNAMIC ENGINEERING SOLVER ================= */
-  const solved = useMemo(() => {
+  /* ================= CANTILEVER ENGINEERING SOLVER ================= */
+  const cantileverSolved = useMemo(() => {
     const isTwoSided = sideType === "Two-Sided";
     const numCols = bays + 1;
     const bayW = +bayWidth || 48;
 
-    // 1. Spanning Columns Calculation
     const armsSupporting = Math.min(numCols, Math.max(2, Math.floor(bundleLength / bayW) + 1));
     const requiredArmCap = bundleWeight / armsSupporting;
     const totalUprightLoad = levels * requiredArmCap * (isTwoSided ? 2.0 : 1.0);
 
-    // 2. Column System Selection
     const systems = ["W6-9", "W6-15", "W8-18", "W10-22"];
     let selectedSystem = "W6-9";
     let maxSafeColCap = 0;
@@ -117,175 +127,235 @@ export function CpqConfigurator() {
       maxSafeColCap = baseCap * armFactor * (isTwoSided ? 2.0 : 1.0);
     }
 
-    // 3. Arm Type Selection
+    const armRow = ARM_CAPACITY_TABLE[armLength] || ARM_CAPACITY_TABLE["36"];
     const armTypes = ["C3X35", "C4X45", "C5X67", "S3X57", "S4X77"];
-    let selectedArmType = "C3X35";
+    let selectedArm = "C3X35";
     let maxSafeArmCap = 0;
-    let armTypeFound = false;
+    let armFound = false;
 
-    const armRow = ARM_CAPACITY_TABLE[armLength] || {};
-
-    for (const type of armTypes) {
-      const armCap = armRow[type] || 0;
-      if (armCap >= requiredArmCap) {
-        selectedArmType = type;
-        maxSafeArmCap = armCap;
-        armTypeFound = true;
+    for (const aType of armTypes) {
+      const cap = armRow[aType] || 0;
+      if (cap >= requiredArmCap) {
+        selectedArm = aType;
+        maxSafeArmCap = cap;
+        armFound = true;
         break;
       }
     }
 
-    if (!armTypeFound) {
-      selectedArmType = "S4X77";
-      maxSafeArmCap = armRow["S4X77"] || 2000;
+    if (!armFound) {
+      selectedArm = "S4X77";
+      maxSafeArmCap = armRow["S4X77"] || 4000;
     }
 
-    // 4. Safe Capacity limits
-    const maxBundleColWeight = (maxSafeColCap / levels) * armsSupporting;
-    const maxBundleArmWeight = maxSafeArmCap * armsSupporting;
-    const calculatedMaxCap = Math.round(Math.min(maxBundleColWeight, maxBundleArmWeight));
+    const isArmOverloaded = requiredArmCap > maxSafeArmCap;
+    const isColOverloaded = totalUprightLoad > maxSafeColCap;
 
     return {
       system: selectedSystem,
-      armType: selectedArmType,
+      armType: selectedArm,
       armsSupporting,
       loadPerArm: Math.round(requiredArmCap),
-      calculatedMaxCapacity: calculatedMaxCap,
-      isCapacityExceeded: bundleWeight > calculatedMaxCap,
+      totalUprightLoad: Math.round(totalUprightLoad),
+      maxSafeArmCap,
+      maxSafeColCap,
+      isCapacityExceeded: isArmOverloaded || isColOverloaded,
+      calculatedMaxCapacity: Math.round(maxSafeColCap),
     };
-  }, [height, armLength, levels, sideType, bays, bayWidth, bundleLength, bundleWeight]);
+  }, [bays, bayWidth, bundleLength, bundleWeight, levels, sideType, height, armLength]);
 
-  /* ================= BILL OF MATERIALS (BOM) & SKU GENERATION ================= */
+  /* ================= PALLET RACK ENGINEERING SOLVER ================= */
+  const palletSolved = useMemo(() => {
+    const palletsPerLevel = 2; // Standard 96" or 108" beam holds two 40"x48" pallets
+    const totalPalletsPerBay = palletLevels * palletsPerLevel;
+    const totalPallets = palletBays * totalPalletsPerBay;
+    const beamPairLoad = palletsPerLevel * palletWeight; // e.g. 2 x 2,200 = 4,400 lbs
+    const ratedBeamCapacity = +palletBeamLength === 96 ? 5000 : 4500; // 4" face step beam
+    const totalBayWeight = palletLevels * beamPairLoad;
+    const ratedFrameCapacity = 19300; // 42"x144" teardrop frame at 48" beam spacing
+
+    const isBeamOverloaded = beamPairLoad > ratedBeamCapacity;
+    const isFrameOverloaded = totalBayWeight > ratedFrameCapacity;
+
+    return {
+      palletsPerLevel,
+      totalPallets,
+      beamPairLoad,
+      ratedBeamCapacity,
+      totalBayWeight,
+      ratedFrameCapacity,
+      isCapacityExceeded: isBeamOverloaded || isFrameOverloaded,
+      isBeamOverloaded,
+      isFrameOverloaded,
+    };
+  }, [palletLevels, palletBays, palletWeight, palletBeamLength]);
+
+  /* ================= BILL OF MATERIALS (BOM) GENERATOR ================= */
   const bom = useMemo(() => {
-    const numCols = bays + 1;
-    const isTwoSided = sideType === "Two-Sided";
-    const numBases = numCols * (isTwoSided ? 2 : 1);
-    const armsPerCol = levels * (isTwoSided ? 2 : 1);
-    const totalArms = numCols * armsPerCol;
-    const heightFeet = Math.round(+height / 12);
+    if (rackSystem === "cantilever") {
+      const isTwoSided = sideType === "Two-Sided";
+      const numCols = bays + 1;
+      const numBases = numCols;
+      const totalArms = numCols * levels * (isTwoSided ? 2 : 1);
+      const heightFeet = Math.round(+height / 12);
 
-    // 1. Column SKU
-    let colSku = `RCL-${solved.system}CL-${heightFeet}`;
-    if (solved.system === "W6-9") {
-      if (heightFeet === 8 || heightFeet === 12) {
-        colSku = `RCL-W69CL-${heightFeet}${isTwoSided ? "D" : "S"}`;
+      const colSku = `RCL-${cantileverSolved.system.replace("-", "")}${heightFeet}H${isTwoSided ? "D" : "S"}`;
+      const baseSku = `RCL-BAS-${cantileverSolved.system.replace("-", "")}-${armLength}`;
+      const armSku = `RCL-ARM-${cantileverSolved.armType}-${armLength}`;
+      const braceSku = `RCL-BRC-${bayWidth}`;
+      const horizontalSku = `RCL-HRZ-${bayWidth}`;
+
+      const hasXBrace = +height >= 144;
+      let horizQty = 0;
+      let diagQty = 0;
+
+      if (+height <= 144) {
+        horizQty = bays * 2;
+        diagQty = Math.ceil(bays / 2) * 2;
+      } else if (+height <= 192) {
+        horizQty = bays * 3;
+        diagQty = Math.ceil(bays / 2) * 2;
+      } else {
+        horizQty = bays * 4;
+        diagQty = Math.ceil(bays / 2) * 4;
       }
-    } else if (solved.system === "W8-18") {
-      if ((heightFeet === 16 || heightFeet === 20) && !isTwoSided) {
-        colSku = `RCL-W818CL-${heightFeet}S`;
-      }
-    }
 
-    // 2. Base SKU
-    const baseSku = `RCL-${solved.system}BS-${armLength}`;
+      const shimQty = numCols * 2 + numBases * 2;
+      const anchorQty = numCols * 2 + numBases * 2;
+      const hardwareQty = numBases * 6 + totalArms * 4 + horizQty * 2 + diagQty * 2;
 
-    // 3. Arm SKU
-    const armSku = `RCL-${solved.armType}-${armLength}`;
+      const list = [
+        {
+          sku: colSku,
+          description: `Structural Cantilever Column, ${cantileverSolved.system} System, ${heightFeet} ft. H, ${isTwoSided ? "Double" : "Single"}-Sided`,
+          componentType: "Column",
+          quantity: numCols,
+          unitCost: 350,
+        },
+        {
+          sku: baseSku,
+          description: `Structural Cantilever Base, ${cantileverSolved.system} System, ${armLength}" L`,
+          componentType: "Base",
+          quantity: numBases,
+          unitCost: 185,
+        },
+        {
+          sku: armSku,
+          description: `Structural Cantilever Arm, ${cantileverSolved.armType} Series, ${armLength}" L (2° Safety Slant)`,
+          componentType: "Arm",
+          quantity: totalArms,
+          unitCost: 85,
+        },
+        {
+          sku: braceSku,
+          description: `${bayWidth}" Structural Cantilever Knockdown ${hasXBrace ? "X-Bracing" : "Diagonal Bracing"}`,
+          componentType: "Bracing",
+          quantity: diagQty,
+          unitCost: 110,
+        },
+        {
+          sku: horizontalSku,
+          description: `${bayWidth}" Structural Cantilever Horizontal Bracing Struts`,
+          componentType: "Bracing",
+          quantity: horizQty,
+          unitCost: 70,
+        },
+        {
+          sku: `RCL-${cantileverSolved.system.replace("-", "")}SHM`,
+          description: `Structural Leveling Shims for ${cantileverSolved.system} Column Bases`,
+          componentType: "Accessory",
+          quantity: shimQty,
+          unitCost: 12,
+        },
+        {
+          sku: "RCL-ANC-1",
+          description: 'Structural Concrete Anchor Bolt 1/2" x 4-1/2"',
+          componentType: "Accessory",
+          quantity: anchorQty,
+          unitCost: 6,
+        },
+        {
+          sku: "RCL-HDW-1",
+          description: "Grade 5 Assembly Bolt, Nut & Washer Set",
+          componentType: "Accessory",
+          quantity: hardwareQty,
+          unitCost: 3.5,
+        },
+      ];
 
-    // 4. Bracing SKUs
-    const horizontalSku = `RCL-HB${bayWidth}`;
-    const hasXBrace = ["48", "60", "72", "84", "96"].includes(bayWidth);
-    const braceSku = hasXBrace ? `RCL-XB${bayWidth}` : `RCL-DB${bayWidth}`;
-
-    let diagQty = 0;
-    let horizQty = 0;
-    const heightVal = +height;
-
-    if (heightVal <= 144) {
-      horizQty = bays * 2;
-      diagQty = Math.ceil(bays / 2) * 2;
-    } else if (heightVal <= 192) {
-      horizQty = bays * 3;
-      diagQty = Math.ceil(bays / 2) * 2;
+      return list.filter((i) => i.quantity > 0);
     } else {
-      horizQty = bays * 4;
-      diagQty = Math.ceil(bays / 2) * 4;
+      // Selective Pallet Rack BOM
+      const numFrames = palletBays + 1;
+      const beamPairs = palletBays * palletLevels;
+      const totalBeams = beamPairs * 2;
+      const totalDecks = beamPairs * 2;
+      const safetyPins = totalBeams * 2;
+      const anchors = numFrames * 4;
+      const rowSpacers = palletBays * 2;
+
+      return [
+        {
+          sku: `PR-UPR-${palletDepth}${palletHeight}`,
+          description: `Teardrop Pallet Rack Upright Frame, ${palletDepth}" D x ${palletHeight}" H, Blue Enamel`,
+          componentType: "Upright Frame",
+          quantity: numFrames,
+          unitCost: 245,
+        },
+        {
+          sku: `PR-BM-${palletBeamLength}40`,
+          description: `High-Strength Step Beam, ${palletBeamLength}" L x 4" Face (5,000 lbs Rating / Pair), Safety Orange`,
+          componentType: "Step Beam",
+          quantity: totalBeams,
+          unitCost: 68,
+        },
+        {
+          sku: `PR-DK-${palletDepth}46`,
+          description: `Galvanized Waterfall Wire Mesh Decking Panel, ${palletDepth}" D x 46" W`,
+          componentType: "Wire Decking",
+          quantity: totalDecks,
+          unitCost: 34,
+        },
+        {
+          sku: "PR-PIN-01",
+          description: "Universal Drop-In Safety Beam Locking Pin (Zinc Plated)",
+          componentType: "Safety Accessory",
+          quantity: safetyPins,
+          unitCost: 1.5,
+        },
+        {
+          sku: "PR-ANC-05",
+          description: 'Heavy Duty Concrete Floor Anchor Bolt 1/2" x 4-1/4"',
+          componentType: "Accessory",
+          quantity: anchors,
+          unitCost: 5,
+        },
+        {
+          sku: "PR-ROW-12",
+          description: '12" Rigid Row Spacer for Back-to-Back Pallet Rack Frames',
+          componentType: "Accessory",
+          quantity: rowSpacers,
+          unitCost: 16,
+        },
+      ];
     }
-
-    // 5. Leveling Shims & Anchors
-    const shimQty = numCols * 2 + numBases * 2;
-    const anchorQty = numCols * 2 + numBases * 2;
-    const hardwareQty = numBases * 6 + totalArms * 4 + horizQty * 2 + diagQty * 2;
-
-    const list = [
-      {
-        sku: colSku,
-        description: `Structural Cantilever Column, ${solved.system} System, ${heightFeet} ft. H, ${isTwoSided ? "Double" : "Single"}-Sided`,
-        componentType: "Column",
-        quantity: numCols,
-        unitCost: 350,
-      },
-      {
-        sku: baseSku,
-        description: `Structural Cantilever Base, ${solved.system} System, ${armLength}" L`,
-        componentType: "Base",
-        quantity: numBases,
-        unitCost: 185,
-      },
-      {
-        sku: armSku,
-        description: `Structural Cantilever Arm, ${solved.armType} Series, ${armLength}" L (2° Safety Slant)`,
-        componentType: "Arm",
-        quantity: totalArms,
-        unitCost: 85,
-      },
-      {
-        sku: braceSku,
-        description: `${bayWidth}" Structural Cantilever Knockdown ${hasXBrace ? "X-Bracing" : "Diagonal Bracing"}`,
-        componentType: "Bracing",
-        quantity: diagQty,
-        unitCost: 110,
-      },
-      {
-        sku: horizontalSku,
-        description: `${bayWidth}" Structural Cantilever Horizontal Bracing Struts`,
-        componentType: "Bracing",
-        quantity: horizQty,
-        unitCost: 70,
-      },
-      {
-        sku: `RCL-${solved.system.replace("-", "")}SHM`,
-        description: `Structural Leveling Shims for ${solved.system} Column Bases`,
-        componentType: "Accessory",
-        quantity: shimQty,
-        unitCost: 12,
-      },
-      {
-        sku: "RCL-ANC-1",
-        description: 'Structural Concrete Anchor Bolt 1/2" x 4-1/2"',
-        componentType: "Accessory",
-        quantity: anchorQty,
-        unitCost: 6,
-      },
-      {
-        sku: "RCL-HDW-1",
-        description: "Grade 5 Assembly Bolt, Nut & Washer Set",
-        componentType: "Accessory",
-        quantity: hardwareQty,
-        unitCost: 3.5,
-      },
-    ];
-
-    return list.filter((i) => i.quantity > 0);
-  }, [bays, sideType, levels, height, solved, armLength, bayWidth]);
+  }, [rackSystem, bays, sideType, levels, height, cantileverSolved, armLength, bayWidth, palletBays, palletLevels, palletDepth, palletHeight, palletBeamLength]);
 
   const totalPrice = useMemo(() => {
     return Math.round(bom.reduce((sum, i) => sum + i.quantity * i.unitCost, 0));
   }, [bom]);
 
-  /* ================= THREE.JS 3D ENGINE ================= */
+  /* ================= THREE.JS 3D ENGINE INITIALIZATION ================= */
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
 
     const width = container.clientWidth || 500;
-    const h = 320;
+    const h = 330;
 
-    // Scene setup
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0d1a);
 
-    // Camera
     const camera = new THREE.PerspectiveCamera(45, width / h, 0.5, 5000);
     camera.position.set(160, 160, 320);
 
@@ -298,27 +368,24 @@ export function CpqConfigurator() {
     container.innerHTML = "";
     container.appendChild(renderer.domElement);
 
-    // OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.target.set(0, 30, 0);
 
-    // Studio Lighting
     scene.add(new THREE.HemisphereLight(0xffffff, 0x1f2937, 1.2));
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.15);
     dirLight.position.set(120, 240, 150);
     dirLight.castShadow = true;
     dirLight.shadow.mapSize.width = 1024;
     dirLight.shadow.mapSize.height = 1024;
     scene.add(dirLight);
 
-    const fillLight = new THREE.DirectionalLight(0x38bdf8, 0.4);
+    const fillLight = new THREE.DirectionalLight(0x38bdf8, 0.45);
     fillLight.position.set(-120, 120, -120);
     scene.add(fillLight);
 
-    // Engineering Ground Grid
     const grid = new THREE.GridHelper(500, 50, 0xf59e0b, 0x1e293b);
     grid.position.y = 0.02;
     scene.add(grid);
@@ -360,7 +427,7 @@ export function CpqConfigurator() {
     };
   }, []);
 
-  // Rebuild 3D Rack on Parameter Change
+  /* ================= 3D GEOMETRY REBUILD HOOK ================= */
   useEffect(() => {
     const inst = threeRef.current;
     if (!inst) return;
@@ -374,210 +441,385 @@ export function CpqConfigurator() {
     parts.forEach((p) => scene.remove(p));
 
     const scale = 0.5;
-    const colHeight = +height * scale;
-    const armLen = +armLength * scale;
-    const bayW = +bayWidth * scale;
-    const isTwoSided = sideType === "Two-Sided";
 
-    // Structural scale based on system
-    let colThick = 2.5;
-    if (solved.system === "W6-15") colThick = 3.2;
-    else if (solved.system === "W8-18") colThick = 4.2;
-    else if (solved.system === "W10-22") colThick = 5.2;
-    colThick *= scale;
+    // Reusable 3D Wooden Pallet Builder with shrink-wrapped cargo
+    const create3DPallet = (pWidth: number, pLength: number, pHeight: number) => {
+      const palletGroup = new THREE.Group();
 
-    // Materials
-    const colMat = new THREE.MeshPhongMaterial({
-      color: 0x22c55e, // Industrial Safety Green
-      shininess: 50,
-    });
-    const armMat = new THREE.MeshPhongMaterial({
-      color: 0xe8a317, // Turmeric Orange Arm
-      shininess: 90,
-    });
-    const braceMat = new THREE.MeshPhongMaterial({
-      color: 0x16a34a,
-      shininess: 40,
-    });
-    const cableMat = new THREE.MeshPhongMaterial({
-      color: 0x94a3b8,
-      shininess: 100,
-    });
+      const woodMat = new THREE.MeshLambertMaterial({ color: 0xd4a373 });
+      const cargoMat = new THREE.MeshLambertMaterial({ color: 0xf1f5f9 });
+      const strapMat = new THREE.MeshBasicMaterial({ color: 0x0f172a });
 
-    // Helper: Create I-Beam Column with Slot Punch Holes
-    const createIBeam = (l: number, w: number, d: number) => {
-      const group = new THREE.Group();
-      const flangeThick = w * 0.18;
-      const webThick = w * 0.14;
-      const webDepth = d - flangeThick * 2;
-
-      // Front Flange
-      const ffGeo = new THREE.BoxGeometry(w, l, flangeThick);
-      const ff = new THREE.Mesh(ffGeo, colMat);
-      ff.position.set(0, 0, d / 2 - flangeThick / 2);
-      ff.castShadow = true;
-      group.add(ff);
-
-      // Back Flange
-      const bf = new THREE.Mesh(ffGeo, colMat);
-      bf.position.set(0, 0, -(d / 2 - flangeThick / 2));
-      bf.castShadow = true;
-      group.add(bf);
-
-      // Center Web
-      const webGeo = new THREE.BoxGeometry(webThick, l, webDepth);
-      const web = new THREE.Mesh(webGeo, colMat);
-      web.castShadow = true;
-      group.add(web);
-
-      // 4" spacing punch holes on front flange
-      const holeGeo = new THREE.BoxGeometry(w * 0.12, 0.7 * scale, 0.02);
-      const holeMat = new THREE.MeshBasicMaterial({ color: 0x05070a });
-      for (let y = -l / 2 + 4 * scale; y <= l / 2 - 4 * scale; y += 4 * scale) {
-        const leftHole = new THREE.Mesh(holeGeo, holeMat);
-        leftHole.position.set(-w * 0.22, y, d / 2 + 0.01);
-        group.add(leftHole);
-        const rightHole = new THREE.Mesh(holeGeo, holeMat);
-        rightHole.position.set(w * 0.22, y, d / 2 + 0.01);
-        group.add(rightHole);
+      // 1. Bottom Runner Slats (3 boards)
+      const runnerGeo = new THREE.BoxGeometry(pWidth * 0.95, 0.6 * scale, 3.5 * scale);
+      for (const zOffset of [-pLength * 0.42, 0, pLength * 0.42]) {
+        const runner = new THREE.Mesh(runnerGeo, woodMat);
+        runner.position.set(0, 0.3 * scale, zOffset);
+        runner.castShadow = true;
+        palletGroup.add(runner);
       }
 
-      group.userData = { isPart: true };
-      return group;
+      // 2. Center Stringer Blocks (3 stringers)
+      const stringerGeo = new THREE.BoxGeometry(2.5 * scale, 2.5 * scale, pLength * 0.96);
+      for (const xOffset of [-pWidth * 0.42, 0, pWidth * 0.42]) {
+        const stringer = new THREE.Mesh(stringerGeo, woodMat);
+        stringer.position.set(xOffset, (0.6 + 1.25) * scale, 0);
+        stringer.castShadow = true;
+        palletGroup.add(stringer);
+      }
+
+      // 3. Top Deck Boards (5 slats)
+      const slatGeo = new THREE.BoxGeometry(pWidth * 0.96, 0.6 * scale, (pLength / 7) * scale);
+      for (let s = -2; s <= 2; s++) {
+        const slat = new THREE.Mesh(slatGeo, woodMat);
+        slat.position.set(0, (0.6 + 2.5 + 0.3) * scale, s * ((pLength * 0.22) * scale));
+        slat.castShadow = true;
+        palletGroup.add(slat);
+      }
+
+      // 4. Shrink-Wrapped Freight Cargo Box on Top
+      const cargoH = pHeight * 0.85;
+      const cargoGeo = new THREE.BoxGeometry(pWidth * 0.88, cargoH, pLength * 0.88);
+      const cargo = new THREE.Mesh(cargoGeo, cargoMat);
+      const cargoBaseY = (0.6 + 2.5 + 0.6) * scale + cargoH / 2;
+      cargo.position.set(0, cargoBaseY, 0);
+      cargo.castShadow = true;
+      palletGroup.add(cargo);
+
+      // Strapping Bands
+      const strapGeo = new THREE.BoxGeometry(pWidth * 0.89, cargoH * 1.01, 0.4 * scale);
+      const strap1 = new THREE.Mesh(strapGeo, strapMat);
+      strap1.position.set(0, cargoBaseY, -pLength * 0.25 * scale);
+      palletGroup.add(strap1);
+
+      const strap2 = new THREE.Mesh(strapGeo, strapMat);
+      strap2.position.set(0, cargoBaseY, pLength * 0.25 * scale);
+      palletGroup.add(strap2);
+
+      palletGroup.userData = { isPart: true };
+      return palletGroup;
     };
 
-    // Build Columns, Bases, and Arms
-    for (let i = 0; i <= bays; i++) {
-      const x = i * bayW - (bays * bayW) / 2;
+    if (rackSystem === "cantilever") {
+      /* ---------------- CANTILEVER RACK BUILDER ---------------- */
+      const colHeight = +height * scale;
+      const armLen = +armLength * scale;
+      const bayW = +bayWidth * scale;
+      const isTwoSided = sideType === "Two-Sided";
 
-      // Upright Column
-      const col = createIBeam(colHeight, colThick, colThick * 1.5);
-      col.position.set(x, colHeight / 2, 0);
-      scene.add(col);
+      let colThick = 2.5;
+      if (cantileverSolved.system === "W6-15") colThick = 3.2;
+      else if (cantileverSolved.system === "W8-18") colThick = 4.2;
+      else if (cantileverSolved.system === "W10-22") colThick = 5.2;
+      colThick *= scale;
 
-      // Base I-Beam
-      const baseLen = armLen + 4 * scale;
-      const baseH = colThick * 1.1;
-      const base = createIBeam(isTwoSided ? baseLen * 2 : baseLen, colThick, baseH);
-      base.rotation.x = Math.PI / 2;
-      const baseZ = isTwoSided ? 0 : baseLen / 2 - colThick * 0.75;
-      base.position.set(x, baseH / 2, baseZ);
-      scene.add(base);
+      const colMat = new THREE.MeshPhongMaterial({ color: 0x22c55e, shininess: 50 });
+      const armMat = new THREE.MeshPhongMaterial({ color: 0xe8a317, shininess: 90 });
+      const braceMat = new THREE.MeshPhongMaterial({ color: 0x16a34a, shininess: 40 });
+      const cableMat = new THREE.MeshPhongMaterial({ color: 0x94a3b8, shininess: 100 });
 
-      // Arm Placements with 2° Upward Safety Angle
+      // Helper: Create I-Beam Column
+      const createIBeam = (l: number, w: number, d: number) => {
+        const group = new THREE.Group();
+        const flangeThick = w * 0.18;
+        const webThick = w * 0.14;
+        const webDepth = d - flangeThick * 2;
+
+        const ffGeo = new THREE.BoxGeometry(w, l, flangeThick);
+        const ff = new THREE.Mesh(ffGeo, colMat);
+        ff.position.set(0, 0, d / 2 - flangeThick / 2);
+        ff.castShadow = true;
+        group.add(ff);
+
+        const bf = new THREE.Mesh(ffGeo, colMat);
+        bf.position.set(0, 0, -(d / 2 - flangeThick / 2));
+        bf.castShadow = true;
+        group.add(bf);
+
+        const webGeo = new THREE.BoxGeometry(webThick, l, webDepth);
+        const web = new THREE.Mesh(webGeo, colMat);
+        web.castShadow = true;
+        group.add(web);
+
+        const holeGeo = new THREE.BoxGeometry(w * 0.12, 0.7 * scale, 0.02);
+        const holeMat = new THREE.MeshBasicMaterial({ color: 0x05070a });
+        for (let y = -l / 2 + 4 * scale; y <= l / 2 - 4 * scale; y += 4 * scale) {
+          const leftHole = new THREE.Mesh(holeGeo, holeMat);
+          leftHole.position.set(-w * 0.22, y, d / 2 + 0.01);
+          group.add(leftHole);
+          const rightHole = new THREE.Mesh(holeGeo, holeMat);
+          rightHole.position.set(w * 0.22, y, d / 2 + 0.01);
+          group.add(rightHole);
+        }
+
+        group.userData = { isPart: true };
+        return group;
+      };
+
       const realH = +height;
       const realYStart = realH <= 144 ? realH * 0.3 : realH * 0.22;
       const realBraceH = realH - realYStart - 12;
       const realSpacing = Math.round(realBraceH / Math.max(levels - 1, 1) / 4) * 4;
 
-      for (let j = 1; j <= levels; j++) {
-        const realY = realYStart + (j - 1) * realSpacing;
-        const y = realY * scale;
+      for (let i = 0; i <= bays; i++) {
+        const x = i * bayW - (bays * bayW) / 2;
 
-        // Front Arm Group (Pitch: -2 deg upward)
-        const armGroupF = new THREE.Group();
-        armGroupF.position.set(x, y, colThick * 0.75);
-        armGroupF.rotation.x = (-2 * Math.PI) / 180;
+        const col = createIBeam(colHeight, colThick, colThick * 1.5);
+        col.position.set(x, colHeight / 2, 0);
+        scene.add(col);
 
-        // Backing Plate
-        const plateGeo = new THREE.BoxGeometry(colThick * 1.25, colThick * 1.45, 0.4 * scale);
-        const plateF = new THREE.Mesh(plateGeo, colMat);
-        plateF.position.set(0, 0, -0.2 * scale);
-        plateF.castShadow = true;
-        armGroupF.add(plateF);
+        const baseLen = armLen + 4 * scale;
+        const baseH = colThick * 1.1;
+        const base = createIBeam(isTwoSided ? baseLen * 2 : baseLen, colThick, baseH);
+        base.rotation.x = Math.PI / 2;
+        const baseZ = isTwoSided ? 0 : baseLen / 2 - colThick * 0.75;
+        base.position.set(x, baseH / 2, baseZ);
+        scene.add(base);
 
-        // Arm Body
-        const armGeo = new THREE.BoxGeometry(colThick * 0.7, colThick * 0.7, armLen);
-        const armF = new THREE.Mesh(armGeo, armMat);
-        armF.position.set(0, 0, armLen / 2);
-        armF.castShadow = true;
-        armGroupF.add(armF);
+        for (let j = 1; j <= levels; j++) {
+          const realY = realYStart + (j - 1) * realSpacing;
+          const y = realY * scale;
 
-        // Arm End Tip Stop
-        const tipGeo = new THREE.BoxGeometry(colThick * 0.7, colThick * 1.5, 1 * scale);
-        const tipF = new THREE.Mesh(tipGeo, armMat);
-        tipF.position.set(0, colThick * 0.4, armLen);
-        armGroupF.add(tipF);
+          // Front Arm (2° upward pitch)
+          const armGroupF = new THREE.Group();
+          armGroupF.position.set(x, y, colThick * 0.75);
+          armGroupF.rotation.x = (-2 * Math.PI) / 180;
 
-        armGroupF.userData = { isPart: true };
-        scene.add(armGroupF);
+          const plateGeo = new THREE.BoxGeometry(colThick * 1.25, colThick * 1.45, 0.4 * scale);
+          const plateF = new THREE.Mesh(plateGeo, colMat);
+          plateF.position.set(0, 0, -0.2 * scale);
+          plateF.castShadow = true;
+          armGroupF.add(plateF);
 
-        // Rear Arm Group (if Two-Sided)
-        if (isTwoSided) {
-          const armGroupB = new THREE.Group();
-          armGroupB.position.set(x, y, -colThick * 0.75);
-          armGroupB.rotation.x = (2 * Math.PI) / 180;
+          const armGeo = new THREE.BoxGeometry(colThick * 0.7, colThick * 0.7, armLen);
+          const armF = new THREE.Mesh(armGeo, armMat);
+          armF.position.set(0, 0, armLen / 2);
+          armF.castShadow = true;
+          armGroupF.add(armF);
 
-          const plateB = new THREE.Mesh(plateGeo, colMat);
-          plateB.position.set(0, 0, 0.2 * scale);
-          armGroupB.add(plateB);
+          const tipGeo = new THREE.BoxGeometry(colThick * 0.7, colThick * 1.5, 1 * scale);
+          const tipF = new THREE.Mesh(tipGeo, armMat);
+          tipF.position.set(0, colThick * 0.4, armLen);
+          armGroupF.add(tipF);
 
-          const armB = new THREE.Mesh(armGeo, armMat);
-          armB.position.set(0, 0, -armLen / 2);
-          armGroupB.add(armB);
+          armGroupF.userData = { isPart: true };
+          scene.add(armGroupF);
 
-          const tipB = new THREE.Mesh(tipGeo, armMat);
-          tipB.position.set(0, colThick * 0.4, -armLen);
-          armGroupB.add(tipB);
+          // Rear Arm if Two-Sided
+          if (isTwoSided) {
+            const armGroupB = new THREE.Group();
+            armGroupB.position.set(x, y, -colThick * 0.75);
+            armGroupB.rotation.x = (2 * Math.PI) / 180;
 
-          armGroupB.userData = { isPart: true };
-          scene.add(armGroupB);
+            const plateB = new THREE.Mesh(plateGeo, colMat);
+            plateB.position.set(0, 0, 0.2 * scale);
+            armGroupB.add(plateB);
+
+            const armB = new THREE.Mesh(armGeo, armMat);
+            armB.position.set(0, 0, -armLen / 2);
+            armB.castShadow = true;
+            armGroupB.add(armB);
+
+            const tipB = new THREE.Mesh(tipGeo, armMat);
+            tipB.position.set(0, colThick * 0.4, -armLen);
+            armGroupB.add(tipB);
+
+            armGroupB.userData = { isPart: true };
+            scene.add(armGroupB);
+          }
         }
-      }
 
-      // Bracing Between Columns
-      if (i < bays) {
-        const nextX = (i + 1) * bayW - (bays * bayW) / 2;
-        const midX = (x + nextX) / 2;
-        const braceWidth = Math.abs(nextX - x);
+        // Bracing between columns
+        if (i < bays) {
+          const nextX = (i + 1) * bayW - (bays * bayW) / 2;
+          const midX = (x + nextX) / 2;
+          const braceWidth = Math.abs(nextX - x);
+          const yStart = realYStart * scale;
+          const bHeight = realBraceH * scale;
 
-        const yStart = realYStart * scale;
-        const bHeight = realBraceH * scale;
+          const drawHoriz = (posY: number) => {
+            const sGeo = new THREE.BoxGeometry(braceWidth, 1.4, 1.4);
+            const s = new THREE.Mesh(sGeo, braceMat);
+            s.position.set(midX, posY, 0);
+            s.userData = { isPart: true };
+            scene.add(s);
+          };
 
-        // Horizontal Struts
-        const drawHoriz = (posY: number) => {
-          const sGeo = new THREE.BoxGeometry(braceWidth, 1.4, 1.4);
-          const s = new THREE.Mesh(sGeo, braceMat);
-          s.position.set(midX, posY, 0);
-          s.userData = { isPart: true };
-          scene.add(s);
-        };
+          const drawX = (y1: number, y2: number) => {
+            const dY = Math.abs(y2 - y1);
+            const diagLen = Math.sqrt(braceWidth * braceWidth + dY * dY);
+            const angle = Math.atan2(dY, braceWidth);
+            const cGeo = new THREE.BoxGeometry(diagLen, 0.45, 0.45);
 
-        // Diagonal X-Cables
-        const drawX = (y1: number, y2: number) => {
-          const dY = Math.abs(y2 - y1);
-          const diagLen = Math.sqrt(braceWidth * braceWidth + dY * dY);
-          const angle = Math.atan2(dY, braceWidth);
-          const cGeo = new THREE.BoxGeometry(diagLen, 0.45, 0.45);
+            const c1 = new THREE.Mesh(cGeo, cableMat);
+            c1.position.set(midX, (y1 + y2) / 2, -0.2);
+            c1.rotation.z = angle;
+            c1.userData = { isPart: true };
+            scene.add(c1);
 
-          const c1 = new THREE.Mesh(cGeo, cableMat);
-          c1.position.set(midX, (y1 + y2) / 2, -0.2);
-          c1.rotation.z = angle;
-          c1.userData = { isPart: true };
-          scene.add(c1);
+            const c2 = new THREE.Mesh(cGeo, cableMat);
+            c2.position.set(midX, (y1 + y2) / 2, 0.2);
+            c2.rotation.z = -angle;
+            c2.userData = { isPart: true };
+            scene.add(c2);
+          };
 
-          const c2 = new THREE.Mesh(cGeo, cableMat);
-          c2.position.set(midX, (y1 + y2) / 2, 0.2);
-          c2.rotation.z = -angle;
-          c2.userData = { isPart: true };
-          scene.add(c2);
-        };
-
-        if (+height <= 144) {
           drawHoriz(yStart);
           drawHoriz(yStart + bHeight);
           drawX(yStart, yStart + bHeight);
-        } else if (+height <= 192) {
-          drawHoriz(yStart);
-          drawHoriz(yStart + bHeight * 0.5);
-          drawHoriz(yStart + bHeight);
-          drawX(yStart, yStart + bHeight * 0.5);
-        } else {
-          drawHoriz(yStart);
-          drawHoriz(yStart + bHeight * 0.5);
-          drawHoriz(yStart + bHeight);
-          drawX(yStart, yStart + bHeight * 0.5);
-          drawX(yStart + bHeight * 0.5, yStart + bHeight);
+        }
+      }
+
+      // Render Wooden Pallets with Cargo across Cantilever Arms
+      if (showPalletLoad) {
+        for (let i = 0; i < bays; i++) {
+          const x1 = i * bayW - (bays * bayW) / 2;
+          const x2 = (i + 1) * bayW - (bays * bayW) / 2;
+          const midX = (x1 + x2) / 2;
+
+          for (let j = 1; j <= levels; j++) {
+            const realY = realYStart + (j - 1) * realSpacing;
+            const y = realY * scale + colThick * 0.7;
+
+            // Front Pallet
+            const pFront = create3DPallet(36 * scale, armLen * 0.85, 28 * scale);
+            pFront.position.set(midX, y, armLen * 0.5);
+            scene.add(pFront);
+
+            // Rear Pallet if Two-Sided
+            if (isTwoSided) {
+              const pRear = create3DPallet(36 * scale, armLen * 0.85, 28 * scale);
+              pRear.position.set(midX, y, -armLen * 0.5);
+              scene.add(pRear);
+            }
+          }
+        }
+      }
+    } else {
+      /* ---------------- SELECTIVE PALLET RACK BUILDER ---------------- */
+      const frameH = +palletHeight * scale;
+      const frameD = +palletDepth * scale;
+      const beamL = +palletBeamLength * scale;
+      const totalBaysW = palletBays * beamL;
+
+      const frameMat = new THREE.MeshPhongMaterial({ color: 0x1d4ed8, shininess: 60 }); // Industrial Blue
+      const beamMat = new THREE.MeshPhongMaterial({ color: 0xea580c, shininess: 70 });  // Safety Orange
+      const wireDeckMat = new THREE.MeshStandardMaterial({
+        color: 0x94a3b8,
+        wireframe: true,
+        roughness: 0.4,
+      });
+
+      // 1. Build Upright Frames (Front & Rear tubular columns with diagonal lacing)
+      const postW = 3 * scale;
+      const postD = 3 * scale;
+
+      for (let b = 0; b <= palletBays; b++) {
+        const x = b * beamL - totalBaysW / 2;
+
+        const frameGroup = new THREE.Group();
+        frameGroup.position.set(x, 0, 0);
+
+        // Front Post
+        const frontPostGeo = new THREE.BoxGeometry(postW, frameH, postD);
+        const frontPost = new THREE.Mesh(frontPostGeo, frameMat);
+        frontPost.position.set(0, frameH / 2, frameD / 2);
+        frontPost.castShadow = true;
+        frameGroup.add(frontPost);
+
+        // Rear Post
+        const rearPost = new THREE.Mesh(frontPostGeo, frameMat);
+        rearPost.position.set(0, frameH / 2, -frameD / 2);
+        rearPost.castShadow = true;
+        frameGroup.add(rearPost);
+
+        // Footplates
+        const footGeo = new THREE.BoxGeometry(postW * 1.8, 0.4 * scale, postD * 1.8);
+        const footF = new THREE.Mesh(footGeo, frameMat);
+        footF.position.set(0, 0.2 * scale, frameD / 2);
+        frameGroup.add(footF);
+
+        const footR = new THREE.Mesh(footGeo, frameMat);
+        footR.position.set(0, 0.2 * scale, -frameD / 2);
+        frameGroup.add(footR);
+
+        // Diagonal & Horizontal Frame Lacings
+        const lacingMat = new THREE.MeshPhongMaterial({ color: 0x2563eb });
+        const numLaces = Math.max(3, Math.floor(+palletHeight / 36));
+        const laceStep = frameH / numLaces;
+
+        for (let l = 0; l < numLaces; l++) {
+          const y1 = l * laceStep;
+          const y2 = (l + 1) * laceStep;
+
+          // Horizontal strut
+          const hGeo = new THREE.BoxGeometry(1.2 * scale, 1.2 * scale, frameD);
+          const hStrut = new THREE.Mesh(hGeo, lacingMat);
+          hStrut.position.set(0, y1, 0);
+          frameGroup.add(hStrut);
+
+          // Diagonal strut
+          const diagLen = Math.sqrt(frameD * frameD + laceStep * laceStep);
+          const diagGeo = new THREE.BoxGeometry(1 * scale, 1 * scale, diagLen);
+          const diagMesh = new THREE.Mesh(diagGeo, lacingMat);
+          diagMesh.position.set(0, (y1 + y2) / 2, 0);
+          diagMesh.rotation.x = Math.atan2(frameD, laceStep) * (l % 2 === 0 ? 1 : -1);
+          frameGroup.add(diagMesh);
+        }
+
+        frameGroup.userData = { isPart: true };
+        scene.add(frameGroup);
+      }
+
+      // 2. Build Step Beams & Wire Decking per Bay per Level
+      const beamHeight = 4.5 * scale;
+      const beamThick = 2 * scale;
+      const levelSpacing = (frameH - 12 * scale) / Math.max(palletLevels, 1);
+
+      for (let b = 0; b < palletBays; b++) {
+        const midX = b * beamL - totalBaysW / 2 + beamL / 2;
+
+        for (let lev = 1; lev <= palletLevels; lev++) {
+          const beamY = lev * levelSpacing;
+
+          // Front Step Beam
+          const frontBeamGeo = new THREE.BoxGeometry(beamL, beamHeight, beamThick);
+          const frontBeam = new THREE.Mesh(frontBeamGeo, beamMat);
+          frontBeam.position.set(midX, beamY, frameD / 2);
+          frontBeam.castShadow = true;
+          frontBeam.userData = { isPart: true };
+          scene.add(frontBeam);
+
+          // Rear Step Beam
+          const rearBeam = new THREE.Mesh(frontBeamGeo, beamMat);
+          rearBeam.position.set(midX, beamY, -frameD / 2);
+          rearBeam.castShadow = true;
+          rearBeam.userData = { isPart: true };
+          scene.add(rearBeam);
+
+          // Wire Mesh Decking (2 waterfall deck panels per bay)
+          const deckGeo = new THREE.BoxGeometry(beamL * 0.98, 0.4 * scale, frameD * 0.98);
+          const deck = new THREE.Mesh(deckGeo, wireDeckMat);
+          deck.position.set(midX, beamY + beamHeight / 2 + 0.2 * scale, 0);
+          deck.userData = { isPart: true };
+          scene.add(deck);
+
+          // 3. Render 3D Pallets with Freight Loads on each level (2 pallets per bay)
+          if (showPalletLoad) {
+            const palletGap = (beamL - 2 * (40 * scale)) / 3;
+
+            // Pallet 1 (Left in bay)
+            const p1 = create3DPallet(40 * scale, 48 * scale, 34 * scale);
+            const p1X = midX - 20 * scale - palletGap / 2;
+            p1.position.set(p1X, beamY + beamHeight / 2 + 0.4 * scale, 0);
+            scene.add(p1);
+
+            // Pallet 2 (Right in bay)
+            const p2 = create3DPallet(40 * scale, 48 * scale, 34 * scale);
+            const p2X = midX + 20 * scale + palletGap / 2;
+            p2.position.set(p2X, beamY + beamHeight / 2 + 0.4 * scale, 0);
+            scene.add(p2);
+          }
         }
       }
     }
@@ -592,78 +834,176 @@ export function CpqConfigurator() {
       const size = box.getSize(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
       const fov = inst.camera.fov * (Math.PI / 180);
-      let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.7;
+      let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.6;
       inst.camera.position.set(center.x + cameraZ * 0.45, center.y + cameraZ * 0.25, center.z + cameraZ * 0.95);
       inst.controls.target.copy(center);
       inst.controls.update();
     } else {
-      inst.camera.position.set(0, colHeight / 2, colHeight * 2);
-      inst.controls.target.set(0, colHeight / 2, 0);
+      inst.camera.position.set(0, 70, 240);
+      inst.controls.target.set(0, 60, 0);
       inst.controls.update();
     }
-  }, [height, armLength, levels, sideType, bays, bayWidth, solved, cameraMode]);
+  }, [
+    rackSystem,
+    showPalletLoad,
+    height,
+    armLength,
+    levels,
+    sideType,
+    bays,
+    bayWidth,
+    cantileverSolved,
+    palletHeight,
+    palletDepth,
+    palletBeamLength,
+    palletLevels,
+    palletBays,
+    palletSolved,
+    cameraMode,
+  ]);
 
   const handleCopyApexPayload = () => {
-    const payload = {
-      action: "CantileverRackController.createQuoteAndLines",
-      opportunityId: "0065g000001XyZaABC",
-      closeDate: new Date().toISOString().split("T")[0],
-      engineeringSpecs: {
-        solvedColumnSystem: solved.system,
-        solvedArmSeries: solved.armType,
-        rackHeightInches: +height,
-        armLengthInches: +armLength,
-        levelsPerColumn: levels,
-        baysCount: bays,
-        bayWidthInches: +bayWidth,
-        sideType,
-        bundleLengthInches: bundleLength,
-        bundleWeightLbs: bundleWeight,
-        armsSupporting: solved.armsSupporting,
-        loadPerArmLbs: solved.loadPerArm,
-        maxSafeCapacityLbs: solved.calculatedMaxCapacity,
-        isCapacityExceeded: solved.isCapacityExceeded,
-      },
-      calculatedTotalWholesalePriceUSD: totalPrice,
-      bomLines: bom.map((item) => ({
-        sku: item.sku,
-        description: item.description,
-        componentType: item.componentType,
-        quantity: item.quantity,
-        unitCost: item.unitCost,
-        extendedCost: item.quantity * item.unitCost,
-      })),
-    };
+    const payload =
+      rackSystem === "cantilever"
+        ? {
+            action: "CantileverRackController.createQuoteAndLines",
+            opportunityId: "0065g000001XyZaABC",
+            closeDate: new Date().toISOString().split("T")[0],
+            engineeringSpecs: {
+              systemType: "Cantilever Storage Rack",
+              solvedColumnSystem: cantileverSolved.system,
+              solvedArmSeries: cantileverSolved.armType,
+              rackHeightInches: +height,
+              armLengthInches: +armLength,
+              levelsPerColumn: levels,
+              baysCount: bays,
+              bayWidthInches: +bayWidth,
+              sideType,
+              bundleLengthInches: bundleLength,
+              bundleWeightLbs: bundleWeight,
+              armsSupporting: cantileverSolved.armsSupporting,
+              loadPerArmLbs: cantileverSolved.loadPerArm,
+              maxSafeCapacityLbs: cantileverSolved.calculatedMaxCapacity,
+              isCapacityExceeded: cantileverSolved.isCapacityExceeded,
+            },
+            calculatedTotalWholesalePriceUSD: totalPrice,
+            bomLines: bom.map((item) => ({
+              sku: item.sku,
+              description: item.description,
+              componentType: item.componentType,
+              quantity: item.quantity,
+              unitCost: item.unitCost,
+              extendedCost: item.quantity * item.unitCost,
+            })),
+          }
+        : {
+            action: "PalletRackController.createQuoteAndLines",
+            opportunityId: "0065g000002WzBcDEF",
+            closeDate: new Date().toISOString().split("T")[0],
+            engineeringSpecs: {
+              systemType: "Selective Pallet Rack (Teardrop)",
+              uprightFrameHeightInches: +palletHeight,
+              uprightFrameDepthInches: +palletDepth,
+              beamLengthInches: +palletBeamLength,
+              beamLevelsCount: palletLevels,
+              baysCount: palletBays,
+              totalPalletCapacity: palletSolved.totalPallets,
+              ratedBeamCapacityLbs: palletSolved.ratedBeamCapacity,
+              actualBeamPairLoadLbs: palletSolved.beamPairLoad,
+              ratedFrameCapacityLbs: palletSolved.ratedFrameCapacity,
+              totalRackWeightLbs: palletSolved.totalBayWeight,
+              isCapacityExceeded: palletSolved.isCapacityExceeded,
+            },
+            calculatedTotalWholesalePriceUSD: totalPrice,
+            bomLines: bom.map((item) => ({
+              sku: item.sku,
+              description: item.description,
+              componentType: item.componentType,
+              quantity: item.quantity,
+              unitCost: item.unitCost,
+              extendedCost: item.quantity * item.unitCost,
+            })),
+          };
+
     navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const isOverloaded = rackSystem === "cantilever" ? cantileverSolved.isCapacityExceeded : palletSolved.isCapacityExceeded;
+
   return (
     <div className="space-y-4 font-mono text-xs text-white/90">
       
-      {/* Titlebar with Solver Status */}
+      {/* Top Bar: System Selector + View Modes */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
-        <div className="flex items-center gap-2 text-white/90">
-          <Sliders className="w-4 h-4 text-[#E8A317]" />
-          <span className="font-bold text-sm">Industrial Cantilever 3D CPQ Configurator</span>
+        
+        {/* Left: System Selector Pills */}
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] text-white/50 hidden md:inline">Storage Type:</span>
+          <div className="flex rounded-lg border border-white/20 bg-[#0F1326] p-1 gap-1">
+            <button
+              onClick={() => setRackSystem("cantilever")}
+              className={`px-3 py-1 rounded-[6px] text-xs font-semibold transition-all cursor-pointer ${
+                rackSystem === "cantilever"
+                  ? "bg-[#E8A317] text-[#100C09] shadow-xs"
+                  : "text-white/70 hover:text-white"
+              }`}
+            >
+              Cantilever Rack
+            </button>
+            <button
+              onClick={() => setRackSystem("pallet")}
+              className={`px-3 py-1 rounded-[6px] text-xs font-semibold transition-all cursor-pointer ${
+                rackSystem === "pallet"
+                  ? "bg-[#E8A317] text-[#100C09] shadow-xs"
+                  : "text-white/70 hover:text-white"
+              }`}
+            >
+              Selective Pallet Rack
+            </button>
+          </div>
         </div>
 
-        {/* Solver Solved Pill */}
-        <div className="flex items-center gap-2">
-          {solved.isCapacityExceeded ? (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/80 border border-rose-500 text-rose-300 text-[11px] font-bold">
+        {/* Right: Solver Status + Pallet Load Toggle + Camera Toggle */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Overload Alert Pill */}
+          {isOverloaded ? (
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/80 border border-rose-500 text-rose-300 text-[11px] font-bold animate-pulse">
               <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
-              <span>OVERLOAD: Exceeds {solved.calculatedMaxCapacity.toLocaleString()} lbs</span>
+              <span>
+                OVERLOAD:{" "}
+                {rackSystem === "cantilever"
+                  ? `Exceeds ${cantileverSolved.calculatedMaxCapacity.toLocaleString()} lbs`
+                  : `Exceeds ${palletSolved.ratedBeamCapacity.toLocaleString()} lbs/beam`}
+              </span>
             </div>
           ) : (
             <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500 text-emerald-300 text-[11px] font-semibold">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Solved: {solved.system} &bull; {solved.armType} Arms</span>
+              <span>
+                {rackSystem === "cantilever"
+                  ? `Solved: ${cantileverSolved.system} · ${cantileverSolved.armType} Arms`
+                  : `Solved: ${palletSolved.totalPallets} Pallets · 5K Step Beams`}
+              </span>
             </div>
           )}
 
-          {/* View Toggles */}
+          {/* Toggle Pallet Loads */}
+          <button
+            onClick={() => setShowPalletLoad(!showPalletLoad)}
+            className={`px-2.5 py-1 rounded border text-[11px] flex items-center gap-1.5 transition-colors cursor-pointer ${
+              showPalletLoad
+                ? "bg-amber-400/20 border-amber-400 text-amber-300 font-bold"
+                : "border-white/20 bg-white/5 text-white/70 hover:text-white"
+            }`}
+            title="Toggle 3D Wooden Pallets & Cargo"
+          >
+            <Package className="w-3.5 h-3.5 text-[#E8A317]" />
+            <span>{showPalletLoad ? "Pallets: Loaded" : "Pallets: Off"}</span>
+          </button>
+
+          {/* 3D / 2D Camera Toggle */}
           <button
             onClick={() => setCameraMode(cameraMode === "3d" ? "2d" : "3d")}
             className="px-2.5 py-1 rounded border border-white/20 bg-white/5 hover:bg-white/15 text-[11px] text-white flex items-center gap-1.5 cursor-pointer"
@@ -674,177 +1014,305 @@ export function CpqConfigurator() {
         </div>
       </div>
 
+      {/* Main Grid: Controls vs 3D View & Output */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         
-        {/* Controls Column */}
+        {/* Left Column: Parametric Controls */}
         <div className="lg:col-span-5 space-y-3 bg-[#14182E] border border-white/15 p-4 rounded-[14px]">
           <div className="text-[10px] uppercase font-bold text-white/60 tracking-wider flex items-center justify-between">
-            <span>Parametric Inputs</span>
-            <span className="text-[#E8A317]">Civil/Mechanical Solver</span>
+            <span>{rackSystem === "cantilever" ? "Cantilever Specifications" : "Pallet Rack Specifications"}</span>
+            <span className="text-[#E8A317]">Engineering CAD Engine</span>
           </div>
 
-          {/* Configuration Toggles */}
-          <div className="grid grid-cols-2 gap-2 text-[11px]">
-            <div>
-              <span className="text-white/50 block text-[10px] mb-1">Configuration</span>
-              <div className="flex rounded border border-white/15 overflow-hidden">
-                <button
-                  onClick={() => setSideType("One-Sided")}
-                  className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
-                    sideType === "One-Sided" ? "bg-white text-[#14182E] font-bold" : "text-white/60"
-                  }`}
-                >
-                  Single
-                </button>
-                <button
-                  onClick={() => setSideType("Two-Sided")}
-                  className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
-                    sideType === "Two-Sided" ? "bg-white text-[#14182E] font-bold" : "text-white/60"
-                  }`}
-                >
-                  Double
-                </button>
-              </div>
-            </div>
+          {rackSystem === "cantilever" ? (
+            /* ================= CANTILEVER CONTROLS ================= */
+            <>
+              {/* Single / Double Sided */}
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Configuration</span>
+                  <div className="flex rounded border border-white/15 overflow-hidden">
+                    <button
+                      onClick={() => setSideType("One-Sided")}
+                      className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
+                        sideType === "One-Sided" ? "bg-white text-[#14182E] font-bold" : "text-white/60"
+                      }`}
+                    >
+                      Single
+                    </button>
+                    <button
+                      onClick={() => setSideType("Two-Sided")}
+                      className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
+                        sideType === "Two-Sided" ? "bg-white text-[#14182E] font-bold" : "text-white/60"
+                      }`}
+                    >
+                      Double
+                    </button>
+                  </div>
+                </div>
 
-            <div>
-              <span className="text-white/50 block text-[10px] mb-1">Bays Count</span>
-              <div className="flex rounded border border-white/15 overflow-hidden">
-                {[1, 2, 3].map((b) => (
-                  <button
-                    key={b}
-                    onClick={() => setBays(b)}
-                    className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
-                      bays === b ? "bg-[#E8A317] text-black font-bold" : "text-white/60"
-                    }`}
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Column Height</span>
+                  <select
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    className="w-full bg-[#0F1326] border border-white/15 rounded px-2 py-1 text-white text-[11px] focus:outline-hidden cursor-pointer"
                   >
-                    {b} Bay{b > 1 ? "s" : ""}
-                  </button>
-                ))}
+                    <option value="96">8 ft. (96&quot;)</option>
+                    <option value="120">10 ft. (120&quot;)</option>
+                    <option value="144">12 ft. (144&quot;)</option>
+                    <option value="168">14 ft. (168&quot;)</option>
+                    <option value="192">16 ft. (192&quot;)</option>
+                    <option value="240">20 ft. (240&quot;)</option>
+                  </select>
+                </div>
               </div>
-            </div>
-          </div>
 
-          {/* Column Height */}
-          <div className="space-y-1">
-            <div className="flex justify-between text-[11px]">
-              <span className="text-white/60">Column Height:</span>
-              <span className="font-bold text-white">{+height / 12} ft ({height}&quot;)</span>
-            </div>
-            <select
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              className="w-full bg-[#0A0D1A] border border-white/20 rounded p-1.5 text-xs text-white cursor-pointer"
-            >
-              <option value="96">8 ft (96&quot;)</option>
-              <option value="120">10 ft (120&quot;)</option>
-              <option value="144">12 ft (144&quot;)</option>
-              <option value="168">14 ft (168&quot;)</option>
-              <option value="192">16 ft (192&quot;)</option>
-              <option value="216">18 ft (216&quot;)</option>
-              <option value="240">20 ft (240&quot;)</option>
-            </select>
-          </div>
+              {/* Arm Length & Arm Levels */}
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Arm Length</span>
+                  <select
+                    value={armLength}
+                    onChange={(e) => setArmLength(e.target.value)}
+                    className="w-full bg-[#0F1326] border border-white/15 rounded px-2 py-1 text-white text-[11px] focus:outline-hidden cursor-pointer"
+                  >
+                    <option value="24">24&quot; (2 ft.)</option>
+                    <option value="36">36&quot; (3 ft.)</option>
+                    <option value="48">48&quot; (4 ft.)</option>
+                    <option value="60">60&quot; (5 ft.)</option>
+                    <option value="72">72&quot; (6 ft.)</option>
+                  </select>
+                </div>
 
-          {/* Arm Length */}
-          <div className="space-y-1">
-            <div className="flex justify-between text-[11px]">
-              <span className="text-white/60">Arm Length (2° Pitch):</span>
-              <span className="font-bold text-white">{+armLength / 12} ft ({armLength}&quot;)</span>
-            </div>
-            <select
-              value={armLength}
-              onChange={(e) => setArmLength(e.target.value)}
-              className="w-full bg-[#0A0D1A] border border-white/20 rounded p-1.5 text-xs text-white cursor-pointer"
-            >
-              <option value="24">2 ft (24&quot;) · C3X35 to S4X77</option>
-              <option value="36">3 ft (36&quot;) · C3X35 to S4X77</option>
-              <option value="48">4 ft (48&quot;) · C3X35 to S4X77</option>
-              <option value="60">5 ft (60&quot;) · C3X35 to S4X77</option>
-              <option value="72">6 ft (72&quot;) · C3X35 to S4X77</option>
-            </select>
-          </div>
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Levels / Column</span>
+                  <div className="flex items-center gap-1">
+                    {[2, 3, 4, 5].map((lvl) => (
+                      <button
+                        key={lvl}
+                        onClick={() => setLevels(lvl)}
+                        className={`flex-1 py-1 rounded border text-center transition-colors cursor-pointer ${
+                          levels === lvl
+                            ? "bg-[#E8A317] border-[#E8A317] text-[#100C09] font-bold"
+                            : "border-white/15 text-white/60 hover:text-white"
+                        }`}
+                      >
+                        {lvl}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
-          {/* Bay Width & Levels */}
-          <div className="grid grid-cols-2 gap-3 text-[11px]">
-            <div className="space-y-1">
-              <span className="text-white/60 block">Bay Span:</span>
-              <select
-                value={bayWidth}
-                onChange={(e) => setBayWidth(e.target.value)}
-                className="w-full bg-[#0A0D1A] border border-white/20 rounded p-1.5 text-xs text-white cursor-pointer"
-              >
-                <option value="36">3 ft (36&quot;)</option>
-                <option value="48">4 ft (48&quot;)</option>
-                <option value="60">5 ft (60&quot;)</option>
-                <option value="72">6 ft (72&quot;)</option>
-                <option value="96">8 ft (96&quot;)</option>
-              </select>
-            </div>
-            <div className="space-y-1">
-              <span className="text-white/60 block">Levels per Column:</span>
-              <select
-                value={levels}
-                onChange={(e) => setLevels(+e.target.value)}
-                className="w-full bg-[#0A0D1A] border border-white/20 rounded p-1.5 text-xs text-white cursor-pointer"
-              >
-                <option value={2}>2 Levels</option>
-                <option value={3}>3 Levels</option>
-                <option value={4}>4 Levels</option>
-                <option value={5}>5 Levels</option>
-              </select>
-            </div>
-          </div>
+              {/* Bays & Bay Spacing */}
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Bays Count</span>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3].map((b) => (
+                      <button
+                        key={b}
+                        onClick={() => setBays(b)}
+                        className={`flex-1 py-1 rounded border text-center transition-colors cursor-pointer ${
+                          bays === b
+                            ? "bg-[#E8A317] border-[#E8A317] text-[#100C09] font-bold"
+                            : "border-white/15 text-white/60 hover:text-white"
+                        }`}
+                      >
+                        {b} Bay{b > 1 ? "s" : ""}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Load Parameters */}
-          <div className="pt-2 border-t border-white/10 space-y-2">
-            <div className="flex justify-between text-[11px]">
-              <span className="text-white/60">Bundle Weight:</span>
-              <span className="font-bold text-[#E8A317]">{bundleWeight.toLocaleString()} lbs</span>
-            </div>
-            <input
-              type="range"
-              min={1000}
-              max={10000}
-              step={500}
-              value={bundleWeight}
-              onChange={(e) => setBundleWeight(+e.target.value)}
-              className="w-full accent-[#E8A317] cursor-pointer"
-            />
-          </div>
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Bay Width (C-C)</span>
+                  <select
+                    value={bayWidth}
+                    onChange={(e) => setBayWidth(e.target.value)}
+                    className="w-full bg-[#0F1326] border border-white/15 rounded px-2 py-1 text-white text-[11px] focus:outline-hidden cursor-pointer"
+                  >
+                    <option value="48">48&quot; (4 ft.)</option>
+                    <option value="60">60&quot; (5 ft.)</option>
+                    <option value="72">72&quot; (6 ft.)</option>
+                    <option value="96">96&quot; (8 ft.)</option>
+                  </select>
+                </div>
+              </div>
 
-          {/* Solved Summary Box */}
-          <div className="pt-2.5 border-t border-white/10 space-y-1.5 text-[11px]">
-            <div className="flex justify-between">
-              <span className="text-white/50">Bundle Columns Span:</span>
-              <span className="font-semibold text-white">{solved.armsSupporting} Columns</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white/50">Required Load / Arm:</span>
-              <span className="font-semibold text-white">{solved.loadPerArm.toLocaleString()} lbs</span>
-            </div>
-            <div className="flex justify-between items-baseline pt-2 border-t border-white/10">
-              <span className="text-white/70 font-semibold">Total Wholesale Price:</span>
-              <span className="text-base font-bold text-emerald-400">${totalPrice.toLocaleString()} USD</span>
-            </div>
+              {/* Bundle Weight Slider */}
+              <div className="pt-2 border-t border-white/10 space-y-1.5">
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-white/60">Load Weight:</span>
+                  <span className="font-bold text-[#E8A317]">{bundleWeight.toLocaleString()} lbs</span>
+                </div>
+                <input
+                  type="range"
+                  min={1000}
+                  max={10000}
+                  step={500}
+                  value={bundleWeight}
+                  onChange={(e) => setBundleWeight(+e.target.value)}
+                  className="w-full accent-[#E8A317] cursor-pointer"
+                />
+              </div>
+
+              {/* Solved Summary Box */}
+              <div className="pt-2 border-t border-white/10 space-y-1 text-[11px]">
+                <div className="flex justify-between">
+                  <span className="text-white/50">Load Per Arm:</span>
+                  <span className="font-semibold text-white">{cantileverSolved.loadPerArm.toLocaleString()} lbs</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/50">Max Frame Safe Capacity:</span>
+                  <span className="font-semibold text-emerald-400">{cantileverSolved.calculatedMaxCapacity.toLocaleString()} lbs</span>
+                </div>
+              </div>
+            </>
+          ) : (
+            /* ================= PALLET RACK CONTROLS ================= */
+            <>
+              {/* Frame Height & Depth */}
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Frame Height</span>
+                  <select
+                    value={palletHeight}
+                    onChange={(e) => setPalletHeight(e.target.value)}
+                    className="w-full bg-[#0F1326] border border-white/15 rounded px-2 py-1 text-white text-[11px] focus:outline-hidden cursor-pointer"
+                  >
+                    <option value="96">8 ft. (96&quot;)</option>
+                    <option value="120">10 ft. (120&quot;)</option>
+                    <option value="144">12 ft. (144&quot;)</option>
+                    <option value="192">16 ft. (192&quot;)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Frame Depth</span>
+                  <select
+                    value={palletDepth}
+                    onChange={(e) => setPalletDepth(e.target.value)}
+                    className="w-full bg-[#0F1326] border border-white/15 rounded px-2 py-1 text-white text-[11px] focus:outline-hidden cursor-pointer"
+                  >
+                    <option value="42">42&quot; (Standard GMA)</option>
+                    <option value="48">48&quot; (Deep Pallet)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Beam Length & Beam Levels */}
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Beam Length</span>
+                  <select
+                    value={palletBeamLength}
+                    onChange={(e) => setPalletBeamLength(e.target.value)}
+                    className="w-full bg-[#0F1326] border border-white/15 rounded px-2 py-1 text-white text-[11px] focus:outline-hidden cursor-pointer"
+                  >
+                    <option value="96">96&quot; (2 Pallets / Bay)</option>
+                    <option value="108">108&quot; (2 Oversize Pallets)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <span className="text-white/50 block text-[10px] mb-1">Beam Levels</span>
+                  <div className="flex items-center gap-1">
+                    {[2, 3, 4].map((lvl) => (
+                      <button
+                        key={lvl}
+                        onClick={() => setPalletLevels(lvl)}
+                        className={`flex-1 py-1 rounded border text-center transition-colors cursor-pointer ${
+                          palletLevels === lvl
+                            ? "bg-[#E8A317] border-[#E8A317] text-[#100C09] font-bold"
+                            : "border-white/15 text-white/60 hover:text-white"
+                        }`}
+                      >
+                        {lvl}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Bays Count */}
+              <div>
+                <span className="text-white/50 block text-[10px] mb-1">Bays Count</span>
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3].map((b) => (
+                    <button
+                      key={b}
+                      onClick={() => setPalletBays(b)}
+                      className={`flex-1 py-1 rounded border text-center transition-colors cursor-pointer ${
+                        palletBays === b
+                          ? "bg-[#E8A317] border-[#E8A317] text-[#100C09] font-bold"
+                          : "border-white/15 text-white/60 hover:text-white"
+                      }`}
+                    >
+                      {b} Bay{b > 1 ? "s" : ""} ({b * 2 * palletLevels} Pallets)
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Weight Per Pallet Slider */}
+              <div className="pt-2 border-t border-white/10 space-y-1.5">
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-white/60">Pallet Load Weight:</span>
+                  <span className="font-bold text-[#E8A317]">{palletWeight.toLocaleString()} lbs / pallet</span>
+                </div>
+                <input
+                  type="range"
+                  min={1000}
+                  max={3500}
+                  step={200}
+                  value={palletWeight}
+                  onChange={(e) => setPalletWeight(+e.target.value)}
+                  className="w-full accent-[#E8A317] cursor-pointer"
+                />
+              </div>
+
+              {/* Pallet Rack Solved Metrics */}
+              <div className="pt-2 border-t border-white/10 space-y-1 text-[11px]">
+                <div className="flex justify-between">
+                  <span className="text-white/50">Total Pallet Capacity:</span>
+                  <span className="font-semibold text-white">{palletSolved.totalPallets} GMA Pallets</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/50">Beam Pair Load vs Rating:</span>
+                  <span className={`font-semibold ${palletSolved.isBeamOverloaded ? "text-rose-400" : "text-emerald-400"}`}>
+                    {palletSolved.beamPairLoad.toLocaleString()} / {palletSolved.ratedBeamCapacity.toLocaleString()} lbs
+                  </span>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Wholesale Total */}
+          <div className="flex justify-between items-baseline pt-2.5 border-t border-white/10">
+            <span className="text-white/70 font-semibold">Total Wholesale Price:</span>
+            <span className="text-base font-bold text-emerald-400">${totalPrice.toLocaleString()} USD</span>
           </div>
 
         </div>
 
-        {/* 3D WebGL Canvas & Output Tabs */}
+        {/* Right Column: Three.js 3D Viewport & Output Tabs */}
         <div className="lg:col-span-7 space-y-3">
           
-          {/* Three.js Interactive 3D Viewport */}
+          {/* Three.js 3D Viewport */}
           <div className="rounded-[14px] bg-[#0A0D1A] border border-white/15 overflow-hidden shadow-inner relative">
-            <div className="absolute top-2.5 left-3 text-[10px] text-white/50 flex items-center gap-2 z-10 pointer-events-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>Three.js WebGL &bull; Drag to rotate, scroll to zoom</span>
+            <div className="absolute top-2.5 left-3 text-[10px] text-white/60 flex items-center gap-2 z-10 pointer-events-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>
+                {rackSystem === "cantilever" ? "Cantilever 3D WebGL" : "Selective Pallet Rack 3D WebGL"} · Drag to rotate, scroll to zoom
+              </span>
             </div>
 
             <div ref={mountRef} className="w-full h-80 cursor-grab active:cursor-grabbing" />
           </div>
 
-          {/* BOM vs Apex Payload Tabs */}
+          {/* BOM & Apex Payload Tabs */}
           <div className="bg-[#14182E] border border-white/15 p-3.5 rounded-[14px] space-y-2">
             <div className="flex items-center justify-between border-b border-white/10 pb-2">
               <div className="flex items-center gap-2 text-xs">
@@ -879,41 +1347,62 @@ export function CpqConfigurator() {
             {activeTab === "bom" ? (
               <div className="max-h-48 overflow-y-auto divide-y divide-white/10 text-[11px] pr-1">
                 {bom.map((item, idx) => (
-                  <div key={idx} className="py-1.5 flex justify-between items-center text-white/80">
-                    <div className="space-y-0.5">
-                      <div className="font-semibold text-white flex items-center gap-2">
-                        <span>{item.sku}</span>
-                        <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-white/10 text-white/60">
+                  <div key={idx} className="py-2 flex items-center justify-between gap-3">
+                    <div className="space-y-0.5 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-white truncate">{item.sku}</span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-white/10 text-white/70">
                           {item.componentType}
                         </span>
                       </div>
-                      <div className="text-white/50 text-[10px]">{item.description}</div>
+                      <p className="text-[10px] text-white/50 truncate">{item.description}</p>
                     </div>
-                    <div className="text-right shrink-0 pl-2">
-                      <div className="font-mono text-emerald-400 font-bold">{item.quantity} pcs</div>
-                      <div className="text-[10px] text-white/40">${(item.quantity * item.unitCost).toLocaleString()}</div>
+                    <div className="text-right shrink-0">
+                      <span className="font-semibold text-white">Qty: {item.quantity}</span>
+                      <span className="text-[10px] text-emerald-400 block font-mono">
+                        ${(item.quantity * item.unitCost).toLocaleString()}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              /* Tab 2: Apex DML Payload View */
-              <pre className="max-h-48 overflow-y-auto text-[10px] text-emerald-400 font-mono leading-relaxed bg-[#0A0D1A] p-2.5 rounded border border-white/10">
-{`// Apex Controller: CantileverRackController.createQuoteAndLines
-{
-  "system": "${solved.system}",
-  "armSeries": "${solved.armType}",
-  "height": "${height}\\"",
-  "armLength": "${armLength}\\"",
-  "levels": ${levels},
-  "bays": ${bays},
-  "bayWidth": "${bayWidth}\\"",
-  "sideType": "${sideType}",
-  "bundleWeightLbs": ${bundleWeight},
-  "calculatedMaxCapacityLbs": ${solved.calculatedMaxCapacity},
-  "totalPriceUSD": ${totalPrice},
-  "totalLines": ${bom.length}
-}`}
+              /* Tab 2: Apex Quote Payload Preview */
+              <pre className="max-h-48 overflow-y-auto font-mono text-[10px] text-emerald-400/90 leading-relaxed bg-[#0A0D1A] p-2.5 rounded-[8px] border border-white/10">
+                {JSON.stringify(
+                  rackSystem === "cantilever"
+                    ? {
+                        action: "CantileverRackController.createQuoteAndLines",
+                        opportunityId: "0065g000001XyZaABC",
+                        engineeringSpecs: {
+                          solvedSystem: cantileverSolved.system,
+                          solvedArm: cantileverSolved.armType,
+                          height: +height,
+                          bays,
+                          levels,
+                          sideType,
+                          loadPerArm: cantileverSolved.loadPerArm,
+                          wholesaleTotalUSD: totalPrice,
+                        },
+                        bomLinesCount: bom.length,
+                      }
+                    : {
+                        action: "PalletRackController.createQuoteAndLines",
+                        opportunityId: "0065g000002WzBcDEF",
+                        engineeringSpecs: {
+                          frameHeight: +palletHeight,
+                          frameDepth: +palletDepth,
+                          beamLength: +palletBeamLength,
+                          levels: palletLevels,
+                          bays: palletBays,
+                          totalPallets: palletSolved.totalPallets,
+                          wholesaleTotalUSD: totalPrice,
+                        },
+                        bomLinesCount: bom.length,
+                      },
+                  null,
+                  2
+                )}
               </pre>
             )}
 

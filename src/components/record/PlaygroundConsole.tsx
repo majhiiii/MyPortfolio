@@ -58,7 +58,16 @@ export function PlaygroundConsole() {
       </div>
 
       {/* Dark Indigo Raised Glass Console Window Container */}
-      <div className="rounded-[20px] bg-[#14182E]/80 backdrop-blur-[26px] border border-white/20 shadow-[0_28px_60px_-28px_rgba(20,24,46,0.6)] overflow-hidden text-white transition-colors">
+      <div
+        className="rounded-[20px] bg-[#14182E]/80 backdrop-blur-[26px] border border-white/20 shadow-[0_28px_60px_-28px_rgba(20,24,46,0.6)] overflow-hidden text-white transition-colors"
+        style={{
+          "--ink": "#F8F1E5",
+          "--muted": "#C4B6A6",
+          "--surface": "#1A2035",
+          "--bg": "#0D111F",
+          "--hairline": "rgba(255, 255, 255, 0.15)",
+        } as React.CSSProperties}
+      >
         
         {/* Console Window Titlebar */}
         <div className="bg-[#0F1326]/90 px-4 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
