@@ -106,7 +106,7 @@ export function SkillsMatrix() {
       </div>
 
       {/* 6-Column Structured Grid on Base Glass Panel */}
-      <GlassPanel tier="base" radius="panel" className="p-4 sm:p-5">
+      <GlassPanel tier="base" radius="panel" className="p-4 sm:p-5 !overflow-visible">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3.5">
           {SIX_COLUMNS.map((col) => {
             const items = showAll

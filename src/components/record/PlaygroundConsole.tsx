@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sliders, Database, KeyRound, ChevronDown, Terminal, Sparkles } from "lucide-react";
+import { Sliders, Database, KeyRound, ChevronDown, Terminal, Sparkles, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CpqConfigurator } from "@/components/demos/CpqConfigurator";
 import { SoqlStudio } from "@/components/demos/SoqlStudio";
@@ -15,8 +15,8 @@ import { VibeLabDiff } from "@/components/demos/VibeLabDiff";
 import { AwsDeployWalkthrough } from "@/components/demos/AwsDeployWalkthrough";
 import { GanttChartDemo } from "@/components/demos/GanttChartDemo";
 
-type PrimaryTool = "cpq" | "soql" | "pkce";
-type MoreTool = "gantt" | "flow" | "integrations" | "agentforce" | "governor" | "pipeline" | "diff" | "aws";
+type PrimaryTool = "cpq" | "gantt" | "soql" | "pkce";
+type MoreTool = "flow" | "integrations" | "agentforce" | "governor" | "pipeline" | "diff" | "aws";
 
 interface MoreToolItem {
   id: MoreTool;
@@ -24,7 +24,6 @@ interface MoreToolItem {
 }
 
 const MORE_TOOLS: MoreToolItem[] = [
-  { id: "gantt", label: "Gantt Dispatch Console" },
   { id: "flow", label: "Flow Builder Canvas" },
   { id: "integrations", label: "Integration Topology Map" },
   { id: "agentforce", label: "Agentforce Execution Trace" },
@@ -97,7 +96,29 @@ export function PlaygroundConsole() {
                   />
                 )}
                 <Sliders className="w-3.5 h-3.5 text-[#E8A317]" />
-                <span>CPQ Configurator</span>
+                <span>CPQ Configurator (3D)</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setActiveTab("gantt");
+                  setIsMoreOpen(false);
+                }}
+                className={`relative px-3 py-1.5 rounded-sm transition-colors cursor-pointer flex items-center gap-1.5 ${
+                  activeTab === "gantt"
+                    ? "text-white font-semibold"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                {activeTab === "gantt" && (
+                  <motion.div
+                    layoutId="console-tab-indicator"
+                    className="absolute inset-0 bg-white/10 border border-white/20 rounded-sm -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <Calendar className="w-3.5 h-3.5 text-[#38BDF8]" />
+                <span>Gantt Dispatch</span>
               </button>
 
               <button

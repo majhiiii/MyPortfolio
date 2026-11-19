@@ -81,7 +81,7 @@ const SIX_PROJECTS: ProjectDetail[] = [
       "Built an automated PDF-extraction pipeline parsing unstructured documents directly into structured Lead and Case records.",
     ],
     result: {
-      number: "4 Production Agents &bull; ~40% Faster",
+      number: "4 Production Agents · ~40% Faster",
       label: "Cut manual first-response handling time by ~40% across live Experience Cloud support communities.",
     },
     techList: ["Agentforce", "Agent Builder", "Invocable Apex", "Experience Cloud", "Einstein Trust Layer", "ChatGPT API"],
@@ -123,7 +123,7 @@ const SIX_PROJECTS: ProjectDetail[] = [
       "Added 1-click email logging to Task and EmailMessage records with idempotent deduplication.",
     ],
     result: {
-      number: "100% In-House &bull; 0 Secrets",
+      number: "100% In-House · 0 Secrets",
       label: "Zero client-secret exposure with seamless multi-tenant token exchange and live schema discovery.",
     },
     techList: ["Office.js", "OAuth 2.0 PKCE", "Apex REST", "JavaScript", "describeSObjects", "EmailMessage"],
@@ -165,7 +165,7 @@ const SIX_PROJECTS: ProjectDetail[] = [
       "Provisioned and maintained cloud architecture across 5 AWS services (Amplify, CloudFront, ACM, RDS MySQL, S3) with MySQL/PostgreSQL.",
     ],
     result: {
-      number: "Live Storefront &bull; 5 AWS Services",
+      number: "Live Storefront · 5 AWS Services",
       label: "Sub-100ms edge response times and 99%+ uptime across automated CI/CD branch deployments.",
     },
     techList: ["AWS Amplify", "CloudFront", "ACM", "Amazon RDS (MySQL)", "AWS Lambda", "Next.js", "Salesforce REST"],
@@ -207,7 +207,7 @@ const SIX_PROJECTS: ProjectDetail[] = [
       "Connected live executive Power BI dashboards with real-time SOQL queries, saving ~5 hours/week of manual report preparation.",
     ],
     result: {
-      number: "10+ Integrations &bull; ~5 Hrs/Wk Saved",
+      number: "10+ Integrations · ~5 Hrs/Wk Saved",
       label: "Automated manual reconciliation and cut recurring production issues by ~30% with 99%+ uptime via GitHub CI/CD.",
     },
     techList: ["Stripe API", "QuickBooks Online", "FastAPI", "Python", "Power BI", "CyberSource", "GoHighLevel"],

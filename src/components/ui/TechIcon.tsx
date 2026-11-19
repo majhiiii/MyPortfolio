@@ -81,7 +81,7 @@ export function TechIcon({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 4, scale: 0.95 }}
                 transition={{ duration: 0.15 }}
-                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 rounded-md bg-[var(--ink)] text-[var(--bg)] shadow-xl z-50 pointer-events-none text-left"
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 rounded-[12px] bg-[#141210] dark:bg-[#1C1814] text-[#FDFBF7] shadow-2xl z-50 pointer-events-none text-left border border-white/20"
               >
                 <div className="flex items-center justify-between gap-2 pb-1.5 border-b border-white/15">
                   <span className="font-sans font-semibold text-xs text-white leading-tight">
@@ -94,12 +94,12 @@ export function TechIcon({
                     {group.name}
                   </span>
                 </div>
-                <p className="text-[11px] font-sans text-white/80 pt-1.5 leading-relaxed">
+                <p className="text-[12px] font-sans text-[#DCD4CA] pt-1.5 leading-relaxed">
                   {item.note}
                 </p>
                 <div className="mt-2 pt-1 border-t border-white/10 flex items-center justify-between text-[9px] font-mono text-white/50">
                   <span>{item.usedIn.length} Linked Project{item.usedIn.length > 1 ? "s" : ""}</span>
-                  <span className="text-white/80">&bull; Click to inspect</span>
+                  <span className="text-white/80">· Click to inspect</span>
                 </div>
               </motion.div>
             )}
@@ -150,7 +150,7 @@ export function TechIcon({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 4, scale: 0.95 }}
               transition={{ duration: 0.15 }}
-              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 rounded-md bg-[var(--ink)] text-[var(--bg)] shadow-xl z-50 pointer-events-none text-left"
+              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 rounded-[12px] bg-[#141210] dark:bg-[#1C1814] text-[#FDFBF7] shadow-2xl z-50 pointer-events-none text-left border border-white/20"
             >
               <div className="flex items-center justify-between gap-2 pb-1.5 border-b border-white/15">
                 <span className="font-sans font-semibold text-xs text-white leading-tight">
@@ -163,12 +163,12 @@ export function TechIcon({
                   {group.name}
                 </span>
               </div>
-              <p className="text-[11px] font-sans text-white/80 pt-1.5 leading-relaxed">
+              <p className="text-[12px] font-sans text-[#DCD4CA] pt-1.5 leading-relaxed">
                 {item.note}
               </p>
               <div className="mt-2 pt-1 border-t border-white/10 flex items-center justify-between text-[9px] font-mono text-white/50">
                 <span>{item.usedIn.length} Linked Project{item.usedIn.length > 1 ? "s" : ""}</span>
-                <span className="text-white/80">&bull; Click to filter</span>
+                <span className="text-white/80">· Click to filter</span>
               </div>
             </motion.div>
           )}
