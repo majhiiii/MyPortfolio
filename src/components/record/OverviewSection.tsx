@@ -105,7 +105,7 @@ export function OverviewSection() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-[var(--hairline)] text-xs">
               <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
                 <span className="text-[11px] text-[var(--muted)] block">Company</span>
-                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block">ASSPL &bull; 2 Yrs</span>
+                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block">ASSPL · 2 Yrs</span>
               </div>
               <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
                 <span className="text-[11px] text-[var(--muted)] block">Location</span>
@@ -113,7 +113,9 @@ export function OverviewSection() {
               </div>
               <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
                 <span className="text-[11px] text-[var(--muted)] block">Focus</span>
-                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block truncate">Apex &bull; LWC &bull; AI</span>
+                <span className="font-semibold text-[var(--ink)] text-xs sm:text-sm block truncate" title="Salesforce CRM · AI Integrations · AWS">
+                  Salesforce CRM · AI Integrations · AWS
+                </span>
               </div>
               <div className="p-2.5 rounded-[14px] bg-[var(--surface-tint-solid)] border border-[var(--hairline)] space-y-0.5 shadow-2xs">
                 <span className="text-[11px] text-[var(--muted)] block">Status</span>
@@ -328,7 +330,7 @@ export function OverviewSection() {
                 <GraduationCap className="w-4 h-4 text-[var(--indigo)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Raajdhani Engineering College</span>
-                  <span className="text-[11px] text-[var(--muted)]">B.Tech in Computer Science &bull; 2019–2023</span>
+                  <span className="text-[11px] text-[var(--muted)]">B.Tech in Computer Science · 2019–2023</span>
                 </div>
               </div>
 
@@ -336,7 +338,7 @@ export function OverviewSection() {
                 <Sparkles className="w-4 h-4 text-[var(--turmeric)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Abacus Systems Training</span>
-                  <span className="text-[11px] text-[var(--muted)]">Python Full Stack &amp; Data Science &bull; 2023–2024</span>
+                  <span className="text-[11px] text-[var(--muted)]">Python Full Stack &amp; Data Science · 2023–2024</span>
                 </div>
               </div>
 
@@ -344,7 +346,7 @@ export function OverviewSection() {
                 <Briefcase className="w-4 h-4 text-[var(--leaf)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Leadership &amp; Mentoring</span>
-                  <span className="text-[11px] text-[var(--muted)]">3 Concurrent Projects &bull; Mentoring 4 Junior Devs</span>
+                  <span className="text-[11px] text-[var(--muted)]">3 Concurrent Projects · Mentoring 4 Junior Devs</span>
                 </div>
               </div>
 
@@ -352,7 +354,7 @@ export function OverviewSection() {
                 <MapPin className="w-4 h-4 text-[var(--vermilion)] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[var(--ink)] block">Location &amp; Direct</span>
-                  <span className="text-[11px] text-[var(--muted)]">Bhubaneswar, India &bull; +91 8342849764</span>
+                  <span className="text-[11px] text-[var(--muted)]">Bhubaneswar, India · +91 8342849764</span>
                 </div>
               </div>
             </div>
