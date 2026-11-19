@@ -63,24 +63,17 @@ export function GovernorGame() {
   const offloadToQueueable = () => {
     setLimits({
       soql: 0,
-      maxSoql: 200, // Async gets 200 SOQL
+      maxSoql: 200,
       dml: 0,
       maxDml: 200,
       cpu: 0,
-      maxCpu: 60000, // Async gets 60,000ms CPU
+      maxCpu: 60000,
       heap: 0,
-      maxHeap: 12000, // Async gets 12MB heap
+      maxHeap: 12000,
       isAsync: true,
       exception: null,
     });
     setLog("SYSTEM: System.enqueueJob(new QueueableOrderProcessor()) executed. New asynchronous context created with doubled limits (200 SOQL / 60,000ms CPU / 12MB Heap).");
-  };
-
-  const getMeterColor = (val: number, max: number) => {
-    const pct = (val / max) * 100;
-    if (pct > 99) return "bg-red-500";
-    if (pct > 70) return "bg-[var(--amber)]";
-    return "bg-[var(--accent)]";
   };
 
   return (
@@ -88,8 +81,8 @@ export function GovernorGame() {
       {/* Header */}
       <div className="flex items-center justify-between text-[11px] text-[var(--muted)]">
         <div className="flex items-center gap-2">
-          <Cpu className="w-4 h-4 text-[var(--accent)]" />
-          <span>Apex Governor Limits Simulation · Live Execution Context</span>
+          <Cpu className="w-4 h-4 text-[var(--ink)]" />
+          <span>Apex Governor Limits Context Engine · Execution Validation</span>
         </div>
         <span className="font-semibold text-[var(--ink)]">
           MODE: {limits.isAsync ? "ASYNCHRONOUS (QUEUEABLE)" : "SYNCHRONOUS"}
@@ -98,28 +91,28 @@ export function GovernorGame() {
 
       {/* Exception Banner */}
       {limits.exception && (
-        <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 rounded-sm space-y-1">
+        <div className="p-3 bg-[var(--surface)] border border-[var(--ink)] text-[var(--ink)] rounded-sm space-y-1">
           <div className="flex items-center gap-2 font-bold text-xs">
             <AlertTriangle className="w-4 h-4 shrink-0" />
-            <span>TRANSACTION FATAL ERROR</span>
+            <span>TRANSACTION FATAL EXCEPTION</span>
           </div>
-          <div className="font-mono text-[10px]">{limits.exception}</div>
+          <div className="font-mono text-[10px] text-[var(--muted)]">{limits.exception}</div>
         </div>
       )}
 
-      {/* 4 Limits Gauges */}
+      {/* 4 Limits Gauges (Clean Monochrome) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {/* SOQL Queries */}
         <div className="p-3 border border-hairline rounded-sm bg-[var(--surface)] space-y-2">
           <div className="flex items-center justify-between text-[10px] text-[var(--muted)]">
             <span>SOQL QUERIES</span>
-            <span className={limits.soql > limits.maxSoql ? "text-red-500 font-bold" : "text-[var(--ink)]"}>
+            <span className={limits.soql > limits.maxSoql ? "text-[var(--ink)] font-bold underline" : "text-[var(--ink)]"}>
               {limits.soql} / {limits.maxSoql}
             </span>
           </div>
-          <div className="w-full h-1.5 bg-[var(--bg)] rounded-full overflow-hidden">
+          <div className="w-full h-1 bg-[var(--hairline)] rounded-full overflow-hidden">
             <div
-              className={`h-full transition-all duration-300 ${getMeterColor(limits.soql, limits.maxSoql)}`}
+              className="h-full bg-[var(--ink)] transition-all duration-300"
               style={{ width: `${Math.min(100, (limits.soql / limits.maxSoql) * 100)}%` }}
             />
           </div>
@@ -131,9 +124,9 @@ export function GovernorGame() {
             <span>DML STATEMENTS</span>
             <span className="text-[var(--ink)]">{limits.dml} / {limits.maxDml}</span>
           </div>
-          <div className="w-full h-1.5 bg-[var(--bg)] rounded-full overflow-hidden">
+          <div className="w-full h-1 bg-[var(--hairline)] rounded-full overflow-hidden">
             <div
-              className={`h-full transition-all duration-300 ${getMeterColor(limits.dml, limits.maxDml)}`}
+              className="h-full bg-[var(--ink)] transition-all duration-300"
               style={{ width: `${Math.min(100, (limits.dml / limits.maxDml) * 100)}%` }}
             />
           </div>
@@ -145,9 +138,9 @@ export function GovernorGame() {
             <span>CPU TIME (MS)</span>
             <span className="text-[var(--ink)]">{limits.cpu} / {limits.maxCpu}ms</span>
           </div>
-          <div className="w-full h-1.5 bg-[var(--bg)] rounded-full overflow-hidden">
+          <div className="w-full h-1 bg-[var(--hairline)] rounded-full overflow-hidden">
             <div
-              className={`h-full transition-all duration-300 ${getMeterColor(limits.cpu, limits.maxCpu)}`}
+              className="h-full bg-[var(--ink)] transition-all duration-300"
               style={{ width: `${Math.min(100, (limits.cpu / limits.maxCpu) * 100)}%` }}
             />
           </div>
@@ -159,9 +152,9 @@ export function GovernorGame() {
             <span>HEAP SIZE (KB)</span>
             <span className="text-[var(--ink)]">{limits.heap} / {limits.maxHeap}KB</span>
           </div>
-          <div className="w-full h-1.5 bg-[var(--bg)] rounded-full overflow-hidden">
+          <div className="w-full h-1 bg-[var(--hairline)] rounded-full overflow-hidden">
             <div
-              className={`h-full transition-all duration-300 ${getMeterColor(limits.heap, limits.maxHeap)}`}
+              className="h-full bg-[var(--ink)] transition-all duration-300"
               style={{ width: `${Math.min(100, (limits.heap / limits.maxHeap) * 100)}%` }}
             />
           </div>
@@ -173,16 +166,16 @@ export function GovernorGame() {
         <button
           onClick={runBulkified}
           disabled={!!limits.exception}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface)] border border-hairline hover:border-[var(--accent)] text-[var(--ink)] rounded-xs transition-colors disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface)] border border-hairline hover:border-[var(--ink)] text-[var(--ink)] rounded-xs transition-colors disabled:opacity-40"
         >
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+          <ShieldCheck className="w-3.5 h-3.5" />
           <span>Execute Bulkified Logic</span>
         </button>
 
         <button
           onClick={runAntiPattern}
           disabled={!!limits.exception}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface)] border border-red-500/30 text-red-500 hover:bg-red-500/10 rounded-xs transition-colors disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface)] border border-hairline hover:bg-[var(--ink)] hover:text-[var(--surface)] text-[var(--ink)] rounded-xs transition-colors disabled:opacity-40"
         >
           <AlertTriangle className="w-3.5 h-3.5" />
           <span>Trigger SOQL in Loop (Anti-Pattern)</span>
@@ -192,7 +185,7 @@ export function GovernorGame() {
           onClick={offloadToQueueable}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--ink)] text-[var(--surface)] rounded-xs hover:opacity-90 transition-opacity"
         >
-          <Zap className="w-3.5 h-3.5 text-[var(--accent)]" />
+          <Zap className="w-3.5 h-3.5" />
           <span>Enqueue Queueable Apex (Async Reset)</span>
         </button>
 

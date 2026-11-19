@@ -17,7 +17,7 @@ export function FallbackPoster() {
         <circle cx="270" cy="185" r="55" stroke="currentColor" strokeWidth="1" />
         <circle cx="180" cy="130" r="50" stroke="currentColor" strokeWidth="1" />
         <circle cx="240" cy="135" r="48" stroke="currentColor" strokeWidth="1" />
-        <circle cx="210" cy="170" r="3" fill="var(--color-accent, #0176D3)" />
+        <circle cx="210" cy="170" r="3" fill="currentColor" />
       </svg>
     </div>
   );

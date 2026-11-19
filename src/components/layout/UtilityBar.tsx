@@ -23,7 +23,7 @@ export default function UtilityBar() {
             href="mailto:rakeshmajhi.connect@gmail.com"
             className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
           >
-            <Mail className="w-3.5 h-3.5 text-[var(--accent)]" />
+            <Mail className="w-3.5 h-3.5 text-[var(--ink)]" />
             <span className="hidden sm:inline">rakeshmajhi.connect@gmail.com</span>
             <span className="sm:hidden">Email</span>
           </a>
@@ -55,7 +55,7 @@ export default function UtilityBar() {
 
           <a
             href="mailto:rakeshmajhi.connect@gmail.com?subject=Resume%20Request%20-%20Rakesh%20Majhi"
-            className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
+            className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Resume</span>

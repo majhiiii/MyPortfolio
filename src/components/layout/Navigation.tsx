@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { id: "skills", label: "03 / Skills" },
   { id: "experience", label: "04 / Experience" },
   { id: "projects", label: "05 / Projects" },
-  { id: "playground", label: "06 / Playground" },
+  { id: "playground", label: "06 / Utilities" },
   { id: "metrics", label: "07 / Metrics" },
   { id: "contact", label: "08 / Contact" },
 ];
@@ -23,12 +23,12 @@ export default function Navigation() {
         
         {/* Left: Monogram and Title */}
         <a href="#hero" className="flex items-center gap-3.5 group">
-          <div className="w-8 h-8 border border-hairline flex items-center justify-center font-mono text-xs font-semibold tracking-wider text-[var(--ink)] group-hover:border-[var(--accent)] transition-colors">
+          <div className="w-8 h-8 border border-hairline flex items-center justify-center font-mono text-xs font-semibold tracking-wider text-[var(--ink)] group-hover:border-[var(--ink)] transition-colors">
             RM
           </div>
           <div className="flex flex-col">
             <span className="font-semibold text-sm tracking-tight text-[var(--ink)]">Rakesh Majhi</span>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted)]">Cloud Workspace</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted)]">Salesforce Engineering</span>
           </div>
         </a>
 

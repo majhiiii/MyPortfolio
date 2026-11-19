@@ -28,22 +28,22 @@ export default function MetricsSection() {
             <div
               key={idx}
               onClick={() => setActiveStoryIdx(idx)}
-              className="p-6 border border-hairline rounded-sm bg-[var(--surface)] hover:border-[var(--accent)] transition-colors cursor-pointer group flex flex-col justify-between min-h-[190px]"
+              className="p-6 border border-hairline rounded-sm bg-[var(--surface)] hover:border-[var(--ink)] transition-colors cursor-pointer group flex flex-col justify-between min-h-[190px]"
             >
               <div className="flex items-center justify-between text-xs font-mono">
                 <span className="text-[10px] uppercase text-[var(--muted)]">{metric.tag}</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[var(--muted)] group-hover:text-[var(--ink)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
 
               <div className="my-3">
-                <div className="text-4xl lg:text-5xl font-mono font-bold tracking-tight text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">
+                <div className="text-4xl lg:text-5xl font-mono font-bold tracking-tight text-[var(--ink)] transition-colors">
                   {metric.value}
                 </div>
                 <div className="text-xs font-mono font-semibold text-[var(--muted)] mt-1">{metric.label}</div>
               </div>
 
               <div className="text-[10px] font-mono text-[var(--muted)] border-t border-hairline pt-2">
-                Click to inspect technical story →
+                Click to inspect technical context →
               </div>
             </div>
           ))}

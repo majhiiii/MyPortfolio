@@ -23,10 +23,10 @@ export default function SkillsSection() {
         
         {/* Header */}
         <div className="col-span-12 space-y-2">
-          <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">03 / SKILLS</span>
-          <h2 className="text-3xl font-bold tracking-tight text-[var(--ink)]">Setup-Style Skill Hierarchy</h2>
+          <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">03 / SKILLS MATRIX</span>
+          <h2 className="text-3xl font-bold tracking-tight text-[var(--ink)]">Technical Competencies</h2>
           <p className="text-sm font-mono text-[var(--muted)] max-w-xl">
-            Interactive tree navigation grouped by daily operational use and project-proven architectures.
+            Categorized by daily production engineering, platform frameworks, and API integrations.
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export default function SkillsSection() {
               placeholder="Quick Find skills..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[var(--surface)] text-[var(--ink)] border border-hairline rounded-sm pl-8 pr-3 py-2 text-xs font-mono placeholder-[var(--muted)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full bg-[var(--surface)] text-[var(--ink)] border border-hairline rounded-sm pl-8 pr-3 py-2 text-xs font-mono placeholder-[var(--muted)] focus:outline-none focus:border-[var(--ink)]"
             />
           </div>
 
@@ -54,7 +54,7 @@ export default function SkillsSection() {
                 }}
                 className={`w-full p-3 text-left flex items-center justify-between transition-colors ${
                   activeCategory === category.id
-                    ? "bg-[var(--surface)] font-bold text-[var(--ink)] border-l-2 border-l-[var(--accent)]"
+                    ? "bg-[var(--surface)] font-bold text-[var(--ink)] border-l-2 border-l-[var(--ink)]"
                     : "hover:bg-[var(--surface)]/50 text-[var(--muted)]"
                 }`}
               >
@@ -85,17 +85,13 @@ export default function SkillsSection() {
                   onClick={() => setSelectedSkill(item.name)}
                   className={`p-3.5 border rounded-sm transition-all cursor-pointer ${
                     selectedSkill === item.name
-                      ? "border-[var(--accent)] bg-[var(--bg)] shadow-xs"
+                      ? "border-[var(--ink)] bg-[var(--bg)] shadow-xs"
                       : "border-hairline hover:border-[var(--muted)]"
                   }`}
                 >
                   <div className="flex items-center justify-between text-xs font-mono mb-1">
                     <span className="font-bold text-[var(--ink)]">{item.name}</span>
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded-xs ${
-                      item.tier === "Daily use"
-                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold"
-                        : "bg-[var(--surface-2)] text-[var(--muted)]"
-                    }`}>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-xs border border-hairline text-[var(--muted)] font-mono">
                       {item.tier}
                     </span>
                   </div>
@@ -105,8 +101,8 @@ export default function SkillsSection() {
             </div>
 
             <div className="pt-2 text-[11px] font-mono text-[var(--muted)] flex items-center gap-2">
-              <Check className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Grounded in verified production deliveries at ASSPL. Zero simulated percentages.</span>
+              <Check className="w-3.5 h-3.5 text-[var(--ink)]" />
+              <span>Grounded in verified production engineering at ASSPL. Zero arbitrary proficiency bars.</span>
             </div>
 
           </div>

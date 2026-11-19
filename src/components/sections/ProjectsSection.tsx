@@ -29,15 +29,15 @@ export default function ProjectsSection() {
         {/* Section Title */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">05 / PROJECTS</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">05 / PRODUCTION INDEX</span>
             <span className="text-xs font-mono text-[var(--muted)] flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[var(--ink)]" />
               <span>{PERSONAL_DATA.privacyNotice}</span>
             </span>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-[var(--ink)]">Production Index</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-[var(--ink)]">Production Systems Index</h2>
           <p className="text-sm font-mono text-[var(--muted)] max-w-2xl">
-            Index list of enterprise architectures built at ASSPL. Click any row to inspect the case study and simulated data.
+            Index list of enterprise systems engineered at ASSPL. Click any row to inspect technical specifications and architecture diagrams.
           </p>
         </div>
 
@@ -54,7 +54,7 @@ export default function ProjectsSection() {
               </div>
 
               <div className="col-span-10 sm:col-span-5 space-y-0.5">
-                <h3 className="text-base sm:text-lg font-bold text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">
+                <h3 className="text-base sm:text-lg font-bold text-[var(--ink)] group-hover:underline transition-all">
                   {project.title}
                 </h3>
                 <span className="text-xs font-mono text-[var(--muted)] block">{project.subtitle}</span>
@@ -86,7 +86,7 @@ export default function ProjectsSection() {
             >
               <div className="flex items-start justify-between pb-4 border-b border-hairline">
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase text-[var(--accent)] font-bold">{selectedProject.privacyBadge}</span>
+                  <span className="text-[10px] uppercase text-[var(--muted)] font-bold">{selectedProject.privacyBadge}</span>
                   <h3 className="text-xl font-bold font-sans text-[var(--ink)]">{selectedProject.title}</h3>
                   <p className="text-[var(--muted)]">{selectedProject.subtitle}</p>
                 </div>
@@ -107,7 +107,7 @@ export default function ProjectsSection() {
 
                 <div className="p-4 bg-[var(--bg)] border border-hairline rounded-sm font-mono text-xs space-y-1 text-[var(--ink)]">
                   <div className="text-[10px] uppercase text-[var(--muted)]">Core Impact Metric:</div>
-                  <div className="font-bold text-[var(--accent)]">{selectedProject.metrics}</div>
+                  <div className="font-bold text-[var(--ink)]">{selectedProject.metrics}</div>
                 </div>
 
                 <div>

@@ -50,13 +50,13 @@ export default function AboutSection() {
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-xs bg-[var(--accent)]"></span>
+                      <span className="w-2 h-2 rounded-xs bg-[var(--ink)]"></span>
                       <span className="font-bold text-sm text-[var(--ink)]">{cert.title}</span>
                     </div>
                     <p className="text-[var(--muted)] text-xs font-sans max-w-xl">{cert.summary}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold block">{cert.status}</span>
+                    <span className="text-[11px] text-[var(--ink)] font-semibold block">{cert.status}</span>
                     <span className="text-[10px] text-[var(--muted)] block">{cert.issuer}</span>
                   </div>
                 </div>

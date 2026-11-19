@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, Bot, Shield, CheckCircle, ArrowRight, CornerDownLeft } from "lucide-react";
+import { Sparkles, Bot, Shield, CheckCircle, Play } from "lucide-react";
 
 interface AgentPreset {
   agentName: string;
@@ -45,13 +45,13 @@ const AGENT_PRESETS: AgentPreset[] = [
 
 export function AgentforceSim() {
   const [selectedAgentIndex, setSelectedAgentIndex] = useState(0);
-  const [isSimulating, setIsSimulating] = useState(false);
+  const [isExecuting, setIsExecuting] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
   const activePreset = AGENT_PRESETS[selectedAgentIndex];
 
-  const runSimulation = () => {
-    setIsSimulating(true);
+  const runPipeline = () => {
+    setIsExecuting(true);
     setCurrentStep(1);
 
     setTimeout(() => {
@@ -60,7 +60,7 @@ export function AgentforceSim() {
         setCurrentStep(3);
         setTimeout(() => {
           setCurrentStep(4);
-          setIsSimulating(false);
+          setIsExecuting(false);
         }, 600);
       }, 600);
     }, 600);
@@ -71,10 +71,10 @@ export function AgentforceSim() {
       {/* Header bar */}
       <div className="flex items-center justify-between text-[11px] text-[var(--muted)]">
         <div className="flex items-center gap-2">
-          <Bot className="w-4 h-4 text-[var(--accent)]" />
-          <span>Agentforce Autonomous Simulator · 4 Production Agents Deployed at ASSPL</span>
+          <Bot className="w-4 h-4 text-[var(--ink)]" />
+          <span>Agentforce Execution Trace · 4 Production Agents Deployed at ASSPL</span>
         </div>
-        <span className="text-[var(--accent)] font-semibold">CERTIFIED AGENTFORCE SPECIALIST</span>
+        <span className="font-semibold text-[var(--ink)]">CERTIFIED AGENTFORCE SPECIALIST</span>
       </div>
 
       {/* Preset Pickers */}
@@ -88,7 +88,7 @@ export function AgentforceSim() {
             }}
             className={`px-3 py-1.5 text-[11px] rounded-xs border transition-colors ${
               selectedAgentIndex === idx
-                ? "border-[var(--accent)] bg-[var(--surface)] text-[var(--accent)] font-semibold"
+                ? "border-[var(--ink)] bg-[var(--surface)] text-[var(--ink)] font-bold"
                 : "border-hairline text-[var(--muted)] hover:text-[var(--ink)]"
             }`}
           >
@@ -101,20 +101,20 @@ export function AgentforceSim() {
       <div className="border border-hairline rounded-sm p-4 bg-[var(--bg)] space-y-3">
         <div className="flex items-center justify-between text-[10px] text-[var(--muted)]">
           <span>INCOMING EXPERIENCE CLOUD USER QUERY</span>
-          <span>CHANNEL: CHAT BOT / EMBEDDED SERVICE</span>
+          <span>CHANNEL: CHAT / EMBEDDED SERVICE</span>
         </div>
         <div className="p-3 bg-[var(--surface)] border border-hairline rounded-xs text-[var(--ink)] font-mono text-xs leading-relaxed">
           &ldquo;{activePreset.query}&rdquo;
         </div>
         <div className="flex items-center justify-between pt-1">
-          <span className="text-[10px] text-[var(--muted)]">Click simulate to step through agent reasoning</span>
+          <span className="text-[10px] text-[var(--muted)]">Inspect trust evaluation, topic routing, and Invocable Apex execution</span>
           <button
-            onClick={runSimulation}
-            disabled={isSimulating}
+            onClick={runPipeline}
+            disabled={isExecuting}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--ink)] text-[var(--surface)] rounded-xs hover:opacity-90 font-medium transition-opacity disabled:opacity-50"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[var(--accent)]" />
-            <span>{isSimulating ? "Evaluating Pipeline..." : "Simulate Agentforce Pipeline"}</span>
+            <Play className="w-3.5 h-3.5 fill-current" />
+            <span>{isExecuting ? "Executing Pipeline..." : "Execute Action Flow"}</span>
           </button>
         </div>
       </div>
@@ -130,7 +130,7 @@ export function AgentforceSim() {
             {/* Step 1 */}
             <div className={`p-2.5 rounded-xs border ${currentStep >= 1 ? "border-hairline bg-[var(--bg)] text-[var(--ink)]" : "opacity-30"}`}>
               <div className="flex items-center justify-between font-bold mb-1">
-                <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                <span className="flex items-center gap-1.5 text-[var(--ink)]">
                   <Shield className="w-3 h-3" /> Step 1: Einstein Trust Layer Guardrail
                 </span>
                 <span className="text-[10px] text-[var(--muted)]">MASKED PII AUDIT</span>
@@ -144,8 +144,8 @@ export function AgentforceSim() {
             {currentStep >= 2 && (
               <div className="p-2.5 rounded-xs border border-hairline bg-[var(--bg)] text-[var(--ink)]">
                 <div className="flex items-center justify-between font-bold mb-1">
-                  <span className="text-[var(--accent)]">Step 2: Topic Routing Matrix</span>
-                  <span className="text-[10px] text-emerald-600">CONFIDENCE: 98.4%</span>
+                  <span>Step 2: Topic Routing Matrix</span>
+                  <span className="text-[10px] text-[var(--muted)]">CONFIDENCE: 98.4%</span>
                 </div>
                 <div className="text-[10px] text-[var(--muted)]">
                   Dispatched to topic: <code className="text-[var(--ink)] font-bold">{activePreset.topic}</code>
@@ -161,17 +161,17 @@ export function AgentforceSim() {
                   <span className="text-[10px] text-[var(--muted)]">LATENCY: 42ms</span>
                 </div>
                 <div className="text-[10px] text-[var(--muted)] space-y-0.5">
-                  <div>Invoking: <code className="text-[var(--accent)]">{activePreset.invocableAction}</code></div>
-                  <div>Result: <code className="text-[var(--ink)]">{activePreset.actionOutput}</code></div>
+                  <div>Invoking: <code className="text-[var(--ink)] font-bold">{activePreset.invocableAction}</code></div>
+                  <div>Result: <code className="text-[var(--muted)]">{activePreset.actionOutput}</code></div>
                 </div>
               </div>
             )}
 
             {/* Step 4 */}
             {currentStep >= 4 && (
-              <div className="p-3 rounded-xs border border-emerald-500/30 bg-emerald-500/5 text-[var(--ink)] space-y-1">
-                <div className="flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-bold">
-                  <span>Step 4: Grounded Natural Language Response Generated</span>
+              <div className="p-3 rounded-xs border border-hairline bg-[var(--bg)] text-[var(--ink)] space-y-1">
+                <div className="flex items-center justify-between text-[var(--ink)] font-bold">
+                  <span>Step 4: Grounded Response Returned</span>
                   <CheckCircle className="w-3.5 h-3.5" />
                 </div>
                 <div className="font-sans text-xs text-[var(--ink)] leading-relaxed pt-1">

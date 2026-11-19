@@ -20,7 +20,7 @@ export default function HeroSection() {
 
           <div className="space-y-4 max-w-2xl">
             <p className="text-lg lg:text-xl font-normal text-[var(--muted)] leading-relaxed">
-              Salesforce Developer focused on custom Apex, Lightning Web Components, and enterprise integrations. Experienced in B2B Commerce, custom CPQ configurators, and <span className="text-[var(--accent)] font-medium">Agentforce</span> automation at ASSPL.
+              Salesforce Developer focused on custom Apex, Lightning Web Components, and enterprise integrations. Experienced in B2B Commerce, custom CPQ configurators, and <span className="text-[var(--ink)] font-semibold underline underline-offset-4">Agentforce</span> automation at ASSPL.
             </p>
             <p className="text-sm font-mono text-[var(--muted)] leading-relaxed">
               2 years production experience · B2B Commerce & CloudCraze · REST/SOAP APIs · GitHub CI/CD releases.
@@ -29,16 +29,22 @@ export default function HeroSection() {
 
           <div className="pt-2 flex flex-wrap items-center gap-6 text-xs font-mono">
             <a
-              href="#projects"
+              href="#experience"
               className="px-4 py-2 bg-[var(--ink)] text-[var(--surface)] font-medium rounded-sm hover:opacity-90 transition-opacity"
             >
-              Explore Projects (05)
+              Experience Console (04)
+            </a>
+            <a
+              href="#projects"
+              className="px-4 py-2 border border-hairline text-[var(--ink)] hover:border-[var(--ink)] transition-colors rounded-sm"
+            >
+              Production Index (05)
             </a>
             <a
               href="#playground"
-              className="px-4 py-2 border border-hairline text-[var(--ink)] hover:border-[var(--accent)] transition-colors rounded-sm"
+              className="px-4 py-2 border border-hairline text-[var(--ink)] hover:border-[var(--ink)] transition-colors rounded-sm"
             >
-              Developer Lab (06)
+              Developer Tools (06)
             </a>
             <a
               href="mailto:rakeshmajhi.connect@gmail.com"
@@ -61,9 +67,9 @@ export default function HeroSection() {
 
             <div className="flex items-center justify-between text-[10px] tracking-wider uppercase">
               <span>SYSTEM // 3D MODEL</span>
-              <span className="flex items-center gap-1.5 text-[var(--accent)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse"></span>
-                ACTIVE
+              <span className="flex items-center gap-1.5 text-[var(--ink)] font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--ink)]"></span>
+                ACTIVE · DRAGGABLE
               </span>
             </div>
 
@@ -80,7 +86,7 @@ export default function HeroSection() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full pt-12">
         <div className="border-t border-hairline pt-4 grid grid-cols-12 gap-4 text-xs font-mono text-[var(--muted)]">
           <div className="col-span-12 sm:col-span-4 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--amber)] animate-pulse" aria-hidden="true"></span>
+            <span className="w-2 h-2 rounded-full bg-[var(--ink)]" aria-hidden="true"></span>
             <span className="text-[var(--ink)] font-medium">Available</span>
             <span>— {PERSONAL_DATA.status}</span>
           </div>

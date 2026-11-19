@@ -21,10 +21,10 @@ export default function ContactSection() {
         <div className="space-y-6">
           <span className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">08 / CONTACT</span>
           <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-bold tracking-tight text-[var(--ink)] leading-[1.05] max-w-4xl">
-            Let's build something <span className="font-serif italic font-normal text-[var(--accent)]">precise</span>.
+            Let's build something <span className="font-serif italic font-normal text-[var(--ink)] underline underline-offset-8">precise</span>.
           </h2>
           <p className="text-base sm:text-lg text-[var(--muted)] max-w-xl leading-relaxed">
-            Available for Salesforce Developer & Administrator roles, Agentforce AI implementation, and complex enterprise integrations.
+            Available for Salesforce Developer roles, B2B Commerce platforms, Agentforce automations, and enterprise API integrations.
           </p>
         </div>
 
@@ -39,12 +39,12 @@ export default function ContactSection() {
 
           <button
             onClick={copyEmail}
-            className="flex items-center gap-2 px-5 py-3.5 border border-hairline rounded-sm text-[var(--ink)] hover:border-[var(--accent)] transition-colors bg-[var(--surface)]"
+            className="flex items-center gap-2 px-5 py-3.5 border border-hairline rounded-sm text-[var(--ink)] hover:border-[var(--ink)] transition-colors bg-[var(--surface)]"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Copied to clipboard</span>
+                <Check className="w-3.5 h-3.5 text-[var(--ink)]" />
+                <span className="font-semibold text-[var(--ink)]">Copied to clipboard</span>
               </>
             ) : (
               <>
