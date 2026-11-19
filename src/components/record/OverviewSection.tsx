@@ -249,25 +249,19 @@ export function OverviewSection() {
             {/* Real photo frame with Pattachitra border */}
             <div className="md:col-span-4 flex justify-center">
               <div className="relative p-1.5 rounded-lg border-2 border-[var(--turmeric)] bg-[var(--surface-alt)] shadow-xs">
-                <div className="w-34 h-42 rounded-md bg-[var(--surface)] border border-hairline flex flex-col items-center justify-center text-center p-3 overflow-hidden relative">
-                  <img
-                    src="/assets/rakesh.jpg"
-                    alt="Rakesh Majhi"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.display = "none";
-                    }}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="flex flex-col items-center justify-center space-y-1.5 z-0">
-                    <div className="w-14 h-14 rounded-full border border-blue-200 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center text-lg font-mono font-bold">
+                <div className="w-34 h-40 rounded-md bg-[var(--surface)] border border-hairline flex flex-col items-center justify-center text-center p-3 relative">
+                  <div className="flex flex-col items-center justify-center space-y-2">
+                    <div className="w-16 h-16 rounded-full border-2 border-blue-500/30 bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 flex items-center justify-center text-xl font-mono font-bold shadow-2xs">
                       RM
                     </div>
-                    <span className="text-[10px] font-mono text-[var(--muted)]">
-                      [PHOTO_URL]
-                    </span>
-                    <span className="text-[11px] font-semibold text-[var(--ink)]">
-                      Rakesh Majhi
-                    </span>
+                    <div>
+                      <div className="text-[12px] font-bold text-[var(--ink)]">
+                        Rakesh Majhi
+                      </div>
+                      <div className="text-[10px] font-mono text-[var(--muted)]">
+                        ASSPL · Bhubaneswar
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
