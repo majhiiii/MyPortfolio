@@ -5,7 +5,8 @@ import { PattachitraBorder } from "@/components/ui/PattachitraBorder";
 import { KonarkWheelCanvas } from "@/components/3d/KonarkWheelCanvas";
 import { KonarkWheelSvg } from "@/components/3d/KonarkWheelSvg";
 import { GlassPanel } from "@/components/ui/GlassPanel";
-import { Download, Mail, Award, GraduationCap, MapPin, Briefcase, Sparkles, ExternalLink } from "lucide-react";
+import { ResumeModal } from "@/components/ui/ResumeModal";
+import { Download, Mail, Award, GraduationCap, MapPin, Briefcase, Sparkles, ExternalLink, FileText, Eye } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SkillGroupId } from "@/data/stack";
 
@@ -52,6 +53,10 @@ const PATH_STAGES: PathStage[] = [
 
 export function OverviewSection() {
   const [selectedStage, setSelectedStage] = useState<string>("asspl");
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const resumeUrl = `${basePath}/assets/Rakesh_Majhi_Resume.pdf`;
 
   const activeStageData = PATH_STAGES.find((s) => s.id === selectedStage) || PATH_STAGES[2];
 
@@ -125,14 +130,23 @@ export function OverviewSection() {
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-2.5 pt-1">
               <a
-                href="/assets/Rakesh_Majhi_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--indigo)] text-white text-xs font-semibold hover:opacity-95 transition-opacity shadow-xs"
+                href={resumeUrl}
+                download="Rakesh_Majhi_Resume.pdf"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--indigo)] text-white text-xs font-semibold hover:opacity-95 transition-opacity shadow-xs cursor-pointer"
+                title="Download verified resume PDF directly"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download resume</span>
               </a>
+
+              <button
+                onClick={() => setIsResumeModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] text-[var(--ink)] text-xs font-medium hover:border-[var(--indigo)] hover:text-[var(--indigo)] transition-colors shadow-2xs cursor-pointer"
+                title="Preview full draft and print"
+              >
+                <Eye className="w-3.5 h-3.5 text-[var(--indigo)]" />
+                <span>Preview draft</span>
+              </button>
 
               <a
                 href="mailto:rakeshmajhi.connect@gmail.com?subject=Salesforce%20Opportunity"
@@ -359,6 +373,12 @@ export function OverviewSection() {
         </div>
 
       </div>
+
+      {/* Auto-Drafted ATS Resume Preview & Print Modal */}
+      <ResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+      />
 
     </section>
   );

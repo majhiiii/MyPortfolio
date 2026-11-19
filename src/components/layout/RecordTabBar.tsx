@@ -24,6 +24,9 @@ export function RecordTabBar() {
   const theme = usePortfolioStore((s) => s.theme);
   const toggleTheme = usePortfolioStore((s) => s.toggleTheme);
 
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const resumeUrl = `${basePath}/assets/Rakesh_Majhi_Resume.pdf`;
+
   // Smooth scroll spy to highlight active tab
   useEffect(() => {
     const handleScroll = () => {
@@ -119,11 +122,10 @@ export function RecordTabBar() {
         {/* Right: Plain Resume Link + Theme Toggle */}
         <div className="flex items-center space-x-2.5 text-xs sm:text-sm shrink-0">
           <a
-            href="/assets/Rakesh_Majhi_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] text-[var(--ink)] hover:border-[var(--indigo)] hover:text-[var(--indigo)] transition-all font-medium text-xs shadow-2xs"
-            title="Download resume PDF"
+            href={resumeUrl}
+            download="Rakesh_Majhi_Resume.pdf"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--glass-base-border)] bg-[var(--surface-tint-solid)] text-[var(--ink)] hover:border-[var(--indigo)] hover:text-[var(--indigo)] transition-all font-medium text-xs shadow-2xs cursor-pointer"
+            title="Download verified resume PDF"
           >
             <FileText className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Resume</span> (PDF)
