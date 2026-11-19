@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 
 function Word({ children, progress, range }: { children: string; progress: any; range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.18, 1]);
+  const opacity = useTransform(progress, range, [0.35, 1]);
   return (
     <span className="relative inline-block mr-1.5 lg:mr-2">
       <motion.span style={{ opacity }}>{children}</motion.span>
@@ -15,10 +15,10 @@ function Word({ children, progress, range }: { children: string; progress: any; 
 }
 
 export default function AboutSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const paragraphRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.85", "end 0.5"],
+    target: paragraphRef,
+    offset: ["start 0.85", "center 0.4"],
   });
 
   const narrativeText =
@@ -30,7 +30,7 @@ export default function AboutSection() {
     <section id="about" className="py-24 lg:py-36 border-b border-hairline bg-[var(--bg)] transition-colors">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-12 gap-8 lg:gap-16">
         
-        {/* Left Column: Sticky Editorial Portrait / Identity Card with Colored Offset Block */}
+        {/* Left Column: Sticky Editorial Portrait / Identity Card */}
         <div className="col-span-12 lg:col-span-5">
           <div className="lg:sticky lg:top-28 space-y-8">
             
@@ -41,29 +41,26 @@ export default function AboutSection() {
               </h2>
             </div>
 
-            {/* Editorial Portrait Frame with Colored Offset Block */}
-            <div className="relative max-w-sm">
-              {/* Colored offset shadow block */}
+            {/* Editorial Portrait Frame - Clean, robust and always rendered */}
+            <div className="relative max-w-sm group">
+              {/* Subtle colored accent glow/edge following active tech */}
               <div
-                className="absolute inset-0 translate-x-3 translate-y-3 rounded-lg opacity-40 transition-colors duration-500"
+                className="absolute -inset-1 rounded-lg opacity-25 blur-xs transition-colors duration-500"
                 style={{ backgroundColor: "var(--accent)" }}
               />
 
-              <motion.div
-                initial={{ clipPath: "inset(100% 0% 0% 0%)", opacity: 0 }}
-                whileInView={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                className="relative aspect-[4/5] rounded-lg bg-[var(--surface)] border border-hairline p-6 flex flex-col justify-between overflow-hidden shadow-xs z-10"
-              >
+              <div className="relative aspect-[4/5] rounded-lg bg-[var(--surface)] border border-hairline p-6 flex flex-col justify-between overflow-hidden shadow-sm z-10 transition-colors">
                 <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
                   <span>PORTRAIT // ARCHIVE</span>
                   <span className="text-[var(--ink)] font-medium">ASSPL &bull; 2024&ndash;PRESENT</span>
                 </div>
 
                 {/* Architectural Monogram Visual */}
-                <div className="my-auto flex flex-col items-center justify-center text-center py-8">
-                  <div className="w-24 h-24 rounded-full border border-hairline flex items-center justify-center font-serif text-5xl font-light text-[var(--ink)] mb-4 shadow-xs bg-[var(--bg)]">
+                <div className="my-auto flex flex-col items-center justify-center text-center py-6">
+                  <div
+                    className="w-24 h-24 rounded-full border-2 flex items-center justify-center font-serif text-5xl font-light mb-4 shadow-xs bg-[var(--bg)] transition-colors duration-300"
+                    style={{ borderColor: "var(--accent)", color: "var(--ink)" }}
+                  >
                     RM
                   </div>
                   <span className="font-serif text-2xl text-[var(--ink)] font-normal tracking-tight">
@@ -80,17 +77,17 @@ export default function AboutSection() {
                     VERIFIED PRODUCTION
                   </span>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
           </div>
         </div>
 
-        {/* Right Column: Progressive Word-by-Word Scroll Reveal & Clean Rows */}
-        <div ref={containerRef} className="col-span-12 lg:col-span-7 space-y-16">
+        {/* Right Column: Narrative with Fast Responsive Scroll Reveal & Clean Rows */}
+        <div className="col-span-12 lg:col-span-7 space-y-16">
           
-          {/* Progressive Scroll-driven Narrative */}
-          <div className="space-y-6">
+          {/* Scroll-driven Narrative Targeted Directly to Paragraph */}
+          <div ref={paragraphRef} className="space-y-6">
             <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
               Core Philosophy
             </h3>
